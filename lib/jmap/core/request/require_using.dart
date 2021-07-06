@@ -1,12 +1,15 @@
-import 'package:jmap_dart_client/jmap/core/request/require_method_call.dart';
+import 'dart:collection';
 
-import '../capability.dart';
+import '../capability/capability.dart';
 
-mixin RequiredUsing implements RequireMethodCall {
-  final Set<CapabilityIdentifier> capabilities = Set();
+mixin RequiredUsing {
+  final Set<CapabilityIdentifier> capabilities = HashSet.identity();
 
-  RequiredUsing using(CapabilityIdentifier capabilityIdentifier) {
+  void using(CapabilityIdentifier capabilityIdentifier) {
     capabilities.add(capabilityIdentifier);
-    return this;
+  }
+
+  void usings(Set<CapabilityIdentifier> capabilityIdentifiers) {
+    capabilities.addAll(capabilityIdentifiers);
   }
 }

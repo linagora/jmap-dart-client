@@ -1,32 +1,35 @@
 import 'package:equatable/equatable.dart';
-import 'package:jmap_dart_client/jmap/core/capability.dart';
-import 'package:jmap_dart_client/jmap/core/invocation.dart' as jmapInvocation;
-import 'package:jmap_dart_client/jmap/core/request/ready_to_build.dart';
+import 'package:jmap_dart_client/http/converter/capability_identifier_onverter.dart';
+import 'package:jmap_dart_client/http/converter/request_invocation_converter.dart';
+import 'package:jmap_dart_client/jmap/core/capability/capability.dart';
+import 'package:jmap_dart_client/jmap/core/request/request_invocation.dart';
 import 'package:jmap_dart_client/jmap/core/request/require_method_call.dart';
 import 'package:jmap_dart_client/jmap/core/request/require_using.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'request_object.g.dart';
+
+@CapabilityIdentifierConverter()
+@RequestInvocationConverter()
+@JsonSerializable()
 class RequestObject with EquatableMixin {
   final Set<CapabilityIdentifier> using;
-  final List<jmapInvocation.Invocation> methodCalls;
+  final List<RequestInvocation> methodCalls;
 
   RequestObject(this.using, this.methodCalls);
 
   @override
   List<Object> get props => [using, methodCalls];
 
-  static RequiredUsing builder()  {
+  Map<String, dynamic> toJson() => _$RequestObjectToJson(this);
+
+  static RequestObjectBuilder builder()  {
     return RequestObjectBuilder();
   }
 }
 
-class RequestObjectBuilder with RequiredUsing, RequireMethodCall, ReadyToBuild {
+class RequestObjectBuilder with RequiredUsing, RequireMethodCall {
 
-  @override
-  ReadyToBuild ready() {
-    return this;
-  }
-
-  @override
   RequestObject build() {
     return RequestObject(capabilities, invocations);
   }

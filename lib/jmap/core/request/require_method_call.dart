@@ -1,13 +1,10 @@
-import 'package:jmap_dart_client/jmap/core/invocation.dart' as jmapInvocation;
-import 'package:jmap_dart_client/jmap/core/request/ready_to_build.dart';
+import 'package:jmap_dart_client/jmap/core/method/method.dart';
+import 'package:jmap_dart_client/jmap/core/request/request_invocation.dart';
 
-mixin RequireMethodCall {
-  final List<jmapInvocation.Invocation> invocations = List.empty(growable: true);
+mixin RequireMethodCall<T extends Method> {
+  final List<RequestInvocation> invocations = List.empty(growable: true);
 
-  RequireMethodCall methodCall(jmapInvocation.Invocation invocation) {
-    invocations.add(invocation);
-    return this;
+  void methodCalls(List<RequestInvocation> newInvocations) {
+    invocations.addAll(newInvocations);
   }
-
-  ReadyToBuild ready();
 }
