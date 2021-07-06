@@ -1,11 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-class Invocation<T extends Object> {
+import '../method/method.dart';
+
+class RequestInvocation {
   final MethodName methodName;
-  final Arguments<T> arguments;
+  final Arguments arguments;
   final MethodCallId methodCallId;
 
-  Invocation(this.methodName, this.arguments, this.methodCallId);
+  RequestInvocation(this.methodName, this.arguments, this.methodCallId);
 }
 
 class MethodName with EquatableMixin {
@@ -17,13 +19,10 @@ class MethodName with EquatableMixin {
   List<Object> get props => [value];
 }
 
-class Arguments<T extends Object> with EquatableMixin {
+class Arguments<T extends Method> {
   final T value;
 
   Arguments(this.value);
-
-  @override
-  List<Object> get props => [value];
 }
 
 class MethodCallId with EquatableMixin {
