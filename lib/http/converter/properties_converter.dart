@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:jmap_dart_client/jmap/core/properties/properties.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -8,7 +7,7 @@ class PropertiesConverter implements JsonConverter<Properties?, List<String>?> {
 
   @override
   Properties? fromJson(List<String>? json) {
-
+    return json != null ? Properties(json.toSet()) : null;
   }
 
   @override
@@ -21,8 +20,6 @@ class PropertiesConverter implements JsonConverter<Properties?, List<String>?> {
       return null;
     }
 
-    return object.value
-        .map((element) => jsonEncode(element))
-        .toList();
+    return object.value.toList();
   }
 }

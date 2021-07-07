@@ -1,5 +1,4 @@
-import 'dart:collection';
-
+import 'package:built_collection/built_collection.dart';
 import 'package:jmap_dart_client/http/http_client.dart';
 import 'package:jmap_dart_client/jmap/core/response/response_object.dart';
 import 'package:jmap_dart_client/util/util.dart';
@@ -11,8 +10,8 @@ import 'core/request/request_object.dart';
 
 class JmapRequest {
   final HttpClient _httpClient;
-  final Set<CapabilityIdentifier> _capabilities;
-  final Map<MethodCallId, RequestInvocation> _invocations;
+  final BuiltSet<CapabilityIdentifier> _capabilities;
+  final BuiltMap<MethodCallId, RequestInvocation> _invocations;
   
   JmapRequest(this._httpClient, this._capabilities, this._invocations);
   
@@ -21,7 +20,7 @@ class JmapRequest {
 
   Future<ResponseObject> execute() async {
     _requestObject = (RequestObject.builder()
-        ..usings(_capabilities)
+        ..usings(_capabilities.asSet())
         ..methodCalls(_invocations.values.toList()))
         .build();
 
@@ -38,11 +37,11 @@ class JmapRequest {
 class JmapRequestBuilder {
   final HttpClient _httpClient;
   final ProcessingInvocation _processingInvocation;
-  final Set<CapabilityIdentifier> _capabilities = HashSet.identity();
+  final SetBuilder<CapabilityIdentifier> _capabilitiesBuilder = SetBuilder();
 
   JmapRequestBuilder(this._httpClient, this._processingInvocation);
 
-  void call(Method method, {MethodCallId? methodCallId}) {
+  RequestInvocation invocation(Method method, {MethodCallId? methodCallId}) {
     final callId = methodCallId ?? _processingInvocation.generateMethodCallId();
     final RequestInvocation invocation = RequestInvocation(
         method.methodName,
@@ -50,23 +49,24 @@ class JmapRequestBuilder {
         callId
     );
     _processingInvocation.addMethod(callId, invocation);
+    return invocation;
   }
 
   void usings(Set<CapabilityIdentifier> capabilityIdentifiers) {
-    _capabilities.addAll(capabilityIdentifiers);
+    _capabilitiesBuilder.addAll(capabilityIdentifiers);
   }
 
   JmapRequest build() {
-    return JmapRequest(_httpClient, _capabilities, _processingInvocation._invocations);
+    return JmapRequest(_httpClient, _capabilitiesBuilder.build(), _processingInvocation._invocations);
   }
 }
 
 class ProcessingInvocation {
   static const String methodCallIdPrefix = 'c';
-  late final Map<MethodCallId, RequestInvocation> _invocations;
+  late BuiltMap<MethodCallId, RequestInvocation> _invocations;
 
   ProcessingInvocation() {
-    _invocations = LinkedHashMap.identity();
+    _invocations = BuiltMap();
   }
 
   MethodCallId generateMethodCallId() {
@@ -76,6 +76,8 @@ class ProcessingInvocation {
   }
 
   void addMethod(MethodCallId callId, RequestInvocation requestInvocation) {
-    _invocations.addAll({callId: requestInvocation});
+    _invocations = (_invocations.toBuilder()
+        ..addAll({callId: requestInvocation}))
+      .build();
   }
 }
