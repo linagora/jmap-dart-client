@@ -1,15 +1,16 @@
-import 'dart:collection';
+
+import 'package:built_collection/built_collection.dart';
 
 import '../capability/capability.dart';
 
 mixin RequiredUsing {
-  final Set<CapabilityIdentifier> capabilities = HashSet.identity();
+  final SetBuilder<CapabilityIdentifier> capabilitiesBuilder = SetBuilder();
 
   void using(CapabilityIdentifier capabilityIdentifier) {
-    capabilities.add(capabilityIdentifier);
+    capabilitiesBuilder.add(capabilityIdentifier);
   }
 
   void usings(Set<CapabilityIdentifier> capabilityIdentifiers) {
-    capabilities.addAll(capabilityIdentifiers);
+    capabilitiesBuilder.addAll(capabilityIdentifiers);
   }
 }
