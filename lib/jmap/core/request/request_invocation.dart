@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:jmap_dart_client/jmap/core/request/reference_path.dart';
+import 'package:jmap_dart_client/jmap/core/request/result_reference.dart';
 
 import '../method/method.dart';
 
@@ -8,6 +10,10 @@ class RequestInvocation {
   final MethodCallId methodCallId;
 
   RequestInvocation(this.methodName, this.arguments, this.methodCallId);
+
+  ResultReference createResultReference(ReferencePath path) {
+    return ResultReference(methodCallId, arguments.value.methodName, path);
+  }
 }
 
 class MethodName with EquatableMixin {
