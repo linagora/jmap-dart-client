@@ -1,7 +1,11 @@
+
 import 'package:built_collection/built_collection.dart';
 import 'package:jmap_dart_client/http/http_client.dart';
+import 'package:jmap_dart_client/jmap/core/request/reference_path.dart';
+import 'package:jmap_dart_client/jmap/core/request/result_reference.dart';
 import 'package:jmap_dart_client/jmap/core/response/response_object.dart';
 import 'package:jmap_dart_client/util/util.dart';
+import 'package:quiver/check.dart';
 
 import 'core/capability/capability.dart';
 import 'core/method/method.dart';
@@ -79,5 +83,10 @@ class ProcessingInvocation {
     _invocations = (_invocations.toBuilder()
         ..addAll({callId: requestInvocation}))
       .build();
+  }
+
+  ResultReference createResultReference(MethodCallId methodCallId, ReferencePath path) {
+    checkArgument(_invocations.containsKey(methodCallId), message: 'no matched method call id');
+    return _invocations[methodCallId]!.createResultReference(path);
   }
 }
