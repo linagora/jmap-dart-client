@@ -1,15 +1,28 @@
 import 'package:equatable/equatable.dart';
+import 'package:jmap_dart_client/http/converter/is_subscribed_converter.dart';
 import 'package:jmap_dart_client/http/converter/mailbox_id_converter.dart';
 import 'package:jmap_dart_client/http/converter/mailbox_id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/mailbox_name_converter.dart';
 import 'package:jmap_dart_client/http/converter/role_converter.dart';
+import 'package:jmap_dart_client/http/converter/sort_order_converter.dart';
+import 'package:jmap_dart_client/http/converter/total_email_converter.dart';
+import 'package:jmap_dart_client/http/converter/total_threads_converter.dart';
+import 'package:jmap_dart_client/http/converter/unread_emails_converter.dart';
+import 'package:jmap_dart_client/http/converter/unread_threads_converter.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
 import 'package:jmap_dart_client/jmap/core/properties/properties.dart';
 import 'package:jmap_dart_client/jmap/core/unsigned_int.dart';
+import 'package:jmap_dart_client/jmap/mail/mailbox/mailbox_rights.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'mailbox.g.dart';
 
+@IsSubscribedConverter()
+@UnreadThreadsConverter()
+@UnreadEmailsConverter()
+@TotalThreadsConverter()
+@TotalEmailConverter()
+@SortOrderConverter()
 @RoleConverter()
 @MailboxIdNullableConverter()
 @MailboxNameConverter()
@@ -129,114 +142,6 @@ class UnreadThreads with EquatableMixin {
   List<Object?> get props => [value];
 }
 
-class MailboxRights with EquatableMixin {
-  final MayReadItems mayReadItems;
-  final MayAddItems mayAddItems;
-  final MayRemoveItems mayRemoveItems;
-  final MaySetSeen maySetSeen;
-  final MaySetKeywords maySetKeywords;
-  final MayCreateChild mayCreateChild;
-  final MayRename mayRename;
-  final MayDelete mayDelete;
-  final MaySubmit maySubmit;
-
-  MailboxRights(
-    this.mayReadItems,
-    this.mayAddItems,
-    this.mayRemoveItems,
-    this.maySetSeen,
-    this.maySetKeywords,
-    this.mayCreateChild,
-    this.mayRename,
-    this.mayDelete,
-    this.maySubmit);
-
-  @override
-  List<Object?> get props => [mayReadItems, mayAddItems, mayRemoveItems, maySetSeen,
-    maySetKeywords, mayCreateChild, mayRename, mayDelete, maySubmit];
-}
-
-class MayReadItems with EquatableMixin {
-  final bool value;
-
-  MayReadItems(this.value);
-
-  @override
-  List<Object?> get props => [value];
-}
-
-class MayAddItems with EquatableMixin{
-  final bool value;
-
-  MayAddItems(this.value);
-
-  @override
-  List<Object?> get props => [value];
-}
-
-class MayRemoveItems with EquatableMixin {
-  final bool value;
-
-  MayRemoveItems(this.value);
-
-  @override
-  List<Object?> get props => [value];
-}
-
-class MaySetSeen with EquatableMixin {
-  final bool value;
-
-  MaySetSeen(this.value);
-
-  @override
-  List<Object?> get props => [value];
-}
-
-class MaySetKeywords with EquatableMixin {
-  final bool value;
-
-  MaySetKeywords(this.value);
-
-  @override
-  List<Object?> get props => [value];
-}
-
-class MayCreateChild with EquatableMixin {
-  final bool value;
-
-  MayCreateChild(this.value);
-
-  @override
-  List<Object?> get props => [value];
-}
-
-class MayRename with EquatableMixin {
-  final bool value;
-
-  MayRename(this.value);
-
-  @override
-  List<Object?> get props => [value];
-}
-
-class MayDelete with EquatableMixin {
-  final bool value;
-
-  MayDelete(this.value);
-
-  @override
-  List<Object?> get props => [value];
-}
-
-class MaySubmit with EquatableMixin {
-  final bool value;
-
-  MaySubmit(this.value);
-
-  @override
-  List<Object?> get props => [value];
-}
-
 class IsSubscribed with EquatableMixin {
   final bool value;
 
@@ -245,4 +150,3 @@ class IsSubscribed with EquatableMixin {
   @override
   List<Object?> get props => [value];
 }
-
