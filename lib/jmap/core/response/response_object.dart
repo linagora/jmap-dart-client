@@ -24,7 +24,7 @@ class ResponseObject with EquatableMixin {
 
   Map<String, dynamic> toJson() => _$ResponseObjectToJson(this);
 
-  Future<T?> parse<T extends MethodResponse>(MethodCallId methodCallId, T fromJson(Map<String, dynamic> o)) async {
+  T? parse<T extends MethodResponse>(MethodCallId methodCallId, T fromJson(Map<String, dynamic> o)) {
     try {
       final matchedResponse = methodResponses.firstWhere((method) => method.methodCallId == methodCallId);
       return fromJson(matchedResponse.arguments.value);
