@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:jmap_dart_client/util/options_extensions.dart';
 
 class HttpClient {
+  static const jmapHeader = 'application/json;jmapVersion=rfc-8621';
+
   final Dio _dio;
 
   HttpClient(this._dio);
@@ -15,11 +20,14 @@ class HttpClient {
       ProgressCallback? onReceiveProgress,
     }
   ) async {
+    final newOptions = options?.appendHeaders({HttpHeaders.acceptHeader : jmapHeader})
+      ?? Options(headers: {HttpHeaders.acceptHeader : jmapHeader}) ;
+
     return await _dio.post(
         path,
         data: data,
         queryParameters: queryParameters,
-        options: options,
+        options: newOptions,
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress)
