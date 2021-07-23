@@ -17,5 +17,5 @@ class WebSocketCapability extends CapabilityProperties {
   static WebSocketCapability deserialize(Map<String, dynamic> json) => WebSocketCapability.fromJson(json);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [supportsPush, url];
 }
