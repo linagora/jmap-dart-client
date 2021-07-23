@@ -2,7 +2,7 @@ import 'package:jmap_dart_client/http/converter/account_id_converter.dart';
 import 'package:jmap_dart_client/http/converter/state_converter.dart';
 import 'package:jmap_dart_client/http/converter/unsigned_int_nullable_converter.dart';
 import 'package:jmap_dart_client/jmap/account_id.dart';
-import 'package:jmap_dart_client/jmap/core/capability/capability.dart';
+import 'package:jmap_dart_client/jmap/core/capability/capability_identifier.dart';
 import 'package:jmap_dart_client/jmap/core/method/request/changes_method.dart';
 import 'package:jmap_dart_client/jmap/core/request/request_invocation.dart';
 import 'package:jmap_dart_client/jmap/core/state.dart';

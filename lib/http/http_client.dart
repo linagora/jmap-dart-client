@@ -34,4 +34,21 @@ class HttpClient {
       .then((value) => value.data)
       .catchError((error) => throw error);
   }
+
+  Future<dynamic> get(
+      String path, {
+        Map<String, dynamic>? queryParameters,
+        Options? options,
+        CancelToken? cancelToken,
+        ProgressCallback? onReceiveProgress,
+      }) async {
+    return await _dio.get(
+        path,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+        onReceiveProgress: onReceiveProgress)
+      .then((value) => value.data)
+      .catchError((error) => throw error);
+  }
 }

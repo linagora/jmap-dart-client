@@ -1,4 +1,3 @@
-
 import 'package:built_collection/built_collection.dart';
 import 'package:jmap_dart_client/http/http_client.dart';
 import 'package:jmap_dart_client/jmap/core/request/reference_path.dart';
@@ -7,7 +6,7 @@ import 'package:jmap_dart_client/jmap/core/response/response_object.dart';
 import 'package:jmap_dart_client/util/util.dart';
 import 'package:quiver/check.dart';
 
-import 'core/capability/capability.dart';
+import 'core/capability/capability_identifier.dart';
 import 'core/method/method.dart';
 import 'core/request/request_invocation.dart';
 import 'core/request/request_object.dart';
@@ -26,7 +25,7 @@ class JmapRequest {
     _requestObject = (RequestObject.builder()
         ..usings(_capabilities.asSet())
         ..methodCalls(_invocations.values.toList()))
-        .build();
+      .build();
 
     return _httpClient.post('/jmap', data: _requestObject?.toJson())
       .then((value) => extractData(value))
