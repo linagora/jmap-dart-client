@@ -17,7 +17,7 @@ class Account with EquatableMixin {
   );
 
   @override
-  List<Object> get props => [name];
+  List<Object> get props => [name, isPersonal, isReadOnly, accountCapabilities];
 }
 
 class AccountName with EquatableMixin {

@@ -1,18 +1,23 @@
 import 'package:equatable/equatable.dart';
+import 'package:jmap_dart_client/http/converter/unsigned_int_converter.dart';
+import 'package:jmap_dart_client/http/converter/unsigned_int_nullable_converter.dart';
 import 'package:jmap_dart_client/jmap/core/capability/capability_properties.dart';
+import 'package:jmap_dart_client/jmap/core/unsigned_int.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'mail_capability.g.dart';
 
+@UnsignedIntConverter()
+@UnsignedIntNullableConverter()
 @JsonSerializable()
 class MailCapability extends CapabilityProperties with EquatableMixin {
 
-  final int? maxMailboxesPerEmail;
-  final int? maxMailboxDepth;
-  final int? maxSizeMailboxName;
-  final int? maxSizeAttachmentsPerEmail;
-  final List<String>? emailQuerySortOptions;
-  final bool? mayCreateTopLevelMailbox;
+  final UnsignedInt? maxMailboxesPerEmail;
+  final UnsignedInt? maxMailboxDepth;
+  final UnsignedInt maxSizeMailboxName;
+  final UnsignedInt maxSizeAttachmentsPerEmail;
+  final Set<String> emailQuerySortOptions;
+  final bool mayCreateTopLevelMailbox;
 
   MailCapability(
     this.maxMailboxesPerEmail,
@@ -32,5 +37,12 @@ class MailCapability extends CapabilityProperties with EquatableMixin {
   }
 
   @override
-  List<Object?> get props => [maxMailboxesPerEmail];
+  List<Object?> get props => [
+    maxMailboxesPerEmail,
+    maxMailboxDepth,
+    maxSizeMailboxName,
+    maxSizeAttachmentsPerEmail,
+    emailQuerySortOptions,
+    mayCreateTopLevelMailbox
+  ];
 }

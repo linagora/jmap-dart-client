@@ -6,6 +6,7 @@ class CapabilityIdentifier with EquatableMixin {
   static final jmapSubmission = CapabilityIdentifier(Uri.parse('urn:ietf:params:jmap:submission'));
   static final jmapVacationResponse = CapabilityIdentifier(Uri.parse('urn:ietf:params:jmap:vacationresponse'));
   static final jmapWebSocket = CapabilityIdentifier(Uri.parse('urn:ietf:params:jmap:websocket'));
+  static final jmapMdn = CapabilityIdentifier(Uri.parse('urn:ietf:params:jmap:mdn'));
 
   final Uri value;
 
