@@ -8,8 +8,7 @@ part of 'submission_capability.dart';
 
 SubmissionCapability _$SubmissionCapabilityFromJson(Map<String, dynamic> json) {
   return SubmissionCapability(
-    const UnsignedIntNullableConverter()
-        .fromJson(json['maxDelayedSend'] as int?),
+    const UnsignedIntConverter().fromJson(json['maxDelayedSend'] as int),
     (json['submissionExtensions'] as List<dynamic>)
         .map((e) => e as String)
         .toSet(),
@@ -20,6 +19,6 @@ Map<String, dynamic> _$SubmissionCapabilityToJson(
         SubmissionCapability instance) =>
     <String, dynamic>{
       'maxDelayedSend':
-          const UnsignedIntNullableConverter().toJson(instance.maxDelayedSend),
+          const UnsignedIntConverter().toJson(instance.maxDelayedSend),
       'submissionExtensions': instance.submissionExtensions.toList(),
     };

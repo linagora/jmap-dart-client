@@ -35,12 +35,15 @@ class Session with EquatableMixin {
     this.state,
   );
 
-  factory Session.fromJson(Map<String, dynamic> json, CapabilitiesConverter converter) {
+  factory Session.fromJson(Map<String, dynamic> json, {CapabilitiesConverter? converter}) {
+    if (converter == null) {
+      converter = CapabilitiesConverter.defaultConverter;
+    }
     return Session(
       (json['capabilities'] as Map<String, dynamic>)
-        .map((key, value) => converter.convert(key, value)),
+        .map((key, value) => converter!.convert(key, value)),
       (json['accounts'] as Map<String, dynamic>)
-        .map((key, value) => AccountConverter().convert(key, value, converter)),
+        .map((key, value) => AccountConverter().convert(key, value, converter!)),
       (json['primaryAccounts'] as Map<String, dynamic>)
         .map((key, value) => MapEntry(
           CapabilityIdentifier(Uri.parse(key)),
