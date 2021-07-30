@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:jmap_dart_client/http/converter/capability_identifier_onverter.dart';
+import 'package:jmap_dart_client/http/converter/capability_identifier_converter.dart';
 import 'package:jmap_dart_client/http/converter/request_invocation_converter.dart';
 import 'package:jmap_dart_client/jmap/core/capability/capability_identifier.dart';
 import 'package:jmap_dart_client/jmap/core/request/request_invocation.dart';
