@@ -36,16 +36,19 @@ class HttpClient {
   }
 
   Future<dynamic> get(
-      String path, {
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-        CancelToken? cancelToken,
-        ProgressCallback? onReceiveProgress,
-      }) async {
+    String path, {
+      Map<String, dynamic>? queryParameters,
+      Options? options,
+      CancelToken? cancelToken,
+      ProgressCallback? onReceiveProgress,
+  }) async {
+    final newOptions = options?.appendHeaders({HttpHeaders.acceptHeader : jmapHeader})
+        ?? Options(headers: {HttpHeaders.acceptHeader : jmapHeader}) ;
+
     return await _dio.get(
         path,
         queryParameters: queryParameters,
-        options: options,
+        options: newOptions,
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress)
       .then((value) => value.data)
