@@ -16,7 +16,7 @@ CoreCapability _$CoreCapabilityFromJson(Map<String, dynamic> json) {
     const UnsignedIntConverter().fromJson(json['maxObjectsInGet'] as int),
     const UnsignedIntConverter().fromJson(json['maxObjectsInSet'] as int),
     (json['collationAlgorithms'] as List<dynamic>)
-        .map((e) => e as String)
+        .map((e) => const CollationIdentifierConverter().fromJson(e as String))
         .toSet(),
   );
 }
@@ -37,5 +37,7 @@ Map<String, dynamic> _$CoreCapabilityToJson(CoreCapability instance) =>
           const UnsignedIntConverter().toJson(instance.maxObjectsInGet),
       'maxObjectsInSet':
           const UnsignedIntConverter().toJson(instance.maxObjectsInSet),
-      'collationAlgorithms': instance.collationAlgorithms.toList(),
+      'collationAlgorithms': instance.collationAlgorithms
+          .map(const CollationIdentifierConverter().toJson)
+          .toList(),
     };
