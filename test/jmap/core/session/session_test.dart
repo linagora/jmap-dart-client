@@ -14,6 +14,7 @@ import 'package:jmap_dart_client/jmap/core/capability/vacation_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/websocket_capability.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
 import 'package:jmap_dart_client/jmap/core/session/session.dart';
+import 'package:jmap_dart_client/jmap/core/sort/collation_identifier.dart';
 import 'package:jmap_dart_client/jmap/core/state.dart';
 import 'package:jmap_dart_client/jmap/core/unsigned_int.dart';
 import 'package:jmap_dart_client/jmap/core/user_name.dart';
@@ -142,7 +143,7 @@ void main() {
             UnsignedInt(16),
             UnsignedInt(500),
             UnsignedInt(500),
-            {"i;unicode-casemap"}
+            {CollationIdentifier("i;unicode-casemap")}
           ),
           CapabilityIdentifier.jmapMail: MailCapability(
             UnsignedInt(10000000),
@@ -180,7 +181,7 @@ void main() {
                   UnsignedInt(16),
                   UnsignedInt(500),
                   UnsignedInt(500),
-                  {"i;unicode-casemap"}
+                  {CollationIdentifier("i;unicode-casemap")}
               ),
               CapabilityIdentifier.jmapMail: MailCapability(
                   UnsignedInt(10000000),
@@ -322,7 +323,7 @@ void main() {
                 UnsignedInt(16),
                 UnsignedInt(500),
                 UnsignedInt(500),
-                {"i;unicode-casemap"}
+                {CollationIdentifier("i;unicode-casemap")}
             ),
             CapabilityIdentifier.jmapMail: MailCapability(
                 UnsignedInt(10000000),
@@ -349,7 +350,7 @@ void main() {
                       UnsignedInt(16),
                       UnsignedInt(500),
                       UnsignedInt(500),
-                      {"i;unicode-casemap"}
+                      {CollationIdentifier("i;unicode-casemap")}
                   ),
                   CapabilityIdentifier.jmapMail: MailCapability(
                       UnsignedInt(10000000),
@@ -524,7 +525,7 @@ void main() {
                 UnsignedInt(16),
                 UnsignedInt(500),
                 UnsignedInt(500),
-                {"i;unicode-casemap"}
+                {CollationIdentifier("i;unicode-casemap")}
             ),
             CapabilityIdentifier.jmapMail: MailCapability(
                 UnsignedInt(10000000),
@@ -563,7 +564,7 @@ void main() {
                       UnsignedInt(16),
                       UnsignedInt(500),
                       UnsignedInt(500),
-                      {"i;unicode-casemap"}
+                      {CollationIdentifier("i;unicode-casemap")}
                   ),
                   CapabilityIdentifier.jmapMail: MailCapability(
                       UnsignedInt(10000000),
@@ -758,7 +759,7 @@ void main() {
                 UnsignedInt(16),
                 UnsignedInt(500),
                 UnsignedInt(500),
-                {"i;unicode-casemap"}
+                {CollationIdentifier("i;unicode-casemap")}
             ),
             CapabilityIdentifier.jmapMail: MailCapability(
                 UnsignedInt(10000000),
@@ -797,7 +798,7 @@ void main() {
                       UnsignedInt(16),
                       UnsignedInt(500),
                       UnsignedInt(500),
-                      {"i;unicode-casemap"}
+                      {CollationIdentifier("i;unicode-casemap")}
                   ),
                   CapabilityIdentifier.jmapMail: MailCapability(
                       UnsignedInt(10000000),
