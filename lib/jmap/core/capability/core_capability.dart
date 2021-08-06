@@ -1,11 +1,14 @@
 import 'package:equatable/equatable.dart';
+import 'package:jmap_dart_client/http/converter/collation_identifier_converter.dart';
 import 'package:jmap_dart_client/http/converter/unsigned_int_converter.dart';
 import 'package:jmap_dart_client/jmap/core/capability/capability_properties.dart';
+import 'package:jmap_dart_client/jmap/core/sort/collation_identifier.dart';
 import 'package:jmap_dart_client/jmap/core/unsigned_int.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'core_capability.g.dart';
 
+@CollationIdentifierConverter()
 @UnsignedIntConverter()
 @JsonSerializable()
 class CoreCapability extends CapabilityProperties with EquatableMixin {
@@ -16,7 +19,7 @@ class CoreCapability extends CapabilityProperties with EquatableMixin {
   final UnsignedInt maxCallsInRequest;
   final UnsignedInt maxObjectsInGet;
   final UnsignedInt maxObjectsInSet;
-  final Set<String> collationAlgorithms;
+  final Set<CollationIdentifier> collationAlgorithms;
 
   CoreCapability(
       this.maxSizeUpload,
