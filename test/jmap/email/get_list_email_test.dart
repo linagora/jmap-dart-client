@@ -260,7 +260,7 @@ void main() {
       final resultList = result.parse<GetEmailResponse>(
           getEmailInvocation.methodCallId, GetEmailResponse.deserialize);
 
-      expect(resultList?.list.length, equals(4));
+      expect(resultList?.list.length, equals(5));
       expect(resultList?.list, containsAll({expectMail1, expectMail2, expectMail3, expectMail4, expectMail5}));
     });
   });
