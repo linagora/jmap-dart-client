@@ -1,14 +1,13 @@
-# jmap_dart_client
+# JMAP Dart client
 
-A JMAP client library to make JMAP method calls and process the responses.
+A [JMAP](https://jmap.io/) client library to make JMAP method calls and process the responses.
 
-## Getting Started
+We most notably use it to write the [TMail Flutter application](https://github.com/linagora/tmail-flutter) but you might reuse this library to write your own JMAP application.
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+We do welcome all contributions, given decent test coverage and acceptable code quality.
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+Please report any problem, any feature request, or discuss how you plan to use this lib in the repository [issues](https://github.com/linagora/jmap-dart-client/issues).
+
+## Code samples
+
+(TODO)
