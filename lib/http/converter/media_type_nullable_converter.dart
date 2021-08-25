@@ -8,5 +8,5 @@ class MediaTypeNullableConverter implements JsonConverter<MediaType?, String?> {
   MediaType? fromJson(String? json) => json != null ? MediaType.parse(json) : null;
 
   @override
-  String? toJson(MediaType? object) => object?.type;
+  String? toJson(MediaType? object) => object?.mimeType;
 }

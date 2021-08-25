@@ -17,20 +17,43 @@ part 'email_body_part.g.dart';
 @IdNullableConverter()
 @JsonSerializable()
 class EmailBodyPart with EquatableMixin {
+  @JsonKey(includeIfNull: false)
   final PartId? partId;
+
+  @JsonKey(includeIfNull: false)
   final Id? blobId;
+
+  @JsonKey(includeIfNull: false)
   final UnsignedInt? size;
+
+  @JsonKey(includeIfNull: false)
   final Set<EmailHeader>? headers;
+
+  @JsonKey(includeIfNull: false)
   final String? name;
+
+  @JsonKey(includeIfNull: false)
   final MediaType? type;
+
+  @JsonKey(includeIfNull: false)
   final String? charset;
+
+  @JsonKey(includeIfNull: false)
   final String? disposition;
+
+  @JsonKey(includeIfNull: false)
   final String? cid;
+
+  @JsonKey(includeIfNull: false)
   final Set<String>? language;
+
+  @JsonKey(includeIfNull: false)
   final String? location;
+
+  @JsonKey(includeIfNull: false)
   final Set<EmailBodyPart>? subParts;
 
-  EmailBodyPart(
+  EmailBodyPart({
     this.partId,
     this.blobId,
     this.size,
@@ -43,7 +66,7 @@ class EmailBodyPart with EquatableMixin {
     this.language,
     this.location,
     this.subParts,
-  );
+  });
 
   factory EmailBodyPart.fromJson(Map<String, dynamic> json) => _$EmailBodyPartFromJson(json);
 
