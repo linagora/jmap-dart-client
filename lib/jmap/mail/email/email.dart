@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:jmap_dart_client/http/converter/body_value_converter.dart';
+import 'package:jmap_dart_client/http/converter/email/email_body_value_converter.dart';
+import 'package:jmap_dart_client/http/converter/email/email_mailbox_ids_converter.dart';
 import 'package:jmap_dart_client/http/converter/email_id_converter.dart';
 import 'package:jmap_dart_client/http/converter/id_nullable_converter.dart';
-import 'package:jmap_dart_client/http/converter/keyword_identifier_converter.dart';
-import 'package:jmap_dart_client/http/converter/mailbox_ids_converter.dart';
+import 'package:jmap_dart_client/http/converter/email/email_keyword_identifier_converter.dart';
 import 'package:jmap_dart_client/http/converter/message_ids_header_value_converter.dart';
 import 'package:jmap_dart_client/http/converter/thread_id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/unsigned_int_nullable_converter.dart';
@@ -88,10 +88,11 @@ class Email with EquatableMixin {
       threadId: const ThreadIdNullableConverter().fromJson(json['threadId'] as String?),
       mailboxIds: json['mailboxIds'] == null
           ? null
-          : (json['mailboxIds'] as Map<String, dynamic>).map((key, value) => MailboxIdsConverter().convert(key, value)),
+          : (json['mailboxIds'] as Map<String, dynamic>)
+              .map((key, value) => EmailMailboxIdsConverter().parseEntry(key, value)),
       keywords: json['keywords'] == null
           ? null
-          : (json['keywords'] as Map<String, dynamic>).map((key, value) => KeyWordIdentifierConverter().convert(key, value)),
+          : (json['keywords'] as Map<String, dynamic>).map((key, value) => EmailKeywordIdentifierConverter().parseEntry(key, value)),
       size: const UnsignedIntNullableConverter().fromJson(json['size'] as int?),
       receivedAt: const UTCDateNullableConverter().fromJson(json['receivedAt'] as String?),
       headers: json['headers'] == null
@@ -142,38 +143,48 @@ class Email with EquatableMixin {
           : EmailBodyPart.fromJson(json['bodyStructure'] as Map<String, dynamic>),
       bodyValues: json['bodyValues'] == null
           ? null
-          : (json['bodyValues'] as Map<String, dynamic>).map((key, value) => BodyValueConverter().convert(key, value)),
+          : (json['bodyValues'] as Map<String, dynamic>).map((key, value) => EmailBodyValueConverter().parseEntry(key, value)),
     );
   }
 
-  Map<String, dynamic> toJson() => <String, dynamic> {
-    'id': const EmailIdConverter().toJson(id),
-    'blobId': const IdNullableConverter().toJson(blobId),
-    'threadId': const ThreadIdNullableConverter().toJson(threadId),
-    'mailboxIds': mailboxIds?.map((key, value) => MailboxIdsConverter().convert(key.id.value, value)),
-    'keywords': keywords?.map((key, value) => KeyWordIdentifierConverter().convert(key.value, value)),
-    'size': const UnsignedIntNullableConverter().toJson(size),
-    'receivedAt': const UTCDateNullableConverter().toJson(receivedAt),
-    'headers': headers,
-    'messageId': messageId,
-    'inReplyTo': inReplyTo,
-    'references': references,
-    'subject': subject,
-    'sentAt': const UTCDateNullableConverter().toJson(sentAt),
-    'hasAttachment': hasAttachment,
-    'preview': preview,
-    'sender': sender,
-    'from': from,
-    'to': to,
-    'cc': cc,
-    'bcc': bcc,
-    'replyTo': replyTo,
-    'textBody': textBody,
-    'htmlBody': htmlBody,
-    'attachments': attachments,
-    'bodyStructure': bodyStructure?.toJson(),
-    'bodyValues': bodyValues?.map((key, value) => BodyValueConverter().convert(key.value, value)),
-  };
+  Map<String, dynamic> toJson() {
+    final val = <String, dynamic>{
+      'id': const EmailIdConverter().toJson(id),
+    };
+
+    void writeNotNull(String key, dynamic value) {
+      if (value != null) {
+        val[key] = value;
+      }
+    }
+
+    writeNotNull('blobId', const IdNullableConverter().toJson(blobId));
+    writeNotNull('threadId', const ThreadIdNullableConverter().toJson(threadId));
+    writeNotNull('mailboxIds', mailboxIds?.map((key, value) => EmailMailboxIdsConverter().toJson(key, value)));
+    writeNotNull('keywords', keywords?.map((key, value) => EmailKeywordIdentifierConverter().toJson(key, value)));
+    writeNotNull('size', const UnsignedIntNullableConverter().toJson(size));
+    writeNotNull('receivedAt', const UTCDateNullableConverter().toJson(receivedAt));
+    writeNotNull('headers', headers?.toList(),);
+    writeNotNull('messageId', messageId != null ? const MessageIdsHeaderValueConverter().toJson(messageId!) : null);
+    writeNotNull('inReplyTo', inReplyTo != null ? const MessageIdsHeaderValueConverter().toJson(inReplyTo!) : null);
+    writeNotNull('references', references != null ? const MessageIdsHeaderValueConverter().toJson(references!) : null);
+    writeNotNull('subject', subject);
+    writeNotNull('sentAt', const UTCDateNullableConverter().toJson(sentAt));
+    writeNotNull('hasAttachment', hasAttachment);
+    writeNotNull('preview', preview);
+    writeNotNull('sender', sender?.map((sender) => sender.toJson()).toList());
+    writeNotNull('from', from?.map((from) => from.toJson()).toList());
+    writeNotNull('to', to?.map((to) => to.toJson()).toList());
+    writeNotNull('cc', cc?.map((cc) => cc.toJson()).toList());
+    writeNotNull('bcc', bcc?.map((bcc) => bcc.toJson()).toList());
+    writeNotNull('replyTo', replyTo?.map((replyTo) => replyTo.toJson()).toList());
+    writeNotNull('textBody', textBody?.map((text) => text.toJson()).toList());
+    writeNotNull('htmlBody', htmlBody?.map((html) => html.toJson()).toList());
+    writeNotNull('attachments', attachments?.map((attachment) => attachment.toJson()).toList());
+    writeNotNull('bodyStructure', bodyStructure?.toJson());
+    writeNotNull('bodyValues', bodyValues?.map((key, value) => EmailBodyValueConverter().toJson(key, value)));
+    return val;
+  }
 
   @override
   List<Object?> get props => [
