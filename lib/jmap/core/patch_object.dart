@@ -1,17 +1,15 @@
 import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-part 'patch_object.g.dart';
-
-@JsonSerializable()
 class PatchObject with EquatableMixin {
+
+  static final mailboxIdsProperty = 'mailboxIds';
+  static final keywordsProperty = 'keywords';
+
   PatchObject(this.patches);
 
   final Map<String, dynamic> patches;
 
-  factory PatchObject.fromJson(Map<String, dynamic> json) => _$PatchObjectFromJson(json);
-
-  Map<String, dynamic> toJson() => _$PatchObjectToJson(this);
+  Map<String, dynamic> toJson() => patches;
 
   @override
   List<Object?> get props => [patches];
