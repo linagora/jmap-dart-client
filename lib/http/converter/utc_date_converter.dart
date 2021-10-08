@@ -8,5 +8,5 @@ class UTCDateConverter implements JsonConverter<UTCDate, String> {
   UTCDate fromJson(String json) => UTCDate(DateTime.parse(json).toUtc());
 
   @override
-  String toJson(UTCDate object) => object.value.toUtc().toString();
+  String toJson(UTCDate object) => object.value.toUtc().toIso8601String();
 }
