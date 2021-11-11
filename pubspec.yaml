@@ -15,7 +15,7 @@ dependencies:
 
   dartz: 0.10.0
 
-  quiver: 3.0.1
+  quiver: 3.0.1+1
 
   dio: 4.0.0
 
