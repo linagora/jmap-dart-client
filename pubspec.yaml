@@ -4,8 +4,8 @@ version: 0.0.1
 homepage:
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.17.0"
+  sdk: ">=2.14.0 <3.0.0"
+  flutter: ">=2.5.0"
 
 dependencies:
   flutter:
@@ -13,17 +13,17 @@ dependencies:
 
   equatable: 2.0.3
 
-  dartz: 0.10.0-nullsafety.2
+  dartz: 0.10.1
 
-  quiver: 3.0.1
+  quiver: 3.0.1+1
 
-  dio: 4.0.0
+  dio: 4.0.4
 
-  json_annotation: 4.0.1
-  build_runner: 2.0.5
-  json_serializable: 4.1.3
+  json_annotation: 4.4.0
+  build_runner: 2.1.7
+  json_serializable: 6.1.4
 
-  built_collection: 5.1.0
+  built_collection: 5.1.1
 
   http_parser: 4.0.0
 
