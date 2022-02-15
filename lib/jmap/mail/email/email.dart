@@ -4,6 +4,7 @@ import 'package:jmap_dart_client/http/converter/email/email_mailbox_ids_converte
 import 'package:jmap_dart_client/http/converter/email_id_converter.dart';
 import 'package:jmap_dart_client/http/converter/id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/email/email_keyword_identifier_converter.dart';
+import 'package:jmap_dart_client/http/converter/individual_header_identifier_converter.dart';
 import 'package:jmap_dart_client/http/converter/message_ids_header_value_converter.dart';
 import 'package:jmap_dart_client/http/converter/thread_id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/unsigned_int_nullable_converter.dart';
@@ -17,6 +18,7 @@ import 'package:jmap_dart_client/jmap/mail/email/email_address.dart';
 import 'package:jmap_dart_client/jmap/mail/email/email_body_part.dart';
 import 'package:jmap_dart_client/jmap/mail/email/email_body_value.dart';
 import 'package:jmap_dart_client/jmap/mail/email/email_header.dart';
+import 'package:jmap_dart_client/jmap/mail/email/individual_header_identifier.dart';
 import 'package:jmap_dart_client/jmap/mail/email/keyword_identifier.dart';
 import 'package:jmap_dart_client/jmap/mail/mailbox/mailbox.dart';
 
@@ -52,6 +54,7 @@ class Email with EquatableMixin {
   final Set<EmailBodyPart>? attachments;
   final EmailBodyPart? bodyStructure;
   final Map<PartId, EmailBodyValue>? bodyValues;
+  final Map<IndividualHeaderIdentifier, String?>? headerUserAgent;
 
   Email(
     this.id,
@@ -80,6 +83,7 @@ class Email with EquatableMixin {
     this.attachments,
     this.bodyStructure,
     this.bodyValues,
+    this.headerUserAgent,
   });
 
   factory Email.fromJson(Map<String, dynamic> json) {
@@ -118,6 +122,8 @@ class Email with EquatableMixin {
           ? null
           : EmailBodyPart.fromJson(json['bodyStructure'] as Map<String, dynamic>),
       bodyValues: (json['bodyValues'] as Map<String, dynamic>?)?.map((key, value) => EmailBodyValueConverter().parseEntry(key, value)),
+      headerUserAgent: (json[IndividualHeaderIdentifier.headerUserAgent.value] as Map<String, dynamic>?)?.map((key, value) =>
+          MapEntry(IndividualHeaderIdentifier(key), value as String?)),
     );
   }
 
@@ -157,6 +163,7 @@ class Email with EquatableMixin {
     writeNotNull('attachments', attachments?.map((attachment) => attachment.toJson()).toList());
     writeNotNull('bodyStructure', bodyStructure?.toJson());
     writeNotNull('bodyValues', bodyValues?.map((key, value) => EmailBodyValueConverter().toJson(key, value)));
+    writeNotNull(IndividualHeaderIdentifier.headerUserAgent.value, IndividualHeaderIdentifierNullableConverter().toJson(headerUserAgent, IndividualHeaderIdentifier.headerUserAgent));
     return val;
   }
 
