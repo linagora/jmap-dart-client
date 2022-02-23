@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:jmap_dart_client/http/converter/is_subscribed_converter.dart';
-import 'package:jmap_dart_client/http/converter/mailbox_id_converter.dart';
 import 'package:jmap_dart_client/http/converter/mailbox_id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/mailbox_name_converter.dart';
 import 'package:jmap_dart_client/http/converter/role_converter.dart';
@@ -26,7 +25,6 @@ part 'mailbox.g.dart';
 @RoleConverter()
 @MailboxIdNullableConverter()
 @MailboxNameConverter()
-@MailboxIdConverter()
 @JsonSerializable()
 class Mailbox with EquatableMixin {
   static Properties allProperties = Properties({
@@ -34,19 +32,40 @@ class Mailbox with EquatableMixin {
     'totalThreads', 'unreadThreads', 'myRights', 'isSubscribed'
   });
 
-  final MailboxId id;
+  @JsonKey(includeIfNull: false)
+  final MailboxId? id;
+
+  @JsonKey(includeIfNull: false)
   final MailboxName? name;
+
+  @JsonKey(includeIfNull: false)
   final MailboxId? parentId;
+
+  @JsonKey(includeIfNull: false)
   final Role? role;
+
+  @JsonKey(includeIfNull: false)
   final SortOrder? sortOrder;
+
+  @JsonKey(includeIfNull: false)
   final TotalEmails? totalEmails;
+
+  @JsonKey(includeIfNull: false)
   final UnreadEmails? unreadEmails;
+
+  @JsonKey(includeIfNull: false)
   final TotalThreads? totalThreads;
+
+  @JsonKey(includeIfNull: false)
   final UnreadThreads? unreadThreads;
+
+  @JsonKey(includeIfNull: false)
   final MailboxRights? myRights;
+
+  @JsonKey(includeIfNull: false)
   final IsSubscribed? isSubscribed;
 
-  Mailbox(
+  Mailbox({
     this.id,
     this.name,
     this.parentId,
@@ -58,7 +77,7 @@ class Mailbox with EquatableMixin {
     this.unreadThreads,
     this.myRights,
     this.isSubscribed
-  );
+  });
 
   factory Mailbox.fromJson(Map<String, dynamic> json) => _$MailboxFromJson(json);
 
