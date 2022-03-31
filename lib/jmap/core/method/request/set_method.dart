@@ -10,6 +10,11 @@ abstract class SetMethod<T> extends MethodRequiringAccountId
   SetMethod(AccountId accountId) : super(accountId);
 }
 
+abstract class SetMethodNoNeedAccountId<T> extends Method
+    with OptionalCreate<T>, OptionalDestroy, OptionalUpdate {
+  SetMethodNoNeedAccountId() : super();
+}
+
 mixin OptionalIfInState {
   @JsonKey(includeIfNull: false)
   State? ifInState;
