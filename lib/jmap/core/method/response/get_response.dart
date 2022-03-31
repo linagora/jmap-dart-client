@@ -10,3 +10,10 @@ abstract class GetResponse<T> extends ResponseRequiringAccountId {
 
   GetResponse(AccountId accountId, this.state, this.list, this.notFound) : super(accountId);
 }
+
+abstract class GetResponseNoAccountId<T> extends MethodResponse {
+  final List<T> list;
+  final List<Id>? notFound;
+
+  GetResponseNoAccountId(this.list, this.notFound) : super();
+}
