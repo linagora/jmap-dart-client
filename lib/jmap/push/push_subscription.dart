@@ -10,6 +10,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'push_subscription.g.dart';
 
 @PushSubscriptionIdNullableConverter()
+@UTCDateNullableConverter()
 @JsonSerializable()
 class PushSubscription with EquatableMixin {
 

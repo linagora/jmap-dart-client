@@ -10,6 +10,11 @@ abstract class GetMethod extends MethodRequiringAccountId
   GetMethod(AccountId accountId) : super(accountId);
 }
 
+abstract class GetMethodNoNeedAccountId extends Method
+    with OptionalIds, OptionalProperties, OptionalReferenceIds, OptionalReferenceProperties {
+  GetMethodNoNeedAccountId() : super();
+}
+
 mixin OptionalIds {
   @JsonKey(includeIfNull: false)
   Set<Id>? ids;
