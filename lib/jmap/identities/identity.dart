@@ -25,9 +25,6 @@ class Identity with EquatableMixin {
   final String? email;
 
   @JsonKey(includeIfNull: false)
-  final Set<EmailAddress>? cc;
-
-  @JsonKey(includeIfNull: false)
   final Set<EmailAddress>? bcc;
 
   @JsonKey(includeIfNull: false)
@@ -48,7 +45,6 @@ class Identity with EquatableMixin {
     this.description,
     this.name,
     this.email,
-    this.cc,
     this.bcc,
     this.replyTo,
     this.textSignature,

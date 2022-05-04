@@ -11,9 +11,6 @@ Identity _$IdentityFromJson(Map<String, dynamic> json) => Identity(
       description: json['description'] as String?,
       name: json['name'] as String?,
       email: json['email'] as String?,
-      cc: (json['cc'] as List<dynamic>?)
-          ?.map((e) => EmailAddress.fromJson(e as Map<String, dynamic>))
-          .toSet(),
       bcc: (json['bcc'] as List<dynamic>?)
           ?.map((e) => EmailAddress.fromJson(e as Map<String, dynamic>))
           .toSet(),
@@ -40,7 +37,6 @@ Map<String, dynamic> _$IdentityToJson(Identity instance) {
   writeNotNull('description', instance.description);
   writeNotNull('name', instance.name);
   writeNotNull('email', instance.email);
-  writeNotNull('cc', instance.cc?.toList());
   writeNotNull('bcc', instance.bcc?.toList());
   writeNotNull('replyTo', instance.replyTo?.toList());
   writeNotNull('textSignature',
