@@ -13,7 +13,7 @@ part 'get_mailbox_method.g.dart';
 @IdConverter()
 @AccountIdConverter()
 @PropertiesConverter()
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class GetMailboxMethod extends GetMethod {
   GetMailboxMethod(AccountId accountId) : super(accountId);
 
