@@ -20,7 +20,7 @@ dependencies:
   dio: 4.0.4
 
   json_annotation: 4.4.0
-  build_runner: 2.1.7
+  build_runner: 2.1.11
   json_serializable: 6.1.4
 
   built_collection: 5.1.1
