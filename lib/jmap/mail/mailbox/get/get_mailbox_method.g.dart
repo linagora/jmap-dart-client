@@ -35,9 +35,9 @@ Map<String, dynamic> _$GetMailboxMethodToJson(GetMailboxMethod instance) {
   }
 
   writeNotNull('ids', instance.ids?.map(const IdConverter().toJson).toList());
-  writeNotNull('#ids', instance.referenceIds);
+  writeNotNull('#ids', instance.referenceIds?.toJson());
   writeNotNull(
       'properties', const PropertiesConverter().toJson(instance.properties));
-  writeNotNull('#properties', instance.referenceProperties);
+  writeNotNull('#properties', instance.referenceProperties?.toJson());
   return val;
 }

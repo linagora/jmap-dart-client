@@ -6,11 +6,12 @@ part of 'websocket_capability.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-WebSocketCapability _$WebSocketCapabilityFromJson(Map<String, dynamic> json) =>
-    WebSocketCapability(
-      json['supportsPush'] as bool,
-      Uri.parse(json['url'] as String),
-    );
+WebSocketCapability _$WebSocketCapabilityFromJson(Map<String, dynamic> json) {
+  return WebSocketCapability(
+    json['supportsPush'] as bool,
+    Uri.parse(json['url'] as String),
+  );
+}
 
 Map<String, dynamic> _$WebSocketCapabilityToJson(
         WebSocketCapability instance) =>

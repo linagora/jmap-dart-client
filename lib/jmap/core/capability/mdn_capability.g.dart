@@ -6,8 +6,9 @@ part of 'mdn_capability.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-MdnCapability _$MdnCapabilityFromJson(Map<String, dynamic> json) =>
-    MdnCapability();
+MdnCapability _$MdnCapabilityFromJson(Map<String, dynamic> json) {
+  return MdnCapability();
+}
 
 Map<String, dynamic> _$MdnCapabilityToJson(MdnCapability instance) =>
     <String, dynamic>{};
