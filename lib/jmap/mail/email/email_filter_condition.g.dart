@@ -6,36 +6,38 @@ part of 'email_filter_condition.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-EmailFilterCondition _$EmailFilterConditionFromJson(Map<String, dynamic> json) {
-  return EmailFilterCondition(
-    inMailbox: const MailboxIdNullableConverter()
-        .fromJson(json['inMailbox'] as String?),
-    inMailboxOtherThan: (json['inMailboxOtherThan'] as List<dynamic>?)
-        ?.map((e) => const MailboxIdConverter().fromJson(e as String))
-        .toSet(),
-    before:
-        const UTCDateNullableConverter().fromJson(json['before'] as String?),
-    after: const UTCDateNullableConverter().fromJson(json['after'] as String?),
-    minSize:
-        const UnsignedIntNullableConverter().fromJson(json['minSize'] as int?),
-    maxSize:
-        const UnsignedIntNullableConverter().fromJson(json['maxSize'] as int?),
-    allInThreadHaveKeyword: json['allInThreadHaveKeyword'] as String?,
-    someInThreadHaveKeyword: json['someInThreadHaveKeyword'] as String?,
-    noneInThreadHaveKeyword: json['noneInThreadHaveKeyword'] as String?,
-    hasKeyword: json['hasKeyword'] as String?,
-    notKeyword: json['notKeyword'] as String?,
-    hasAttachment: json['hasAttachment'] as bool?,
-    text: json['text'] as String?,
-    from: json['from'] as String?,
-    to: json['to'] as String?,
-    cc: json['cc'] as String?,
-    bcc: json['bcc'] as String?,
-    subject: json['subject'] as String?,
-    body: json['body'] as String?,
-    header: (json['header'] as List<dynamic>?)?.map((e) => e as String).toSet(),
-  );
-}
+EmailFilterCondition _$EmailFilterConditionFromJson(
+        Map<String, dynamic> json) =>
+    EmailFilterCondition(
+      inMailbox: const MailboxIdNullableConverter()
+          .fromJson(json['inMailbox'] as String?),
+      inMailboxOtherThan: (json['inMailboxOtherThan'] as List<dynamic>?)
+          ?.map((e) => const MailboxIdConverter().fromJson(e as String))
+          .toSet(),
+      before:
+          const UTCDateNullableConverter().fromJson(json['before'] as String?),
+      after:
+          const UTCDateNullableConverter().fromJson(json['after'] as String?),
+      minSize: const UnsignedIntNullableConverter()
+          .fromJson(json['minSize'] as int?),
+      maxSize: const UnsignedIntNullableConverter()
+          .fromJson(json['maxSize'] as int?),
+      allInThreadHaveKeyword: json['allInThreadHaveKeyword'] as String?,
+      someInThreadHaveKeyword: json['someInThreadHaveKeyword'] as String?,
+      noneInThreadHaveKeyword: json['noneInThreadHaveKeyword'] as String?,
+      hasKeyword: json['hasKeyword'] as String?,
+      notKeyword: json['notKeyword'] as String?,
+      hasAttachment: json['hasAttachment'] as bool?,
+      text: json['text'] as String?,
+      from: json['from'] as String?,
+      to: json['to'] as String?,
+      cc: json['cc'] as String?,
+      bcc: json['bcc'] as String?,
+      subject: json['subject'] as String?,
+      body: json['body'] as String?,
+      header:
+          (json['header'] as List<dynamic>?)?.map((e) => e as String).toSet(),
+    );
 
 Map<String, dynamic> _$EmailFilterConditionToJson(
     EmailFilterCondition instance) {

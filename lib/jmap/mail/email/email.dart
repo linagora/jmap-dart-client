@@ -89,12 +89,12 @@ class Email with EquatableMixin {
   factory Email.fromJson(Map<String, dynamic> json) {
     return Email(
       const EmailIdConverter().fromJson(json['id'] as String),
-      blobId: const IdNullableConverter().fromJson(json['blobId'] as String?),
-      threadId: const ThreadIdNullableConverter().fromJson(json['threadId'] as String?),
+      blobId: IdNullableConverter().fromJson(json['blobId'] as String?),
+      threadId: ThreadIdNullableConverter().fromJson(json['threadId'] as String?),
       mailboxIds: (json['mailboxIds'] as Map<String, dynamic>?)?.map((key, value) => EmailMailboxIdsConverter().parseEntry(key, value)),
       keywords: (json['keywords'] as Map<String, dynamic>?)?.map((key, value) => EmailKeywordIdentifierConverter().parseEntry(key, value)),
-      size: const UnsignedIntNullableConverter().fromJson(json['size'] as int?),
-      receivedAt: const UTCDateNullableConverter().fromJson(json['receivedAt'] as String?),
+      size: UnsignedIntNullableConverter().fromJson(json['size'] as int?),
+      receivedAt: UTCDateNullableConverter().fromJson(json['receivedAt'] as String?),
       headers: (json['headers'] as List<dynamic>?)?.map((json) => EmailHeader.fromJson(json)).toSet(),
       messageId: json['messageId'] == null
           ? null
@@ -106,7 +106,7 @@ class Email with EquatableMixin {
           ? null
           : const MessageIdsHeaderValueConverter().fromJson((json['references'] as List<dynamic>)),
       subject: json['subject'] as String?,
-      sentAt: const UTCDateNullableConverter().fromJson(json['sentAt'] as String?),
+      sentAt: UTCDateNullableConverter().fromJson(json['sentAt'] as String?),
       hasAttachment: json['hasAttachment'] as bool?,
       preview: json['preview'] as String?,
       sender: (json['sender'] as List<dynamic>?)?.map((json) => EmailAddress.fromJson(json)).toSet(),

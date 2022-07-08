@@ -6,14 +6,14 @@ part of 'changes_mailbox_method.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ChangesMailboxMethod _$ChangesMailboxMethodFromJson(Map<String, dynamic> json) {
-  return ChangesMailboxMethod(
-    const AccountIdConverter().fromJson(json['accountId'] as String),
-    const StateConverter().fromJson(json['sinceState'] as String),
-    maxChanges: const UnsignedIntNullableConverter()
-        .fromJson(json['maxChanges'] as int?),
-  );
-}
+ChangesMailboxMethod _$ChangesMailboxMethodFromJson(
+        Map<String, dynamic> json) =>
+    ChangesMailboxMethod(
+      const AccountIdConverter().fromJson(json['accountId'] as String),
+      const StateConverter().fromJson(json['sinceState'] as String),
+      maxChanges: const UnsignedIntNullableConverter()
+          .fromJson(json['maxChanges'] as int?),
+    );
 
 Map<String, dynamic> _$ChangesMailboxMethodToJson(
     ChangesMailboxMethod instance) {
