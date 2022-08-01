@@ -276,6 +276,16 @@ void main() {
 
   group('sort list email test', () {
 
+    test('sort list email by receivedAt descending', () async {
+      final listEmailResponse = await getListEmailAndSortBy(EmailComparator(EmailComparatorProperty.receivedAt)..setIsAscending(false));
+      expect(listEmailResponse, containsAllInOrder([expectMail4, expectMail5, expectMail1, expectMail2, expectMail3]));
+    });
+
+    test('sort list email by receivedAt ascending', () async {
+      final listEmailResponse = await getListEmailAndSortBy(EmailComparator(EmailComparatorProperty.receivedAt)..setIsAscending(true));
+      expect(listEmailResponse, containsAllInOrder([expectMail3, expectMail2, expectMail1, expectMail5, expectMail4]));
+    });
+
     test('sort list email by sentAt descending', () async {
       final listEmailResponse = await getListEmailAndSortBy(EmailComparator(EmailComparatorProperty.sentAt)..setIsAscending(false));
       expect(listEmailResponse, containsAllInOrder([expectMail4, expectMail5, expectMail1, expectMail3, expectMail2]));
