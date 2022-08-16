@@ -66,3 +66,15 @@ mixin OptionalDestroy {
     destroy?.addAll(values);
   }
 }
+
+mixin OptionalUpdateSingleton<T> {
+  @JsonKey(includeIfNull: false)
+  Map<Id, T>? updateSingleton;
+
+  void addUpdatesSingleton(Map<Id, T> updates) {
+    if (updateSingleton == null) {
+      updateSingleton = Map<Id, T>();
+    }
+    updateSingleton?.addAll(updates);
+  }
+}
