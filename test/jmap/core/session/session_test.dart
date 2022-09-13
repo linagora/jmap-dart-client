@@ -7,6 +7,7 @@ import 'package:jmap_dart_client/jmap/core/account/account.dart';
 import 'package:jmap_dart_client/jmap/core/capability/capability_identifier.dart';
 import 'package:jmap_dart_client/jmap/core/capability/core_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/default_capability.dart';
+import 'package:jmap_dart_client/jmap/core/capability/empty_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/mail_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/mdn_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/submission_capability.dart';
@@ -843,6 +844,143 @@ void main() {
 
       expect(parsedSession, equals(expectedSession));
       expect(parsedSession.capabilities[TestCapability.testCapabilityIdentifier], equals(testCapability));
+    });
+  });
+
+  group('get session with empty capability', () {
+    test('get should ignore parsing empty capability properties', () {
+      final sessionString = '''{
+        "capabilities": {
+          "urn:ietf:params:jmap:submission": {
+            "maxDelayedSend": 0,
+            "submissionExtensions": []
+          },
+          "urn:ietf:params:jmap:core": {
+            "maxSizeUpload": 20971520,
+            "maxConcurrentUpload": 4,
+            "maxSizeRequest": 10000000,
+            "maxConcurrentRequests": 4,
+            "maxCallsInRequest": 16,
+            "maxObjectsInGet": 500,
+            "maxObjectsInSet": 500,
+            "collationAlgorithms": [
+              "i;unicode-casemap"
+            ]
+          },
+          "urn:ietf:params:jmap:mail": {}
+        },
+        "accounts": {
+          "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6": {
+            "name": "bob@domain.tld",
+            "isPersonal": true,
+            "isReadOnly": false,
+            "accountCapabilities": {
+              "urn:ietf:params:jmap:submission": {
+                "maxDelayedSend": 0,
+                "submissionExtensions": []
+              },
+              "urn:ietf:params:jmap:core": {
+                "maxSizeUpload": 20971520,
+                "maxConcurrentUpload": 4,
+                "maxSizeRequest": 10000000,
+                "maxConcurrentRequests": 4,
+                "maxCallsInRequest": 16,
+                "maxObjectsInGet": 500,
+                "maxObjectsInSet": 500,
+                "collationAlgorithms": [
+                  "i;unicode-casemap"
+                ]
+              },
+              "urn:ietf:params:jmap:mail": {
+                "maxMailboxesPerEmail": 10000000,
+                "maxMailboxDepth": null,
+                "maxSizeMailboxName": 200,
+                "maxSizeAttachmentsPerEmail": 20000000,
+                "emailQuerySortOptions": [
+                  "receivedAt",
+                  "sentAt",
+                  "size",
+                  "from",
+                  "to",
+                  "subject"
+                ],
+                "mayCreateTopLevelMailbox": true
+              }
+            }
+          }
+        },
+        "primaryAccounts": {
+          "urn:ietf:params:jmap:submission": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
+          "urn:ietf:params:jmap:core": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
+          "urn:ietf:params:jmap:mail": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6"
+        },
+        "username": "bob@domain.tld",
+        "apiUrl": "http://domain.com/jmap",
+        "downloadUrl": "http://domain.com/download/{accountId}/{blobId}/?type={type}&name={name}",
+        "uploadUrl": "http://domain.com/upload/{accountId}",
+        "eventSourceUrl": "http://domain.com/eventSource?types={types}&closeAfter={closeafter}&ping={ping}",
+        "state": "2c9f1b12-b35a-43e6-9af2-0106fb53a943"
+      }''';
+
+      final Session expectedSession = Session(
+          {
+            CapabilityIdentifier.jmapSubmission: SubmissionCapability(UnsignedInt(0), Set()),
+            CapabilityIdentifier.jmapCore: CoreCapability(
+                UnsignedInt(20971520),
+                UnsignedInt(4),
+                UnsignedInt(10000000),
+                UnsignedInt(4),
+                UnsignedInt(16),
+                UnsignedInt(500),
+                UnsignedInt(500),
+                {CollationIdentifier("i;unicode-casemap")}
+            ),
+            CapabilityIdentifier.jmapMail: EmptyCapability(),
+          },
+          {
+            AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')): Account(
+                AccountName('bob@domain.tld'),
+                true,
+                false,
+                {
+                  CapabilityIdentifier.jmapSubmission: SubmissionCapability(UnsignedInt(0), Set()),
+                  CapabilityIdentifier.jmapCore: CoreCapability(
+                      UnsignedInt(20971520),
+                      UnsignedInt(4),
+                      UnsignedInt(10000000),
+                      UnsignedInt(4),
+                      UnsignedInt(16),
+                      UnsignedInt(500),
+                      UnsignedInt(500),
+                      {CollationIdentifier("i;unicode-casemap")}
+                  ),
+                  CapabilityIdentifier.jmapMail: MailCapability(
+                      UnsignedInt(10000000),
+                      null,
+                      UnsignedInt(200),
+                      UnsignedInt(20000000),
+                      {"receivedAt", "sentAt", "size", "from", "to", "subject"},
+                      true
+                  ),
+                }
+            )
+          },
+          {
+            CapabilityIdentifier.jmapSubmission: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
+            CapabilityIdentifier.jmapCore: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
+            CapabilityIdentifier.jmapMail: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
+          },
+          UserName('bob@domain.tld'),
+          Uri.parse('http://domain.com/jmap'),
+          Uri.parse('http://domain.com/download/{accountId}/{blobId}/?type={type}&name={name}'),
+          Uri.parse('http://domain.com/upload/{accountId}'),
+          Uri.parse('http://domain.com/eventSource?types={types}&closeAfter={closeafter}&ping={ping}'),
+          State('2c9f1b12-b35a-43e6-9af2-0106fb53a943')
+      );
+
+      final parsedSession = Session.fromJson(json.decode(sessionString));
+
+      expect(parsedSession, equals(expectedSession));
     });
   });
 }

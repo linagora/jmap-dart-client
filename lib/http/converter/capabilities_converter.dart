@@ -3,6 +3,7 @@ import 'package:jmap_dart_client/jmap/core/capability/capability_identifier.dart
 import 'package:jmap_dart_client/jmap/core/capability/capability_properties.dart';
 import 'package:jmap_dart_client/jmap/core/capability/core_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/default_capability.dart';
+import 'package:jmap_dart_client/jmap/core/capability/empty_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/mail_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/mdn_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/submission_capability.dart';
@@ -46,7 +47,11 @@ class CapabilitiesConverter {
 
     final identifier = CapabilityIdentifier(Uri.parse(key));
     if (mapCapabilitiesConverter!.containsKey(identifier)) {
-      return MapEntry(identifier, mapCapabilitiesConverter![identifier]!.call(value));
+      try {
+        return MapEntry(identifier, mapCapabilitiesConverter![identifier]!.call(value));
+      } catch (e) {
+        return MapEntry(identifier, EmptyCapability());
+      }
     } else {
       return MapEntry(identifier, DefaultCapability(value));
     }
