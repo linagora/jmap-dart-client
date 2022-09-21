@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
 class ReferencePath with EquatableMixin {
-  static ReferencePath idsPath = ReferencePath('ids/*');
-  static ReferencePath createdPath = ReferencePath('created/*');
-  static ReferencePath updatedPath = ReferencePath('updated/*');
+  static ReferencePath idsPath = ReferencePath('/ids/*');
+  static ReferencePath createdPath = ReferencePath('/created/*');
+  static ReferencePath updatedPath = ReferencePath('/updated/*');
   static ReferencePath updatedPropertiesPath = ReferencePath('updatedProperties');
 
   final String value;
