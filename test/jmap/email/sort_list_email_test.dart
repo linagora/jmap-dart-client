@@ -8,6 +8,7 @@ import 'package:jmap_dart_client/jmap/core/id.dart';
 import 'package:jmap_dart_client/jmap/core/properties/properties.dart';
 import 'package:jmap_dart_client/jmap/core/request/reference_path.dart';
 import 'package:jmap_dart_client/jmap/core/request/request_invocation.dart';
+import 'package:jmap_dart_client/jmap/core/sort/comparator.dart';
 import 'package:jmap_dart_client/jmap/core/unsigned_int.dart';
 import 'package:jmap_dart_client/jmap/core/utc_date.dart';
 import 'package:jmap_dart_client/jmap/jmap_request.dart';
@@ -20,7 +21,6 @@ import 'package:jmap_dart_client/jmap/mail/email/get/get_email_method.dart';
 import 'package:jmap_dart_client/jmap/mail/email/get/get_email_response.dart';
 import 'package:jmap_dart_client/jmap/mail/email/query/query_email_method.dart';
 import 'package:jmap_dart_client/jmap/mail/mailbox/mailbox.dart';
-import 'package:jmap_dart_client/jmap/core/sort/comparator.dart';
 
 void main() {
 
@@ -220,7 +220,7 @@ void main() {
                 "#ids": {
                   "resultOf": "c2",
                   "name": "Email/query",
-                  "path": "ids/*"
+                  "path": "/ids/*"
                 },
                 "properties": [
                   "id",

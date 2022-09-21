@@ -131,7 +131,7 @@ void main() {
                   "#ids": {
                     "resultOf": "c0",
                     "name": "Mailbox/changes",
-                    "path": "updated/*"
+                    "path": "/updated/*"
                   }
                 },
                 "c1"
@@ -143,7 +143,7 @@ void main() {
                   "#ids": {
                     "resultOf": "c0",
                     "name": "Mailbox/changes",
-                    "path": "destroyed/*"
+                    "path": "/destroyed/*"
                   }
                 },
                 "c2"
@@ -152,8 +152,7 @@ void main() {
           },
           headers: {
             "accept": "application/json;jmapVersion=rfc-8621",
-            "content-type": "application/json; charset=utf-8",
-            "content-length": 585
+            "content-type": "application/json; charset=utf-8"
           });
 
       final HttpClient httpClient = HttpClient(dio);
@@ -183,7 +182,7 @@ void main() {
       final getMailboxMethodForDestroyed = GetMailboxMethod(accountId)
         ..addReferenceIds(processingInvocation.createResultReference(
           changesMailboxInvocation.methodCallId,
-          ReferencePath('destroyed/*'),
+          ReferencePath('/destroyed/*'),
         ));
       final getMailboxForDestroyInvocation = jmapRequestBuilder.invocation(
         getMailboxMethodForDestroyed,

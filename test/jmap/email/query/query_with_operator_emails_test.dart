@@ -209,7 +209,7 @@ void main() {
                   "#ids": {
                     "resultOf": "c2",
                     "name": "Email/query",
-                    "path": "ids/*"
+                    "path": "/ids/*"
                   },
                   "properties": [
                     "id",
@@ -227,8 +227,7 @@ void main() {
           },
           headers: {
             "accept": "application/json;jmapVersion=rfc-8621",
-            "content-type": "application/json; charset=utf-8",
-            "content-length": 581
+            "content-type": "application/json; charset=utf-8"
           });
 
       final httpClient = HttpClient(dio);
