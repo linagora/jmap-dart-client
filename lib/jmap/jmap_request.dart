@@ -26,7 +26,7 @@ class JmapRequest {
         ..methodCalls(_invocations.values.toList()))
       .build();
 
-    return _httpClient.post('/jmap', data: _requestObject?.toJson())
+    return _httpClient.post('', data: _requestObject?.toJson())
       .then((value) => extractData(value))
       .catchError((error) => throw error);
   }
