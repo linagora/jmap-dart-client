@@ -69,10 +69,10 @@ void main() {
 
   Future<List<Email>?> searchMailByCondition(Comparator comparator) async {
     final baseOption = BaseOptions(method: 'POST');
-    final dio = Dio(baseOption)..options.baseUrl = 'http://domain.com';
+    final dio = Dio(baseOption)..options.baseUrl = 'http://domain.com/jmap';
     final dioAdapter = DioAdapter(dio: dio);
     dioAdapter.onPost(
-        '/jmap',
+        '',
         (server) => server.reply(200, {
               "sessionState": "2c9f1b12-b35a-43e6-9af2-0106fb53a943",
               "methodResponses": [

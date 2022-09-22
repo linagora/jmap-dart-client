@@ -13,7 +13,6 @@ import 'package:jmap_dart_client/jmap/core/unsigned_int.dart';
 import 'package:jmap_dart_client/jmap/core/utc_date.dart';
 import 'package:jmap_dart_client/jmap/jmap_request.dart';
 import 'package:jmap_dart_client/jmap/mail/email/changes/changes_email_method.dart';
-import 'package:jmap_dart_client/jmap/mail/email/changes/changes_email_response.dart';
 import 'package:jmap_dart_client/jmap/mail/email/email.dart';
 import 'package:jmap_dart_client/jmap/mail/email/email_address.dart';
 import 'package:jmap_dart_client/jmap/mail/email/get/get_email_method.dart';
@@ -59,10 +58,10 @@ void main() {
     test('get changes email', () async {
       final baseOption  = BaseOptions(method: 'POST');
       final dio = Dio(baseOption)
-        ..options.baseUrl = 'http://domain.com';
+        ..options.baseUrl = 'http://domain.com/jmap';
       final dioAdapter = DioAdapter(dio: dio);
       dioAdapter.onPost(
-        '/jmap',
+        '',
         (server) => server.reply(200, {
           "sessionState": "2c9f1b12-b35a-43e6-9af2-0106fb53a943",
           "methodResponses": [
@@ -261,10 +260,6 @@ void main() {
           ..usings(getEmailMethodForUpdate.requiredCapabilities))
         .build()
         .execute();
-
-      final resultChanges = result.parse<ChangesEmailResponse>(
-          changesEmailInvocation.methodCallId,
-          ChangesEmailResponse.deserialize);
 
       final resultUpdated = result.parse<GetEmailResponse>(
           getEmailForUpdateInvocation.methodCallId,
