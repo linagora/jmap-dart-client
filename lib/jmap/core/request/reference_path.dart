@@ -4,7 +4,7 @@ class ReferencePath with EquatableMixin {
   static ReferencePath idsPath = ReferencePath('/ids/*');
   static ReferencePath createdPath = ReferencePath('/created/*');
   static ReferencePath updatedPath = ReferencePath('/updated/*');
-  static ReferencePath updatedPropertiesPath = ReferencePath('updatedProperties');
+  static ReferencePath updatedPropertiesPath = ReferencePath('/updatedProperties');
 
   final String value;
 
