@@ -6,7 +6,7 @@ import 'package:jmap_dart_client/jmap/core/state.dart';
 
 abstract class SetResponse<T> extends ResponseRequiringAccountId {
   final State? oldState;
-  final State newState;
+  final State? newState;
   final Map<Id, T>? created;
   final Map<Id, T?>? updated;
   final Set<Id>? destroyed;
@@ -14,7 +14,8 @@ abstract class SetResponse<T> extends ResponseRequiringAccountId {
   final Map<Id, SetError>? notUpdated;
   final Map<Id, SetError>? notDestroyed;
 
-  SetResponse(AccountId accountId, this.newState, {
+  SetResponse(AccountId accountId, {
+    this.newState,
     this.oldState,
     this.created,
     this.updated,

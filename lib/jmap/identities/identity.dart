@@ -39,7 +39,6 @@ class Identity with EquatableMixin {
   @JsonKey(includeIfNull: false)
   final bool? mayDelete;
 
-
   Identity({
     this.id,
     this.description,
