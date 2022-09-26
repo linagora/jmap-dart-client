@@ -1,6 +1,5 @@
 import 'package:jmap_dart_client/http/converter/account_id_converter.dart';
 import 'package:jmap_dart_client/http/converter/id_converter.dart';
-import 'package:jmap_dart_client/http/converter/state_converter.dart';
 import 'package:jmap_dart_client/http/converter/state_nullable_converter.dart';
 import 'package:jmap_dart_client/jmap/account_id.dart';
 import 'package:jmap_dart_client/jmap/core/error/set_error.dart';
@@ -11,8 +10,8 @@ import 'package:jmap_dart_client/jmap/identities/identity.dart';
 
 class SetIdentityResponse extends SetResponse<Identity> {
   SetIdentityResponse(
-    AccountId accountId,
-    State newState, {
+    AccountId accountId, {
+      State? newState,
       State? oldState,
       Map<Id, Identity>? created,
       Map<Id, Identity?>? updated,
@@ -22,7 +21,7 @@ class SetIdentityResponse extends SetResponse<Identity> {
       Map<Id, SetError>? notDestroyed
   }) : super(
     accountId,
-    newState,
+    newState: newState,
     oldState: oldState,
     created: created,
     updated: updated,
@@ -35,7 +34,7 @@ class SetIdentityResponse extends SetResponse<Identity> {
   static SetIdentityResponse deserialize(Map<String, dynamic> json) {
     return SetIdentityResponse(
       const AccountIdConverter().fromJson(json['accountId'] as String),
-      const StateConverter().fromJson(json['newState'] as String),
+      newState: StateNullableConverter().fromJson(json['newState'] as String?),
       oldState: StateNullableConverter().fromJson(json['oldState'] as String?),
       created: (json['created'] as Map<String, dynamic>?)
         ?.map((key, value) => MapEntry(
