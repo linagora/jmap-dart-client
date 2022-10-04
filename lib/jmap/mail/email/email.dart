@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:jmap_dart_client/http/converter/email/email_body_value_converter.dart';
+import 'package:jmap_dart_client/http/converter/email/email_keyword_identifier_converter.dart';
 import 'package:jmap_dart_client/http/converter/email/email_mailbox_ids_converter.dart';
 import 'package:jmap_dart_client/http/converter/email_id_converter.dart';
 import 'package:jmap_dart_client/http/converter/id_nullable_converter.dart';
-import 'package:jmap_dart_client/http/converter/email/email_keyword_identifier_converter.dart';
 import 'package:jmap_dart_client/http/converter/individual_header_identifier_converter.dart';
 import 'package:jmap_dart_client/http/converter/message_ids_header_value_converter.dart';
 import 'package:jmap_dart_client/http/converter/thread_id_nullable_converter.dart';
@@ -171,6 +171,7 @@ class Email with EquatableMixin {
   List<Object?> get props => [
     id,
     subject,
+    mailboxIds,
     from,
     to,
     cc,
