@@ -6,14 +6,15 @@ part of 'mdn.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Mdn _$MdnFromJson(Map<String, dynamic> json) => Mdn(
-      disposition:
-          Disposition.fromJson(json['disposition'] as Map<String, dynamic>),
-      forEmailId:
-          const IdNullableConverter().fromJson(json['forEmailId'] as String?),
+MDN _$MDNFromJson(Map<String, dynamic> json) => MDN(
+      disposition: json['disposition'] == null
+          ? null
+          : Disposition.fromJson(json['disposition'] as Map<String, dynamic>),
+      forEmailId: const EmailIdNullableConverter()
+          .fromJson(json['forEmailId'] as String?),
       subject: json['subject'] as String?,
       textBody: json['textBody'] as String?,
-      includeOriginalMessage: json['includeOriginalMessage'] as bool? ?? false,
+      includeOriginalMessage: json['includeOriginalMessage'] as bool?,
       reportingUA: json['reportingUA'] as String?,
       mdnGateway: json['mdnGateway'] as String?,
       originalRecipient: json['originalRecipient'] as String?,
@@ -26,17 +27,27 @@ Mdn _$MdnFromJson(Map<String, dynamic> json) => Mdn(
       ),
     );
 
-Map<String, dynamic> _$MdnToJson(Mdn instance) => <String, dynamic>{
-      'forEmailId': const IdNullableConverter().toJson(instance.forEmailId),
-      'subject': instance.subject,
-      'textBody': instance.textBody,
-      'includeOriginalMessage': instance.includeOriginalMessage,
-      'reportingUA': instance.reportingUA,
-      'disposition': instance.disposition,
-      'mdnGateway': instance.mdnGateway,
-      'originalRecipient': instance.originalRecipient,
-      'finalRecipient': instance.finalRecipient,
-      'originalMessageId': instance.originalMessageId,
-      'error': instance.error,
-      'extensionFields': instance.extensionFields,
-    };
+Map<String, dynamic> _$MDNToJson(MDN instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('forEmailId',
+      const EmailIdNullableConverter().toJson(instance.forEmailId));
+  writeNotNull('subject', instance.subject);
+  writeNotNull('textBody', instance.textBody);
+  writeNotNull('includeOriginalMessage', instance.includeOriginalMessage);
+  writeNotNull('reportingUA', instance.reportingUA);
+  writeNotNull('disposition', instance.disposition?.toJson());
+  writeNotNull('mdnGateway', instance.mdnGateway);
+  writeNotNull('originalRecipient', instance.originalRecipient);
+  writeNotNull('finalRecipient', instance.finalRecipient);
+  writeNotNull('originalMessageId', instance.originalMessageId);
+  writeNotNull('error', instance.error);
+  writeNotNull('extensionFields', instance.extensionFields);
+  return val;
+}

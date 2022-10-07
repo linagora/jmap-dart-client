@@ -7,16 +7,16 @@ part of 'disposition.dart';
 // **************************************************************************
 
 Disposition _$DispositionFromJson(Map<String, dynamic> json) => Disposition(
-      actionMode: $enumDecode(_$ActionModeEnumMap, json['actionMode']),
-      sendingMode: $enumDecode(_$SendingModeEnumMap, json['sendingMode']),
-      type: $enumDecode(_$DispositionTypeEnumMap, json['type']),
+      $enumDecode(_$ActionModeEnumMap, json['actionMode']),
+      $enumDecode(_$SendingModeEnumMap, json['sendingMode']),
+      $enumDecode(_$DispositionTypeEnumMap, json['type']),
     );
 
 Map<String, dynamic> _$DispositionToJson(Disposition instance) =>
     <String, dynamic>{
-      'actionMode': instance.actionMode.value,
-      'sendingMode': instance.sendingMode.value,
-      'type': instance.type.name,
+      'actionMode': _$ActionModeEnumMap[instance.actionMode],
+      'sendingMode': _$SendingModeEnumMap[instance.sendingMode],
+      'type': _$DispositionTypeEnumMap[instance.type],
     };
 
 const _$ActionModeEnumMap = {
