@@ -261,5 +261,121 @@ void main() {
 
       expect(setEmailResponse!.created![Id('aa1234')], equals(expectedCreated));
     });
+
+    test('set email method and response parsing with header Mdn', () async {
+      final baseOption  = BaseOptions(method: 'POST');
+      final dio = Dio(baseOption)
+        ..options.baseUrl = 'http://domain.com/jmap';
+      final dioAdapter = DioAdapter(dio: dio);
+      dioAdapter.onPost(
+          '',
+          (server) => server.reply(200, {
+              "sessionState": "2c9f1b12-b35a-43e6-9af2-0106fb53a943",
+              "methodResponses": [
+                  [
+                      "Email/set",
+                      {
+                          "accountId": "587a9c5a4a9c0a4d36243b7417700d5383cbbfa25f0909ab7f6f4baaa5bf4e9b",
+                          "oldState": "24152b20-4ab0-11ed-88ee-ffc86e0cde67",
+                          "newState": "24152b20-4ab0-11ed-88ee-ffc86e0cde67",
+                          "created": {
+                              "e01": {
+                                  "id": "77664010-4ab1-11ed-88ee-ffc86e0cde67",
+                                  "blobId": "77664010-4ab1-11ed-88ee-ffc86e0cde67",
+                                  "threadId": "77664010-4ab1-11ed-88ee-ffc86e0cde67",
+                                  "size": 600
+                              }
+                          }
+                      },
+                      "c0"
+                  ]
+              ]
+          }),
+          data: {
+            "using": [
+              "urn:ietf:params:jmap:mail",
+              "urn:ietf:params:jmap:core"
+            ],
+            "methodCalls": [
+              [
+                "Email/set",
+                {
+                  "accountId":
+                      "587a9c5a4a9c0a4d36243b7417700d5383cbbfa25f0909ab7f6f4baaa5bf4e9b",
+                  "create": {
+                    "e01": {
+                      "id": "e102",
+                      "mailboxIds": {
+                        "a6f488c0-964b-11ec-83d6-c1ded34233a9": true
+                      },
+                      "subject": "[POSTMAN] SEND EMAIL WITH MDN MDN MDN",
+                      "from": [
+                        {
+                          "name": "qkdo@linagora.com",
+                          "email": "qkdo@linagora.com"
+                        }
+                      ],
+                      "htmlBody": [
+                        {"partId": "abc123", "type": "text/html"}
+                      ],
+                      "bodyValues": {
+                        "abc123": {
+                          "value": "[POSTMAN] SEND EMAIL WITH MDN",
+                          "isEncodingProblem": false,
+                          "isTruncated": false
+                        }
+                      },
+                      "header:Disposition-Notification-To:asText": "qkdo@linagora.com"
+                    }
+                  }
+                },
+                "c0"
+              ]
+            ]
+          },
+          headers: {
+            "accept": "application/json;jmapVersion=rfc-8621",
+            "content-type": "application/json; charset=utf-8",
+            "content-length": 617
+          }
+      );
+
+      final setEmailMethod = SetEmailMethod(AccountId(Id('587a9c5a4a9c0a4d36243b7417700d5383cbbfa25f0909ab7f6f4baaa5bf4e9b')))
+        ..addCreate(Id('e01'),
+            Email(
+              EmailId(Id('e102')),
+              mailboxIds: {
+                MailboxId(Id('a6f488c0-964b-11ec-83d6-c1ded34233a9')): true
+              },
+              from: {EmailAddress('qkdo@linagora.com', 'qkdo@linagora.com')},
+              subject: '[POSTMAN] SEND EMAIL WITH MDN MDN MDN',
+              htmlBody: {EmailBodyPart(partId: PartId('abc123'), type: MediaType.parse('text/html'))},
+              bodyValues: {
+                PartId('abc123'): EmailBodyValue('[POSTMAN] SEND EMAIL WITH MDN', false, false)
+              },
+              headerMdn: {IndividualHeaderIdentifier.headerMdn : "qkdo@linagora.com"}
+            )
+        );
+
+      final httpClient = HttpClient(dio);
+      final requestBuilder = JmapRequestBuilder(httpClient, ProcessingInvocation());
+      final setEmailInvocation = requestBuilder.invocation(setEmailMethod);
+      final response = await (requestBuilder..usings(setEmailMethod.requiredCapabilities))
+          .build()
+          .execute();
+
+      final setEmailResponse = response.parse<SetEmailResponse>(
+          setEmailInvocation.methodCallId,
+          SetEmailResponse.deserialize);
+
+      final expectedCreated1 = Email(
+        EmailId(Id("77664010-4ab1-11ed-88ee-ffc86e0cde67")),
+        blobId: Id("77664010-4ab1-11ed-88ee-ffc86e0cde67"),
+        threadId: ThreadId(Id("77664010-4ab1-11ed-88ee-ffc86e0cde67")),
+        size: UnsignedInt(600),
+      );
+
+      expect(setEmailResponse!.created![Id('e01')], equals(expectedCreated1));
+    });
   });
 }
