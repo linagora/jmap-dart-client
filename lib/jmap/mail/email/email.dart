@@ -55,6 +55,7 @@ class Email with EquatableMixin {
   final EmailBodyPart? bodyStructure;
   final Map<PartId, EmailBodyValue>? bodyValues;
   final Map<IndividualHeaderIdentifier, String?>? headerUserAgent;
+  final Map<IndividualHeaderIdentifier, String>? headerMdn;
 
   Email(
     this.id,
@@ -84,6 +85,7 @@ class Email with EquatableMixin {
     this.bodyStructure,
     this.bodyValues,
     this.headerUserAgent,
+    this.headerMdn,
   });
 
   factory Email.fromJson(Map<String, dynamic> json) {
@@ -124,6 +126,8 @@ class Email with EquatableMixin {
       bodyValues: (json['bodyValues'] as Map<String, dynamic>?)?.map((key, value) => EmailBodyValueConverter().parseEntry(key, value)),
       headerUserAgent: (json[IndividualHeaderIdentifier.headerUserAgent.value] as Map<String, dynamic>?)?.map((key, value) =>
           MapEntry(IndividualHeaderIdentifier(key), value as String?)),
+      headerMdn: (json[IndividualHeaderIdentifier.headerMdn.value] as Map<String, dynamic>?)?.map((key, value) => 
+          MapEntry(IndividualHeaderIdentifier(key), value as String)),
     );
   }
 
@@ -164,6 +168,7 @@ class Email with EquatableMixin {
     writeNotNull('bodyStructure', bodyStructure?.toJson());
     writeNotNull('bodyValues', bodyValues?.map((key, value) => EmailBodyValueConverter().toJson(key, value)));
     writeNotNull(IndividualHeaderIdentifier.headerUserAgent.value, IndividualHeaderIdentifierNullableConverter().toJson(headerUserAgent, IndividualHeaderIdentifier.headerUserAgent));
+    writeNotNull(IndividualHeaderIdentifier.headerMdn.value, IndividualHeaderIdentifierNullableConverter().toJson(headerMdn, IndividualHeaderIdentifier.headerMdn));
     return val;
   }
 
