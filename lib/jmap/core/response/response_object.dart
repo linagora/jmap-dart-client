@@ -67,8 +67,12 @@ class ResponseObject with EquatableMixin {
         return ServerUnavailableMethodResponse(description: description);
       } else if (errorType == ErrorMethodResponse.unknownMethod) {
         return UnknownMethodResponse(description: description);
-      } else {
+      } else if (errorType == ErrorMethodResponse.serverFail) {
         return ServerFailMethodResponse(description: description);
+      } else if (errorType == ErrorMethodResponse.cannotCalculateChanges) {
+        return CannotCalculateChangesMethodResponse(description: description);
+      } else {
+        return UndefinedErrorMethodResponse(errorType, description: description);
       }
     } catch (e) {
       developer.log("_parsingErrorMethodResponse(): Exception $e");

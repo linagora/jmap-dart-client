@@ -14,6 +14,7 @@ abstract class ErrorMethodResponse extends MethodResponse {
   static final accountNotFound = ErrorType("accountNotFound");
   static final accountNotSupportedByMethod = ErrorType("accountNotSupportedByMethod");
   static final accountReadOnly = ErrorType("accountReadOnly");
+  static final cannotCalculateChanges = ErrorType("cannotCalculateChanges");
 
   final ErrorType type;
   final String? description;
@@ -62,4 +63,20 @@ class AccountNotSupportedByMethod extends ErrorMethodResponse {
 
 class AccountReadOnly extends ErrorMethodResponse {
   AccountReadOnly({String? description}) : super(ErrorMethodResponse.accountReadOnly, description: description);
+}
+
+class CannotCalculateChangesMethodResponse extends ErrorMethodResponse {
+  CannotCalculateChangesMethodResponse({String? description}) : super(
+    ErrorMethodResponse.cannotCalculateChanges,
+    description: description);
+}
+
+class UndefinedErrorMethodResponse extends ErrorMethodResponse {
+  UndefinedErrorMethodResponse(
+    ErrorType errorType,
+    {String? description}
+  ) : super(
+    errorType,
+    description: description
+  );
 }
