@@ -8,6 +8,15 @@ part 'set_error.g.dart';
 @ErrorTypeConverter()
 @JsonSerializable(explicitToJson: true)
 class SetError with EquatableMixin {
+  static final forbidden = ErrorType("forbidden");
+  static final overQuota = ErrorType("overQuota");
+  static final tooLarge = ErrorType("tooLarge");
+  static final notFound = ErrorType("notFound");
+  static final invalidPatch = ErrorType("invalidPatch");
+  static final willDestroy = ErrorType("willDestroy");
+  static final invalidProperties = ErrorType("invalidProperties");
+  static final singleton = ErrorType("singleton");
+
   final ErrorType type;
   final String? description;
   final Set<String>? properties;
