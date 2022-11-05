@@ -29,4 +29,15 @@ class SetError with EquatableMixin {
   factory SetError.fromJson(Map<String, dynamic> json) => _$SetErrorFromJson(json);
 
   Map<String, dynamic> toJson() => _$SetErrorToJson(this);
+
+  Set<ErrorType> get errorTypesJMAPSupport => {
+    SetError.forbidden,
+    SetError.overQuota,
+    SetError.tooLarge,
+    SetError.notFound,
+    SetError.invalidPatch,
+    SetError.willDestroy,
+    SetError.invalidProperties,
+    SetError.singleton,
+  };
 }
