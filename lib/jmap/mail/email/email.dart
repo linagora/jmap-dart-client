@@ -32,7 +32,7 @@ class Email with EquatableMixin {
   final Id? blobId;
   final ThreadId? threadId;
   final Map<MailboxId, bool>? mailboxIds;
-  final Map<KeyWordIdentifier, bool>? keywords;
+  Map<KeyWordIdentifier, bool>? keywords;
   final UnsignedInt? size;
   final UTCDate? receivedAt;
   final Set<EmailHeader>? headers;
