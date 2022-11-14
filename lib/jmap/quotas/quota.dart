@@ -23,7 +23,7 @@ class Quota with EquatableMixin {
   final UnsignedInt limit;
   final Scope scope;
   final String name;
-  final List<DataType> datatypes;
+  final List<DataType> dataTypes;
 
   @JsonKey(includeIfNull: false)
   final UnsignedInt? warnLimit;
@@ -41,7 +41,7 @@ class Quota with EquatableMixin {
     this.limit,
     this.scope,
     this.name,
-    this.datatypes,
+    this.dataTypes,
     {
       this.warnLimit,
       this.softLimit,
@@ -61,7 +61,7 @@ class Quota with EquatableMixin {
     limit,
     scope,
     name,
-    datatypes,
+    dataTypes,
     warnLimit,
     softLimit,
     description

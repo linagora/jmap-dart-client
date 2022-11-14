@@ -60,7 +60,7 @@ void main() {
                     "limit": 50000,
                     "scope": "account",
                     "name": "tdvu@example.com",
-                    "datatypes" : ["Mail"]
+                    "dataTypes" : ["Mail"]
                   },
                   {
                     "id": "382312d0-fa5c-11eb-b647-2fef1ee876hd",
@@ -72,7 +72,7 @@ void main() {
                     "scope": "account",
                     "name": "datvu@example.com",
                     "description": "Personal account usage",
-                    "datatypes" : ["Mail", "Calendar", "Contact"]
+                    "dataTypes" : ["Mail", "Calendar", "Contact"]
                   }
                 ]
               },

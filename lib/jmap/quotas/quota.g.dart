@@ -13,7 +13,7 @@ Quota _$QuotaFromJson(Map<String, dynamic> json) => Quota(
       const UnsignedIntConverter().fromJson(json['limit'] as int),
       $enumDecode(_$ScopeEnumMap, json['scope']),
       json['name'] as String,
-      (json['datatypes'] as List<dynamic>)
+      (json['dataTypes'] as List<dynamic>)
           .map((e) => const DataTypeConverter().fromJson(e as String))
           .toList(),
       warnLimit: const UnsignedIntNullableConverter()
@@ -31,8 +31,8 @@ Map<String, dynamic> _$QuotaToJson(Quota instance) {
     'limit': const UnsignedIntConverter().toJson(instance.limit),
     'scope': _$ScopeEnumMap[instance.scope],
     'name': instance.name,
-    'datatypes':
-        instance.datatypes.map(const DataTypeConverter().toJson).toList(),
+    'dataTypes':
+        instance.dataTypes.map(const DataTypeConverter().toJson).toList(),
   };
 
   void writeNotNull(String key, dynamic value) {
