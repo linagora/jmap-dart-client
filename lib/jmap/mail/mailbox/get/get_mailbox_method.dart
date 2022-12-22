@@ -26,6 +26,12 @@ class GetMailboxMethod extends GetMethod {
     CapabilityIdentifier.jmapMail
   };
 
+  Set<CapabilityIdentifier> get requiredCapabilitiesSupportTeamMailboxes => {
+    CapabilityIdentifier.jmapCore,
+    CapabilityIdentifier.jmapMail,
+    CapabilityIdentifier.jmapTeamMailboxes
+  };
+
   @override
   List<Object?> get props => [methodName, accountId, ids, properties, requiredCapabilities];
 
