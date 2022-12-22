@@ -26,6 +26,12 @@ Mailbox _$MailboxFromJson(Map<String, dynamic> json) => Mailbox(
           : MailboxRights.fromJson(json['myRights'] as Map<String, dynamic>),
       isSubscribed:
           const IsSubscribedConverter().fromJson(json['isSubscribed'] as bool?),
+      namespace: const NamespaceNullableConverter()
+          .fromJson(json['namespace'] as String?),
+      rights: (json['rights'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(
+            k, (e as List<dynamic>?)?.map((e) => e as String).toList()),
+      ),
     );
 
 Map<String, dynamic> _$MailboxToJson(Mailbox instance) {
@@ -55,5 +61,8 @@ Map<String, dynamic> _$MailboxToJson(Mailbox instance) {
   writeNotNull('myRights', instance.myRights);
   writeNotNull('isSubscribed',
       const IsSubscribedConverter().toJson(instance.isSubscribed));
+  writeNotNull('namespace',
+      const NamespaceNullableConverter().toJson(instance.namespace));
+  writeNotNull('rights', instance.rights);
   return val;
 }
