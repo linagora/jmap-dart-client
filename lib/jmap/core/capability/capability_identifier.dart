@@ -8,6 +8,7 @@ class CapabilityIdentifier with EquatableMixin {
   static final jmapWebSocket = CapabilityIdentifier(Uri.parse('urn:ietf:params:jmap:websocket'));
   static final jmapMdn = CapabilityIdentifier(Uri.parse('urn:ietf:params:jmap:mdn'));
   static final jmapQuota = CapabilityIdentifier(Uri.parse('urn:ietf:params:jmap:quota'));
+  static final jmapTeamMailboxes = CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares'));
 
   final Uri value;
 
