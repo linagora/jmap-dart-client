@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:jmap_dart_client/http/converter/is_subscribed_converter.dart';
 import 'package:jmap_dart_client/http/converter/mailbox_id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/mailbox_name_converter.dart';
+import 'package:jmap_dart_client/http/converter/namespace_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/role_converter.dart';
 import 'package:jmap_dart_client/http/converter/sort_order_converter.dart';
 import 'package:jmap_dart_client/http/converter/total_email_converter.dart';
@@ -12,10 +13,12 @@ import 'package:jmap_dart_client/jmap/core/id.dart';
 import 'package:jmap_dart_client/jmap/core/properties/properties.dart';
 import 'package:jmap_dart_client/jmap/core/unsigned_int.dart';
 import 'package:jmap_dart_client/jmap/mail/mailbox/mailbox_rights.dart';
+import 'package:jmap_dart_client/jmap/mail/mailbox/namespace.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'mailbox.g.dart';
 
+@NamespaceNullableConverter()
 @IsSubscribedConverter()
 @UnreadThreadsConverter()
 @UnreadEmailsConverter()
@@ -65,6 +68,12 @@ class Mailbox with EquatableMixin {
   @JsonKey(includeIfNull: false)
   final IsSubscribed? isSubscribed;
 
+  @JsonKey(includeIfNull: false)
+  final Namespace? namespace;
+
+  @JsonKey(includeIfNull: false)
+  final Map<String, List<String>?>? rights;
+
   Mailbox({
     this.id,
     this.name,
@@ -76,7 +85,9 @@ class Mailbox with EquatableMixin {
     this.totalThreads,
     this.unreadThreads,
     this.myRights,
-    this.isSubscribed
+    this.isSubscribed,
+    this.namespace,
+    this.rights
   });
 
   factory Mailbox.fromJson(Map<String, dynamic> json) => _$MailboxFromJson(json);
