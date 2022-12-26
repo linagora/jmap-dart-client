@@ -1,12 +1,15 @@
 import 'package:equatable/equatable.dart';
 import 'package:jmap_dart_client/http/converter/identities/identity_id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/identities/signature_nullable_converter.dart';
+import 'package:jmap_dart_client/http/converter/unsigned_int_nullable_converter.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
+import 'package:jmap_dart_client/jmap/core/unsigned_int.dart';
 import 'package:jmap_dart_client/jmap/mail/email/email_address.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'identity.g.dart';
 
+@UnsignedIntNullableConverter()
 @IdentityIdNullableConverter()
 @SignatureNullableConverter()
 @JsonSerializable()
@@ -39,6 +42,9 @@ class Identity with EquatableMixin {
   @JsonKey(includeIfNull: false)
   final bool? mayDelete;
 
+  @JsonKey(includeIfNull: false)
+  final UnsignedInt? sortOrder;
+
   Identity({
     this.id,
     this.description,
@@ -48,7 +54,8 @@ class Identity with EquatableMixin {
     this.replyTo,
     this.textSignature,
     this.htmlSignature,
-    this.mayDelete
+    this.mayDelete,
+    this.sortOrder
   });
 
   factory Identity.fromJson(Map<String, dynamic> json) => _$IdentityFromJson(json);
