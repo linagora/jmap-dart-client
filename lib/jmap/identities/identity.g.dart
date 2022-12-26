@@ -22,6 +22,8 @@ Identity _$IdentityFromJson(Map<String, dynamic> json) => Identity(
       htmlSignature: const SignatureNullableConverter()
           .fromJson(json['htmlSignature'] as String?),
       mayDelete: json['mayDelete'] as bool?,
+      sortOrder: const UnsignedIntNullableConverter()
+          .fromJson(json['sortOrder'] as int?),
     );
 
 Map<String, dynamic> _$IdentityToJson(Identity instance) {
@@ -44,5 +46,7 @@ Map<String, dynamic> _$IdentityToJson(Identity instance) {
   writeNotNull('htmlSignature',
       const SignatureNullableConverter().toJson(instance.htmlSignature));
   writeNotNull('mayDelete', instance.mayDelete);
+  writeNotNull('sortOrder',
+      const UnsignedIntNullableConverter().toJson(instance.sortOrder));
   return val;
 }
