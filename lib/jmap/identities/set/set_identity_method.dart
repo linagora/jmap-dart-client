@@ -19,6 +19,12 @@ class SetIdentityMethod extends SetMethod<Identity> {
     CapabilityIdentifier.jmapSubmission
   };
 
+  Set<CapabilityIdentifier> get requiredCapabilitiesSupportSortOrder => {
+    CapabilityIdentifier.jmapCore,
+    CapabilityIdentifier.jmapSubmission,
+    CapabilityIdentifier.jamesSortOrder
+  };
+
   @override
   Map<String, dynamic> toJson() {
     final val = <String, dynamic>{

@@ -26,6 +26,12 @@ class GetIdentityMethod extends GetMethod {
     CapabilityIdentifier.jmapSubmission
   };
 
+  Set<CapabilityIdentifier> get requiredCapabilitiesSupportSortOrder => {
+    CapabilityIdentifier.jmapCore,
+    CapabilityIdentifier.jmapSubmission,
+    CapabilityIdentifier.jamesSortOrder
+  };
+
   @override
   List<Object?> get props => [methodName, accountId, ids, properties, requiredCapabilities];
 
