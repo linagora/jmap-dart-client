@@ -72,7 +72,8 @@ class Identity with EquatableMixin {
     replyTo,
     textSignature,
     htmlSignature,
-    mayDelete
+    mayDelete,
+    sortOrder
   ];
 }
 
