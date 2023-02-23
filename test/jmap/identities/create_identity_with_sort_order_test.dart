@@ -107,7 +107,7 @@ void main() {
       id: IdentityId(Id('5ccf6d7b-77e8-467a-9064-9f7ccfb19e12')),
       sortOrder: UnsignedInt(1),
     );
-    
+
     test('test increase of old default identity request and create new identity request', () async {
       final baseOption  = BaseOptions(method: 'POST');
       final dio = Dio(baseOption)
