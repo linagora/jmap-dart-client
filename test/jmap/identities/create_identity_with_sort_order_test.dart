@@ -71,8 +71,7 @@ void main() {
         },
         headers: {
           "accept": "application/json;jmapVersion=rfc-8621",
-          "content-type": "application/json; charset=utf-8",
-          "content-length": 577
+          "content-length": 949
         }
       );
 
@@ -108,12 +107,7 @@ void main() {
       id: IdentityId(Id('5ccf6d7b-77e8-467a-9064-9f7ccfb19e12')),
       sortOrder: UnsignedInt(1),
     );
-
-    final updatedIdentity = Identity(
-      id: IdentityId(Id('5ccf6d7b-77e8-467a-9064-9f7cc1234512')),
-      sortOrder: UnsignedInt(99),
-    );
-
+    
     test('test increase of old default identity request and create new identity request', () async {
       final baseOption  = BaseOptions(method: 'POST');
       final dio = Dio(baseOption)
@@ -174,8 +168,7 @@ void main() {
         },
         headers: {
           "accept": "application/json;jmapVersion=rfc-8621",
-          "content-type": "application/json; charset=utf-8",
-          "content-length": 438
+          "content-length": 728
         }
       );
 

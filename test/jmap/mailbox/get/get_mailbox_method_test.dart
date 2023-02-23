@@ -147,8 +147,7 @@ void main() {
         },
         headers: {
           "accept": "application/json;jmapVersion=rfc-8621",
-          "content-type": "application/json; charset=utf-8",
-          "content-length": 228
+          "content-length": 299
         }
       );
 
@@ -233,8 +232,7 @@ void main() {
         },
         headers: {
           "accept": "application/json;jmapVersion=rfc-8621",
-          "content-type": "application/json; charset=utf-8",
-          "content-length": 185
+          "content-length": 240
         }
       );
 
