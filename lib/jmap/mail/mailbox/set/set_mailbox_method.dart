@@ -20,6 +20,12 @@ class SetMailboxMethod extends SetMethod<Mailbox> with OptionalOnDestroyRemoveEm
     CapabilityIdentifier.jmapCore
   };
 
+  Set<CapabilityIdentifier> get requiredCapabilitiesSupportTeamMailboxes => {
+    CapabilityIdentifier.jmapMail,
+    CapabilityIdentifier.jmapCore,
+    CapabilityIdentifier.jmapTeamMailboxes
+  };
+
   @override
   Map<String, dynamic> toJson() {
     final val = <String, dynamic>{
