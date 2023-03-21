@@ -24,13 +24,13 @@ void main() {
   group('[Email/changes]', () {
 
     final expectMail1 = Email(
-      EmailId(Id("a59d5ca0-258e-11ec-a759-2fef1ee78d9e")),
+      id: EmailId(Id("a59d5ca0-258e-11ec-a759-2fef1ee78d9e")),
       mailboxIds: { MailboxId(Id('aba7e8d0-18d9-11eb-a677-2990b970028d')): true },
       keywords: { KeyWordIdentifier.emailSeen: true}
     );
 
     final expectMail2 = Email(
-        EmailId(Id("a59d5ca0-258e-11ec-a759-2fef1ee78d9e")),
+        id: EmailId(Id("a59d5ca0-258e-11ec-a759-2fef1ee78d9e")),
         preview: "This event is about to begin test TimeTuesday 29 September 2020 06:00 - 06:30 Europe/Paris (See in Calendar)Location1 thai ha (See in Map)Attendees - User A <usera@qa.open-paas.org> (Organizer) -  <userb@qa.open-paas.org> Resourcesnew directoryNotesaaaa *#",
         hasAttachment: false,
         size: UnsignedInt(24946),
@@ -43,7 +43,7 @@ void main() {
     );
 
     final expectMail3 = Email(
-        EmailId(Id("54fa3000-2595-11ec-a759-2fef1ee78d9e")),
+        id: EmailId(Id("54fa3000-2595-11ec-a759-2fef1ee78d9e")),
         preview: "This event is about to begin A - show datetime1 TimeTuesday 15 September 2020 07:03 - 07:33 Europe/Paris (See in Calendar)Location1 thai ha1 (See in Map)Attendees - User A <usera@qa.open-paas.org> (Organizer) - Thanh Loan LE <tlle@linagora.com> - User C <u",
         hasAttachment: false,
         size: UnsignedInt(24857),
