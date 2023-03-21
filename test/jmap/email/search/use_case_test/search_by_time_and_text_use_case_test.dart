@@ -21,7 +21,8 @@ import 'package:jmap_dart_client/jmap/mail/email/get/get_email_response.dart';
 import 'package:jmap_dart_client/jmap/mail/email/query/query_email_method.dart';
 
 void main() {
-  final expectMail = Email(EmailId(Id("04f27c50-e879-11ec-aae4-43ebf0340ebd")),
+  final expectMail = Email(
+      id: EmailId(Id("04f27c50-e879-11ec-aae4-43ebf0340ebd")),
       preview: "AAAA",
       hasAttachment: false,
       subject: "AAAA",

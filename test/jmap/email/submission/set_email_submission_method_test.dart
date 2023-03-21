@@ -28,7 +28,7 @@ import 'package:jmap_dart_client/jmap/mail/mailbox/mailbox.dart';
 void main() {
   group('test to json set email submission method', () {
     final expectedCreated = Email(
-        EmailId(Id('64469f10-8e15-11ec-984e-e3f8b83572b4')),
+        id: EmailId(Id('64469f10-8e15-11ec-984e-e3f8b83572b4')),
         blobId: Id('64469f10-8e15-11ec-984e-e3f8b83572b4'),
         threadId: ThreadId(Id('64469f10-8e15-11ec-984e-e3f8b83572b4')),
         size: UnsignedInt(742)
@@ -165,7 +165,7 @@ void main() {
       final setEmailMethod = SetEmailMethod(AccountId(Id('3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12')))
         ..addCreate(Id('dab1234'),
             Email(
-              EmailId(Id('dab1234')),
+              id: EmailId(Id('dab1234')),
               mailboxIds: {MailboxId(Id('5dfb3290-0a14-11ec-b57c-2fef1ee78d9e')): true},
               subject: 'test send email',
               from: {EmailAddress("userB", 'userb@qa.open-paas.org')},
@@ -354,7 +354,7 @@ void main() {
       final setEmailMethod = SetEmailMethod(AccountId(Id('3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12')))
         ..addCreate(Id('dab1234'),
             Email(
-                EmailId(Id('dab1234')),
+                id: EmailId(Id('dab1234')),
                 mailboxIds: {MailboxId(Id('5dfb3290-0a14-11ec-b57c-2fef1ee78d9e')): true},
                 subject: 'test send email',
                 from: {EmailAddress("userB", 'userb@qa.open-paas.org')},

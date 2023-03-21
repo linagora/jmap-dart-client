@@ -20,7 +20,7 @@ import 'package:jmap_dart_client/jmap/mail/mailbox/mailbox.dart';
 void main() {
   group('test to json set email method', () {
     final expectedCreated = Email(
-      EmailId(Id('29a7f870-0596-11ec-b153-2fef1ee78d9e')),
+      id: EmailId(Id('29a7f870-0596-11ec-b153-2fef1ee78d9e')),
       blobId: Id('29a7f870-0596-11ec-b153-2fef1ee78d9e'),
       threadId: ThreadId(Id('29a7f870-0596-11ec-b153-2fef1ee78d9e')),
       size: UnsignedInt(657)
@@ -110,7 +110,7 @@ void main() {
       final setEmailMethod = SetEmailMethod(AccountId(Id('3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12')))
         ..addCreate(Id('aa1234'),
           Email(
-            EmailId(Id('ea12345')),
+            id: EmailId(Id('ea12345')),
             mailboxIds: {
               MailboxId(Id('fe00a5c0-0584-11ec-b153-2fef1ee78d9e')): true
             },
@@ -228,7 +228,7 @@ void main() {
       final setEmailMethod = SetEmailMethod(AccountId(Id('3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12')))
         ..addCreate(Id('aa1234'),
             Email(
-              EmailId(Id('ea12345')),
+              id: EmailId(Id('ea12345')),
               mailboxIds: {
                 MailboxId(Id('fe00a5c0-0584-11ec-b153-2fef1ee78d9e')): true
               },
@@ -342,7 +342,7 @@ void main() {
       final setEmailMethod = SetEmailMethod(AccountId(Id('587a9c5a4a9c0a4d36243b7417700d5383cbbfa25f0909ab7f6f4baaa5bf4e9b')))
         ..addCreate(Id('e01'),
             Email(
-              EmailId(Id('e102')),
+              id: EmailId(Id('e102')),
               mailboxIds: {
                 MailboxId(Id('a6f488c0-964b-11ec-83d6-c1ded34233a9')): true
               },
@@ -368,7 +368,7 @@ void main() {
           SetEmailResponse.deserialize);
 
       final expectedCreated1 = Email(
-        EmailId(Id("77664010-4ab1-11ed-88ee-ffc86e0cde67")),
+        id: EmailId(Id("77664010-4ab1-11ed-88ee-ffc86e0cde67")),
         blobId: Id("77664010-4ab1-11ed-88ee-ffc86e0cde67"),
         threadId: ThreadId(Id("77664010-4ab1-11ed-88ee-ffc86e0cde67")),
         size: UnsignedInt(600),

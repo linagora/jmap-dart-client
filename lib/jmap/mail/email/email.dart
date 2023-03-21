@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:jmap_dart_client/http/converter/email/email_body_value_converter.dart';
 import 'package:jmap_dart_client/http/converter/email/email_keyword_identifier_converter.dart';
 import 'package:jmap_dart_client/http/converter/email/email_mailbox_ids_converter.dart';
-import 'package:jmap_dart_client/http/converter/email_id_converter.dart';
+import 'package:jmap_dart_client/http/converter/email_id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/individual_header_identifier_converter.dart';
 import 'package:jmap_dart_client/http/converter/message_ids_header_value_converter.dart';
@@ -28,7 +28,7 @@ class Email with EquatableMixin {
     'sentAt', 'replyTo', 'preview', 'hasAttachment'
   });
 
-  final EmailId id;
+  final EmailId? id;
   final Id? blobId;
   final ThreadId? threadId;
   final Map<MailboxId, bool>? mailboxIds;
@@ -57,9 +57,9 @@ class Email with EquatableMixin {
   final Map<IndividualHeaderIdentifier, String?>? headerUserAgent;
   final Map<IndividualHeaderIdentifier, String>? headerMdn;
 
-  Email(
+  Email({
     this.id,
-    {this.blobId,
+    this.blobId,
     this.threadId,
     this.mailboxIds,
     this.keywords,
@@ -90,7 +90,7 @@ class Email with EquatableMixin {
 
   factory Email.fromJson(Map<String, dynamic> json) {
     return Email(
-      const EmailIdConverter().fromJson(json['id'] as String),
+      id: const EmailIdNullableConverter().fromJson(json['id'] as String),
       blobId: const IdNullableConverter().fromJson(json['blobId'] as String?),
       threadId: const ThreadIdNullableConverter().fromJson(json['threadId'] as String?),
       mailboxIds: (json['mailboxIds'] as Map<String, dynamic>?)?.map((key, value) => EmailMailboxIdsConverter().parseEntry(key, value)),
@@ -132,9 +132,7 @@ class Email with EquatableMixin {
   }
 
   Map<String, dynamic> toJson() {
-    final val = <String, dynamic>{
-      'id': const EmailIdConverter().toJson(id),
-    };
+    final val = <String, dynamic>{};
 
     void writeNotNull(String key, dynamic value) {
       if (value != null) {
@@ -142,6 +140,7 @@ class Email with EquatableMixin {
       }
     }
 
+    writeNotNull('id', const EmailIdNullableConverter().toJson(id));
     writeNotNull('blobId', const IdNullableConverter().toJson(blobId));
     writeNotNull('threadId', const ThreadIdNullableConverter().toJson(threadId));
     writeNotNull('mailboxIds', mailboxIds?.map((key, value) => EmailMailboxIdsConverter().toJson(key, value)));

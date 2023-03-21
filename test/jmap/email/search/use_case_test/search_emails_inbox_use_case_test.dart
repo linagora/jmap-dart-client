@@ -22,7 +22,8 @@ import 'package:jmap_dart_client/jmap/mail/email/query/query_email_method.dart';
 import 'package:jmap_dart_client/jmap/mail/mailbox/mailbox.dart';
 
 void main() {
-  final expectMail1 = Email(EmailId(Id("5baf2a10-3f4d-11eb-b3ca-69d8f333e2f2")),
+  final expectMail1 = Email(
+      id: EmailId(Id("5baf2a10-3f4d-11eb-b3ca-69d8f333e2f2")),
       preview:
           "DJ REPEAT:Ercot Sees 56,373 MW Summer Peak,2% Below '00 Peak DJ Ercot: New Units Will Boost Supply to 65,064 MW DJ Ercot: 21% Summer Reserve If Normal Weather DJ Ercot Summer -2: New 345-Kv Line To Relieve Congestion By Eileen O'Grady Of DOW JONES NEWSWIRE",
       hasAttachment: false,
@@ -41,7 +42,8 @@ void main() {
         "2020-12-16T03:18:24Z",
       )));
 
-  final expectMail2 = Email(EmailId(Id("2ef049e0-3f5d-11eb-bf20-f1a8da6866c8")),
+  final expectMail2 = Email(
+      id: EmailId(Id("2ef049e0-3f5d-11eb-bf20-f1a8da6866c8")),
       preview:
           "---------------------- Forwarded by Lorna Brennan/ET&S/Enron on 12/18/2000 10:59 AM --------------------------- \"Webmaster@cera.com\" <webmaster on 12/15/2000 06:15:19 PM To: cc: Subject: STRATOSPHERIC LEVELS -- CERA Monthly Briefing Title: Into the Stratos",
       hasAttachment: false,
@@ -54,7 +56,8 @@ void main() {
         "2020-12-16T05:11:41Z",
       )));
 
-  final expectMail3 = Email(EmailId(Id("2ef049e0-3f5d-11eb-bf20-f1a8da6866c8")),
+  final expectMail3 = Email(
+      id: EmailId(Id("2ef049e0-3f5d-11eb-bf20-f1a8da6866c8")),
       preview:
           "---------------------- Forwarded by Lorna Brennan/ET&S/Enron on 12/18/2000 10:59 AM --------------------------- \"Webmaster@cera.com\" <webmaster on 12/15/2000 06:15:19 PM To: cc: Subject: STRATOSPHERIC LEVELS -- CERA Monthly Briefing Title: Into the Stratos",
       hasAttachment: false,
