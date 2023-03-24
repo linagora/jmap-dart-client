@@ -6,38 +6,59 @@ part of 'core_capability.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-CoreCapability _$CoreCapabilityFromJson(Map<String, dynamic> json) {
-  return CoreCapability(
-    const UnsignedIntConverter().fromJson(json['maxSizeUpload'] as int),
-    const UnsignedIntConverter().fromJson(json['maxConcurrentUpload'] as int),
-    const UnsignedIntConverter().fromJson(json['maxSizeRequest'] as int),
-    const UnsignedIntConverter().fromJson(json['maxConcurrentRequests'] as int),
-    const UnsignedIntConverter().fromJson(json['maxCallsInRequest'] as int),
-    const UnsignedIntConverter().fromJson(json['maxObjectsInGet'] as int),
-    const UnsignedIntConverter().fromJson(json['maxObjectsInSet'] as int),
-    (json['collationAlgorithms'] as List<dynamic>)
-        .map((e) => const CollationIdentifierConverter().fromJson(e as String))
-        .toSet(),
-  );
-}
+CoreCapability _$CoreCapabilityFromJson(Map<String, dynamic> json) =>
+    CoreCapability(
+      maxSizeUpload: const UnsignedIntNullableConverter()
+          .fromJson(json['maxSizeUpload'] as int?),
+      maxConcurrentUpload: const UnsignedIntNullableConverter()
+          .fromJson(json['maxConcurrentUpload'] as int?),
+      maxSizeRequest: const UnsignedIntNullableConverter()
+          .fromJson(json['maxSizeRequest'] as int?),
+      maxConcurrentRequests: const UnsignedIntNullableConverter()
+          .fromJson(json['maxConcurrentRequests'] as int?),
+      maxCallsInRequest: const UnsignedIntNullableConverter()
+          .fromJson(json['maxCallsInRequest'] as int?),
+      maxObjectsInGet: const UnsignedIntNullableConverter()
+          .fromJson(json['maxObjectsInGet'] as int?),
+      maxObjectsInSet: const UnsignedIntNullableConverter()
+          .fromJson(json['maxObjectsInSet'] as int?),
+      collationAlgorithms: (json['collationAlgorithms'] as List<dynamic>?)
+          ?.map(
+              (e) => const CollationIdentifierConverter().fromJson(e as String))
+          .toSet(),
+    );
 
-Map<String, dynamic> _$CoreCapabilityToJson(CoreCapability instance) =>
-    <String, dynamic>{
-      'maxSizeUpload':
-          const UnsignedIntConverter().toJson(instance.maxSizeUpload),
-      'maxConcurrentUpload':
-          const UnsignedIntConverter().toJson(instance.maxConcurrentUpload),
-      'maxSizeRequest':
-          const UnsignedIntConverter().toJson(instance.maxSizeRequest),
-      'maxConcurrentRequests':
-          const UnsignedIntConverter().toJson(instance.maxConcurrentRequests),
-      'maxCallsInRequest':
-          const UnsignedIntConverter().toJson(instance.maxCallsInRequest),
-      'maxObjectsInGet':
-          const UnsignedIntConverter().toJson(instance.maxObjectsInGet),
-      'maxObjectsInSet':
-          const UnsignedIntConverter().toJson(instance.maxObjectsInSet),
-      'collationAlgorithms': instance.collationAlgorithms
-          .map(const CollationIdentifierConverter().toJson)
-          .toList(),
-    };
+Map<String, dynamic> _$CoreCapabilityToJson(CoreCapability instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('maxSizeUpload',
+      const UnsignedIntNullableConverter().toJson(instance.maxSizeUpload));
+  writeNotNull(
+      'maxConcurrentUpload',
+      const UnsignedIntNullableConverter()
+          .toJson(instance.maxConcurrentUpload));
+  writeNotNull('maxSizeRequest',
+      const UnsignedIntNullableConverter().toJson(instance.maxSizeRequest));
+  writeNotNull(
+      'maxConcurrentRequests',
+      const UnsignedIntNullableConverter()
+          .toJson(instance.maxConcurrentRequests));
+  writeNotNull('maxCallsInRequest',
+      const UnsignedIntNullableConverter().toJson(instance.maxCallsInRequest));
+  writeNotNull('maxObjectsInGet',
+      const UnsignedIntNullableConverter().toJson(instance.maxObjectsInGet));
+  writeNotNull('maxObjectsInSet',
+      const UnsignedIntNullableConverter().toJson(instance.maxObjectsInSet));
+  writeNotNull(
+      'collationAlgorithms',
+      instance.collationAlgorithms
+          ?.map(const CollationIdentifierConverter().toJson)
+          .toList());
+  return val;
+}

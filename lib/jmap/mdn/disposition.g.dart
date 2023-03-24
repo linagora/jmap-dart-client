@@ -14,9 +14,9 @@ Disposition _$DispositionFromJson(Map<String, dynamic> json) => Disposition(
 
 Map<String, dynamic> _$DispositionToJson(Disposition instance) =>
     <String, dynamic>{
-      'actionMode': _$ActionModeEnumMap[instance.actionMode],
-      'sendingMode': _$SendingModeEnumMap[instance.sendingMode],
-      'type': _$DispositionTypeEnumMap[instance.type],
+      'actionMode': _$ActionModeEnumMap[instance.actionMode]!,
+      'sendingMode': _$SendingModeEnumMap[instance.sendingMode]!,
+      'type': _$DispositionTypeEnumMap[instance.type]!,
     };
 
 const _$ActionModeEnumMap = {

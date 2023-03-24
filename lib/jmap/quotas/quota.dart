@@ -2,7 +2,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:jmap_dart_client/http/converter/id_converter.dart';
 import 'package:jmap_dart_client/http/converter/quotas/data_type_converter.dart';
-import 'package:jmap_dart_client/http/converter/unsigned_int_converter.dart';
 import 'package:jmap_dart_client/http/converter/unsigned_int_nullable_converter.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
 import 'package:jmap_dart_client/jmap/core/unsigned_int.dart';
@@ -13,14 +12,13 @@ part 'quota.g.dart';
 
 @DataTypeConverter()
 @IdConverter()
-@UnsignedIntConverter()
 @UnsignedIntNullableConverter()
 @JsonSerializable(explicitToJson: true)
 class Quota with EquatableMixin {
   final Id id;
   final ResourceType resourceType;
-  final UnsignedInt used;
-  final UnsignedInt limit;
+  final UnsignedInt? used;
+  final UnsignedInt? limit;
   final Scope scope;
   final String name;
   final List<DataType> dataTypes;
