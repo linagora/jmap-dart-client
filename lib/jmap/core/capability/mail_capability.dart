@@ -13,16 +13,20 @@ class MailCapability extends CapabilityProperties with EquatableMixin {
   final UnsignedInt? maxMailboxesPerEmail;
   final UnsignedInt? maxMailboxDepth;
   final UnsignedInt? maxSizeMailboxName;
+  final UnsignedInt? maxKeywordsPerEmail;
   final UnsignedInt? maxSizeAttachmentsPerEmail;
   final Set<String>? emailQuerySortOptions;
+  final Set<String>? emailsListSortOptions;
   final bool? mayCreateTopLevelMailbox;
 
   MailCapability({
     this.maxMailboxesPerEmail,
     this.maxMailboxDepth,
     this.maxSizeMailboxName,
+    this.maxKeywordsPerEmail,
     this.maxSizeAttachmentsPerEmail,
     this.emailQuerySortOptions,
+    this.emailsListSortOptions,
     this.mayCreateTopLevelMailbox,
   });
 
@@ -39,8 +43,10 @@ class MailCapability extends CapabilityProperties with EquatableMixin {
     maxMailboxesPerEmail,
     maxMailboxDepth,
     maxSizeMailboxName,
+    maxKeywordsPerEmail,
     maxSizeAttachmentsPerEmail,
     emailQuerySortOptions,
+    emailsListSortOptions,
     mayCreateTopLevelMailbox
   ];
 }
