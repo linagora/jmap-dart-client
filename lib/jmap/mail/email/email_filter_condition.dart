@@ -1,4 +1,3 @@
-import 'package:jmap_dart_client/http/converter/mailbox_id_converter.dart';
 import 'package:jmap_dart_client/http/converter/mailbox_id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/unsigned_int_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/utc_date_nullable_converter.dart';
@@ -13,14 +12,13 @@ part 'email_filter_condition.g.dart';
 @UTCDateNullableConverter()
 @UnsignedIntNullableConverter()
 @MailboxIdNullableConverter()
-@MailboxIdConverter()
 @JsonSerializable()
 class EmailFilterCondition extends FilterCondition {
 
   @JsonKey(includeIfNull: false)
   final MailboxId? inMailbox;
   @JsonKey(includeIfNull: false)
-  final Set<MailboxId>? inMailboxOtherThan;
+  final Set<MailboxId?>? inMailboxOtherThan;
   @JsonKey(includeIfNull: false)
   final UTCDate? before;
   @JsonKey(includeIfNull: false)

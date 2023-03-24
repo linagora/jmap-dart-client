@@ -6,9 +6,8 @@ part of 'vacation_capability.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-VacationCapability _$VacationCapabilityFromJson(Map<String, dynamic> json) {
-  return VacationCapability();
-}
+VacationCapability _$VacationCapabilityFromJson(Map<String, dynamic> json) =>
+    VacationCapability();
 
 Map<String, dynamic> _$VacationCapabilityToJson(VacationCapability instance) =>
     <String, dynamic>{};

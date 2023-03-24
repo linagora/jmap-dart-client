@@ -1,4 +1,3 @@
-import 'package:jmap_dart_client/http/converter/mailbox_id_converter.dart';
 import 'package:jmap_dart_client/http/converter/mailbox_id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/mailbox_name_converter.dart';
 import 'package:jmap_dart_client/http/converter/role_converter.dart';
@@ -12,7 +11,6 @@ part 'mailbox_filter_condition.g.dart';
 @MailboxNameConverter()
 @JsonSerializable()
 @MailboxIdNullableConverter()
-@MailboxIdConverter()
 class MailboxFilterCondition extends FilterCondition {
 
   @JsonKey(includeIfNull: false)
