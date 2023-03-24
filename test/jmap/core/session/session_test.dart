@@ -1147,4 +1147,263 @@ void main() {
       expect(parsedSession, equals(expectedSession));
     });
   });
+
+  group('get session for CYRUS server', () {
+    test('get should parsing correctly session', () {
+      final sessionString = '''
+      {
+        "username": "example",
+        "apiUrl": "/jmap/",
+        "downloadUrl": "/jmap/download/{accountId}/{blobId}/{name}?accept={type}",
+        "uploadUrl": "/jmap/upload/{accountId}/",
+        "eventSourceUrl": "/jmap/eventsource/?types={types}&closeafter={closeafter}&ping={ping}",
+        "state": "0",
+        "capabilities": {
+          "urn:ietf:params:jmap:core": {
+            "maxSizeUpload": 1073741824,
+            "maxConcurrentUpload": 5,
+            "maxSizeRequest": 10485760,
+            "maxConcurrentRequests": 5,
+            "maxCallsInRequest": 50,
+            "maxObjectsInGet": 4096,
+            "maxObjectsInSet": 4096,
+            "collationAlgorithms": []
+          },
+          "urn:ietf:params:jmap:mail": {},
+          "urn:ietf:params:jmap:submission": {},
+          "urn:ietf:params:jmap:vacationresponse": {},
+          "urn:ietf:params:jmap:mdn": {},
+          "https://cyrusimap.org/ns/jmap/sieve": {}
+        },
+        "accounts": {
+          "example": {
+            "name": "example",
+            "isPrimary": true,
+            "isPersonal": true,
+            "isReadOnly": false,
+            "accountCapabilities": {
+              "urn:ietf:params:jmap:core": {},
+              "urn:ietf:params:jmap:mail": {
+                "maxMailboxesPerEmail": 20,
+                "maxKeywordsPerEmail": 100,
+                "maxSizeAttachmentsPerEmail": 10485760,
+                "emailsListSortOptions": [
+                  "receivedAt",
+                  "sentAt",
+                  "from",
+                  "id",
+                  "emailstate",
+                  "size",
+                  "subject",
+                  "to",
+                  "hasKeyword",
+                  "someInThreadHaveKeyword"
+                ],
+                "mayCreateTopLevelMailbox": true
+              },
+              "urn:ietf:params:jmap:submission": {
+                "maxDelayedSend": 44236800,
+                "submissionExtensions": {
+                  "size": [
+                    "10240000"
+                  ],
+                  "dsn": []
+                }
+              },
+              "urn:ietf:params:jmap:mdn": {},
+              "https://cyrusimap.org/ns/jmap/sieve": {
+                "supportsTest": true,
+                "maxRedirects": null,
+                "maxNumberScripts": 5,
+                "maxSizeScript": 32768,
+                "sieveExtensions": [
+                  "encoded-character",
+                  "comparator-i;ascii-numeric",
+                  "fileinto",
+                  "reject",
+                  "ereject",
+                  "vacation",
+                  "vacation-seconds",
+                  "notify",
+                  "enotify",
+                  "include",
+                  "editheader",
+                  "vnd.cyrus.snooze",
+                  "vnd.cyrus.imip",
+                  "envelope",
+                  "environment",
+                  "body",
+                  "imap4flags",
+                  "date",
+                  "ihave",
+                  "mailbox",
+                  "mboxmetadata",
+                  "servermetadata",
+                  "duplicate",
+                  "vnd.cyrus.jmapquery",
+                  "relational",
+                  "regex",
+                  "extlists",
+                  "subaddress",
+                  "copy",
+                  "index",
+                  "variables",
+                  "redirect-deliverby",
+                  "redirect-dsn",
+                  "special-use",
+                  "fcc",
+                  "mailboxid"
+                ],
+                "notificationMethods": [
+                  "mailto"
+                ],
+                "externalLists": [
+                  "urn:ietf:params:sieve:addrbook"
+                ]
+              },
+              "urn:ietf:params:jmap:vacationresponse": {}
+            }
+          }
+        },
+        "primaryAccounts": {
+          "urn:ietf:params:jmap:mail": "example",
+          "urn:ietf:params:jmap:submission": "example",
+          "https://cyrusimap.org/ns/jmap/contacts": "example",
+          "https://cyrusimap.org/ns/jmap/calendars": "example",
+          "https://cyrusimap.org/ns/jmap/backup": "example",
+          "urn:ietf:params:jmap:vacationresponse": "example",
+          "https://cyrusimap.org/ns/jmap/sieve": "example"
+        }
+      }
+      ''';
+
+      final Session expectedSession = Session(
+          {
+            CapabilityIdentifier.jmapCore: CoreCapability(
+              maxSizeUpload: UnsignedInt(1073741824),
+              maxConcurrentUpload: UnsignedInt(5),
+              maxSizeRequest: UnsignedInt(10485760),
+              maxConcurrentRequests: UnsignedInt(5),
+              maxCallsInRequest: UnsignedInt(50),
+              maxObjectsInGet: UnsignedInt(4096),
+              maxObjectsInSet: UnsignedInt(4096),
+              collationAlgorithms: {}
+            ),
+            CapabilityIdentifier.jmapMail: MailCapability(),
+            CapabilityIdentifier.jmapSubmission: SubmissionCapability(),
+            CapabilityIdentifier.jmapVacationResponse: VacationCapability(),
+            CapabilityIdentifier.jmapMdn: MdnCapability(),
+            CapabilityIdentifier(Uri.parse('https://cyrusimap.org/ns/jmap/sieve')): DefaultCapability(Map<String, dynamic>()),
+          },
+          {
+            AccountId(Id('example')): Account(
+                AccountName('example'),
+                true,
+                false,
+                {
+                  CapabilityIdentifier.jmapCore: CoreCapability(),
+                  CapabilityIdentifier.jmapMail: MailCapability(
+                      maxMailboxesPerEmail: UnsignedInt(20),
+                      maxKeywordsPerEmail: UnsignedInt(100),
+                      maxSizeAttachmentsPerEmail: UnsignedInt(10485760),
+                      emailsListSortOptions: {
+                        "receivedAt",
+                        "sentAt",
+                        "from",
+                        "id",
+                        "emailstate",
+                        "size",
+                        "subject",
+                        "to",
+                        "hasKeyword",
+                        "someInThreadHaveKeyword"
+                      },
+                      mayCreateTopLevelMailbox: true
+                  ),
+                  CapabilityIdentifier.jmapSubmission: SubmissionCapability(
+                      maxDelayedSend: UnsignedInt(44236800),
+                      submissionExtensions: {
+                        "size": [
+                          "10240000"
+                        ],
+                        "dsn": []
+                      }
+                  ),
+                  CapabilityIdentifier.jmapMdn: MdnCapability(),
+                  CapabilityIdentifier(Uri.parse('https://cyrusimap.org/ns/jmap/sieve')): DefaultCapability({
+                    "supportsTest": true,
+                    "maxRedirects": null,
+                    "maxNumberScripts": 5,
+                    "maxSizeScript": 32768,
+                    "sieveExtensions": [
+                      "encoded-character",
+                      "comparator-i;ascii-numeric",
+                      "fileinto",
+                      "reject",
+                      "ereject",
+                      "vacation",
+                      "vacation-seconds",
+                      "notify",
+                      "enotify",
+                      "include",
+                      "editheader",
+                      "vnd.cyrus.snooze",
+                      "vnd.cyrus.imip",
+                      "envelope",
+                      "environment",
+                      "body",
+                      "imap4flags",
+                      "date",
+                      "ihave",
+                      "mailbox",
+                      "mboxmetadata",
+                      "servermetadata",
+                      "duplicate",
+                      "vnd.cyrus.jmapquery",
+                      "relational",
+                      "regex",
+                      "extlists",
+                      "subaddress",
+                      "copy",
+                      "index",
+                      "variables",
+                      "redirect-deliverby",
+                      "redirect-dsn",
+                      "special-use",
+                      "fcc",
+                      "mailboxid"
+                    ],
+                    "notificationMethods": [
+                      "mailto"
+                    ],
+                    "externalLists": [
+                      "urn:ietf:params:sieve:addrbook"
+                    ]
+                  }),
+                  CapabilityIdentifier.jmapVacationResponse: VacationCapability()
+                }
+            )
+          },
+          {
+            CapabilityIdentifier.jmapMail: AccountId(Id('example')),
+            CapabilityIdentifier.jmapSubmission: AccountId(Id('example')),
+            CapabilityIdentifier(Uri.parse('https://cyrusimap.org/ns/jmap/contacts')): AccountId(Id('example')),
+            CapabilityIdentifier(Uri.parse('https://cyrusimap.org/ns/jmap/calendars')): AccountId(Id('example')),
+            CapabilityIdentifier(Uri.parse('https://cyrusimap.org/ns/jmap/backup')): AccountId(Id('example')),
+            CapabilityIdentifier.jmapVacationResponse: AccountId(Id('example')),
+            CapabilityIdentifier(Uri.parse('https://cyrusimap.org/ns/jmap/sieve')): AccountId(Id('example')),
+          },
+          UserName('example'),
+          Uri.parse('/jmap/'),
+          Uri.parse('/jmap/download/{accountId}/{blobId}/{name}?accept={type}'),
+          Uri.parse('/jmap/upload/{accountId}/'),
+          Uri.parse('/jmap/eventsource/?types={types}&closeafter={closeafter}&ping={ping}'),
+          State('0')
+      );
+
+      final parsedSession = Session.fromJson(json.decode(sessionString));
+
+      expect(parsedSession, equals(expectedSession));
+    });
+  });
 }
