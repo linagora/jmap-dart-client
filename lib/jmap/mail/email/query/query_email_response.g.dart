@@ -6,19 +6,18 @@ part of 'query_email_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-QueryEmailResponse _$QueryEmailResponseFromJson(Map<String, dynamic> json) {
-  return QueryEmailResponse(
-    const AccountIdConverter().fromJson(json['accountId'] as String),
-    const StateConverter().fromJson(json['queryState'] as String),
-    json['canCalculateChanges'] as bool,
-    const UnsignedIntConverter().fromJson(json['position'] as int),
-    (json['ids'] as List<dynamic>)
-        .map((e) => const IdConverter().fromJson(e as String))
-        .toSet(),
-    const UnsignedIntConverter().fromJson(json['total'] as int),
-    const UnsignedIntConverter().fromJson(json['limit'] as int),
-  );
-}
+QueryEmailResponse _$QueryEmailResponseFromJson(Map<String, dynamic> json) =>
+    QueryEmailResponse(
+      const AccountIdConverter().fromJson(json['accountId'] as String),
+      const StateConverter().fromJson(json['queryState'] as String),
+      json['canCalculateChanges'] as bool,
+      const UnsignedIntConverter().fromJson(json['position'] as int),
+      (json['ids'] as List<dynamic>)
+          .map((e) => const IdConverter().fromJson(e as String))
+          .toSet(),
+      const UnsignedIntConverter().fromJson(json['total'] as int),
+      const UnsignedIntConverter().fromJson(json['limit'] as int),
+    );
 
 Map<String, dynamic> _$QueryEmailResponseToJson(QueryEmailResponse instance) =>
     <String, dynamic>{
