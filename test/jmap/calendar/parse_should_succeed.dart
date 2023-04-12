@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:jmap_dart_client/http/http_client.dart';
 import 'package:jmap_dart_client/jmap/account_id.dart';
-import 'package:jmap_dart_client/jmap/calendar/blob_id.dart';
+import 'package:jmap_dart_client/jmap/calendar/calender_event.dart';
 import 'package:jmap_dart_client/jmap/calendar/calendar_event.dart';
 import 'package:jmap_dart_client/jmap/calendar/extension_fields.dart';
 import 'package:jmap_dart_client/jmap/calendar/organizer.dart';

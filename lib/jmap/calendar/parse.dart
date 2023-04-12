@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:jmap_dart_client/jmap/calendar/blob_id.dart';
+import 'package:jmap_dart_client/jmap/calendar/calender_event.dart';
 
 import 'package:json_annotation/json_annotation.dart';
 
@@ -7,8 +7,8 @@ part 'parse.g.dart';
 
 @JsonSerializable()
 class Parsed with EquatableMixin {
-  final BlobId? blobId;
-  Parsed({this.blobId});
+  final CalendarEvent? calendarEvent;
+  Parsed({this.calendarEvent});
 
   factory Parsed.fromJson(Map<String, dynamic> json) =>
       _$ParsedFromJson(json);
@@ -16,5 +16,5 @@ class Parsed with EquatableMixin {
   Map<String, dynamic> toJson() => _$ParsedToJson(this);
 
   @override
-  List<Object?> get props => [blobId];
+  List<Object?> get props => [calendarEvent];
 }

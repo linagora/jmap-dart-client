@@ -31,7 +31,7 @@ class GetEmailMethod extends GetMethod with OptionalEmailBodyProperties, Optiona
     CapabilityIdentifier.jmapCore,
     CapabilityIdentifier.jmapMail
   };
-
+  
   @override
   List<Object?> get props => [methodName, accountId, ids, properties, requiredCapabilities];
 

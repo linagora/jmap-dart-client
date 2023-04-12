@@ -5,10 +5,10 @@ part 'extension_fields.g.dart';
 
 @JsonSerializable()
 class ExtensionFields with EquatableMixin {
-  final List<String>? xOPENPAASVIDEOCONFERENCE;
-  final List<String>? xOPENPAASCUSTOMHEADER1;
+  final Map<String, List<String>>? videoconference;
+  final Map<String, List<String>>? customheader;
 
-  ExtensionFields({this.xOPENPAASVIDEOCONFERENCE, this.xOPENPAASCUSTOMHEADER1});
+  ExtensionFields({this.videoconference, this.customheader});
 
   factory ExtensionFields.fromJson(Map<String, dynamic> json) =>
       _$ExtensionFieldsFromJson(json);
@@ -16,5 +16,5 @@ class ExtensionFields with EquatableMixin {
   Map<String, dynamic> toJson() => _$ExtensionFieldsToJson(this);
 
   @override
-  List<Object?> get props => [xOPENPAASVIDEOCONFERENCE, xOPENPAASCUSTOMHEADER1];
+  List<Object?> get props => [videoconference, customheader];
 }

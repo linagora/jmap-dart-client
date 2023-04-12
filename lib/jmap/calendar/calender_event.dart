@@ -2,21 +2,22 @@ import 'package:equatable/equatable.dart';
 import 'package:jmap_dart_client/jmap/calendar/participants.dart';
 import 'package:jmap_dart_client/jmap/calendar/recurrence_rules.dart';
 
+import '../core/utc_date.dart';
 import 'extension_fields.dart';
 import 'organizer.dart';
 
 import 'package:json_annotation/json_annotation.dart';
 
-part 'blob_id.g.dart';
+part 'calender_event.g.dart';
 
 @JsonSerializable()
-class BlobId with EquatableMixin {
+class CalendarEvent with EquatableMixin {
   final String? uid;
   final String? title;
   final String? description;
-  final String? start;
+  final UTCDate? start;
   final String? duration;
-  final String? end;
+  final UTCDate? end;
   final String? timeZone;
   final String? location;
   final String? method;
@@ -29,7 +30,7 @@ class BlobId with EquatableMixin {
   final ExtensionFields? extensionFields;
   final List<RecurrenceRules>? recurrenceRules;
 
-  BlobId(
+  CalendarEvent(
       {this.uid,
       this.title,
       this.description,
@@ -48,9 +49,9 @@ class BlobId with EquatableMixin {
       this.extensionFields,
       this.recurrenceRules});
 
-  factory BlobId.fromJson(Map<String, dynamic> json) => _$BlobIdFromJson(json);
+  factory CalendarEvent.fromJson(Map<String, dynamic> json) => _$CalendarEventFromJson(json);
 
-  Map<String, dynamic> toJson() => _$BlobIdToJson(this);
+  Map<String, dynamic> toJson() => _$CalendarEventToJson(this);
 
   @override
   List<Object?> get props => [
