@@ -10,8 +10,7 @@ class Parsed with EquatableMixin {
   final CalendarEvent? calendarEvent;
   Parsed({this.calendarEvent});
 
-  factory Parsed.fromJson(Map<String, dynamic> json) =>
-      _$ParsedFromJson(json);
+  factory Parsed.fromJson(Map<String, dynamic> json) => _$ParsedFromJson(json);
 
   Map<String, dynamic> toJson() => _$ParsedToJson(this);
 

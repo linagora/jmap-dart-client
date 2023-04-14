@@ -1,11 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../account_id.dart';
+
 part 'blob_not_found.g.dart';
 
 @JsonSerializable()
 class BlobNotFound with EquatableMixin {
-  final String? accountId;
+  final AccountId? accountId;
   final List<String>? notFound;
 
   BlobNotFound({this.accountId, this.notFound});

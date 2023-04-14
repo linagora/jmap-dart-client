@@ -7,7 +7,9 @@ part of 'blob_not_found.dart';
 // **************************************************************************
 
 BlobNotFound _$BlobNotFoundFromJson(Map<String, dynamic> json) => BlobNotFound(
-      accountId: json['accountId'] as String?,
+      accountId: json['accountId'] == null
+          ? null
+          : AccountId.fromJson(json['accountId'] as Map<String, dynamic>),
       notFound: (json['notFound'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),

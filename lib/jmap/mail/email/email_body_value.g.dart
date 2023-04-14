@@ -6,13 +6,12 @@ part of 'email_body_value.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-EmailBodyValue _$EmailBodyValueFromJson(Map<String, dynamic> json) {
-  return EmailBodyValue(
-    json['value'] as String,
-    json['isEncodingProblem'] as bool,
-    json['isTruncated'] as bool,
-  );
-}
+EmailBodyValue _$EmailBodyValueFromJson(Map<String, dynamic> json) =>
+    EmailBodyValue(
+      json['value'] as String,
+      json['isEncodingProblem'] as bool,
+      json['isTruncated'] as bool,
+    );
 
 Map<String, dynamic> _$EmailBodyValueToJson(EmailBodyValue instance) =>
     <String, dynamic>{

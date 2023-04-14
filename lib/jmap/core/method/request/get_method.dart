@@ -6,13 +6,34 @@ import 'package:jmap_dart_client/jmap/core/request/result_reference.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 abstract class GetMethod extends MethodRequiringAccountId
-    with OptionalIds, OptionalProperties, OptionalReferenceIds, OptionalReferenceProperties {
+    with
+        AdditionalBlobIds,
+        OptionalIds,
+        OptionalProperties,
+        OptionalReferenceIds,
+        OptionalReferenceProperties {
   GetMethod(AccountId accountId) : super(accountId);
 }
 
 abstract class GetMethodNoNeedAccountId extends Method
-    with OptionalIds, OptionalProperties, OptionalReferenceIds, OptionalReferenceProperties {
+    with
+        AdditionalBlobIds,
+        OptionalIds,
+        OptionalProperties,
+        OptionalReferenceIds,
+        OptionalReferenceProperties {
   GetMethodNoNeedAccountId() : super();
+}
+
+mixin AdditionalBlobIds {
+  List<String>? blobIds;
+  void addString(String newString) {
+    if (blobIds == null) {
+      blobIds = [newString];
+    } else {
+      blobIds!.add(newString);
+    }
+  }
 }
 
 mixin OptionalIds {

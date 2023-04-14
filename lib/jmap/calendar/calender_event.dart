@@ -15,9 +15,9 @@ class CalendarEvent with EquatableMixin {
   final String? uid;
   final String? title;
   final String? description;
-  final UTCDate? start;
+  final DateTime? start;
   final String? duration;
-  final UTCDate? end;
+  final DateTime? end;
   final String? timeZone;
   final String? location;
   final String? method;
@@ -49,7 +49,8 @@ class CalendarEvent with EquatableMixin {
       this.extensionFields,
       this.recurrenceRules});
 
-  factory CalendarEvent.fromJson(Map<String, dynamic> json) => _$CalendarEventFromJson(json);
+  factory CalendarEvent.fromJson(Map<String, dynamic> json) =>
+      _$CalendarEventFromJson(json);
 
   Map<String, dynamic> toJson() => _$CalendarEventToJson(this);
 

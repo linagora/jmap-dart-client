@@ -1,25 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'blob_found_not_parsable.dart';
+part of 'response_success.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-BlobFoundNotParsable _$BlobFoundNotParsableFromJson(
-        Map<String, dynamic> json) =>
-    BlobFoundNotParsable(
+ResponseSuccess _$ResponseSuccessFromJson(Map<String, dynamic> json) =>
+    ResponseSuccess(
       accountId: json['accountId'] == null
           ? null
           : AccountId.fromJson(json['accountId'] as Map<String, dynamic>),
-      notParsable: (json['notParsable'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
+      parsed: json['parsed'] == null
+          ? null
+          : Parsed.fromJson(json['parsed'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$BlobFoundNotParsableToJson(
-        BlobFoundNotParsable instance) =>
+Map<String, dynamic> _$ResponseSuccessToJson(ResponseSuccess instance) =>
     <String, dynamic>{
       'accountId': instance.accountId,
-      'notParsable': instance.notParsable,
+      'parsed': instance.parsed,
     };

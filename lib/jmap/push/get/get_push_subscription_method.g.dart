@@ -9,6 +9,8 @@ part of 'get_push_subscription_method.dart';
 GetPushSubscriptionMethod _$GetPushSubscriptionMethodFromJson(
         Map<String, dynamic> json) =>
     GetPushSubscriptionMethod()
+      ..blobIds =
+          (json['blobIds'] as List<dynamic>?)?.map((e) => e as String).toList()
       ..ids = (json['ids'] as List<dynamic>?)
           ?.map((e) => const IdConverter().fromJson(e as String))
           .toSet()
@@ -24,7 +26,9 @@ GetPushSubscriptionMethod _$GetPushSubscriptionMethodFromJson(
 
 Map<String, dynamic> _$GetPushSubscriptionMethodToJson(
     GetPushSubscriptionMethod instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'blobIds': instance.blobIds,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
