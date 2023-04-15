@@ -7,25 +7,24 @@ part of 'changes_mailbox_response.dart';
 // **************************************************************************
 
 ChangesMailboxResponse _$ChangesMailboxResponseFromJson(
-    Map<String, dynamic> json) {
-  return ChangesMailboxResponse(
-    const AccountIdConverter().fromJson(json['accountId'] as String),
-    const StateConverter().fromJson(json['oldState'] as String),
-    const StateConverter().fromJson(json['newState'] as String),
-    json['hasMoreChanges'] as bool,
-    (json['created'] as List<dynamic>)
-        .map((e) => const IdConverter().fromJson(e as String))
-        .toSet(),
-    (json['updated'] as List<dynamic>)
-        .map((e) => const IdConverter().fromJson(e as String))
-        .toSet(),
-    (json['destroyed'] as List<dynamic>)
-        .map((e) => const IdConverter().fromJson(e as String))
-        .toSet(),
-    updatedProperties: const PropertiesConverter()
-        .fromJson((json['updatedProperties'] as List<dynamic>?)?.map((e) => e as String).toList()),
-  );
-}
+        Map<String, dynamic> json) =>
+    ChangesMailboxResponse(
+      const AccountIdConverter().fromJson(json['accountId'] as String),
+      const StateConverter().fromJson(json['oldState'] as String),
+      const StateConverter().fromJson(json['newState'] as String),
+      json['hasMoreChanges'] as bool,
+      (json['created'] as List<dynamic>)
+          .map((e) => const IdConverter().fromJson(e as String))
+          .toSet(),
+      (json['updated'] as List<dynamic>)
+          .map((e) => const IdConverter().fromJson(e as String))
+          .toSet(),
+      (json['destroyed'] as List<dynamic>)
+          .map((e) => const IdConverter().fromJson(e as String))
+          .toSet(),
+      updatedProperties: const PropertiesConverter()
+          .fromJson(json['updatedProperties'] as List<String>?),
+    );
 
 Map<String, dynamic> _$ChangesMailboxResponseToJson(
         ChangesMailboxResponse instance) =>

@@ -6,27 +6,28 @@ part of 'email_body_part.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-EmailBodyPart _$EmailBodyPartFromJson(Map<String, dynamic> json) {
-  return EmailBodyPart(
-    partId: const PartIdNullableConverter().fromJson(json['partId'] as String?),
-    blobId: const IdNullableConverter().fromJson(json['blobId'] as String?),
-    size: const UnsignedIntNullableConverter().fromJson(json['size'] as int?),
-    headers: (json['headers'] as List<dynamic>?)
-        ?.map((e) => EmailHeader.fromJson(e as Map<String, dynamic>))
-        .toSet(),
-    name: json['name'] as String?,
-    type: const MediaTypeNullableConverter().fromJson(json['type'] as String?),
-    charset: json['charset'] as String?,
-    disposition: json['disposition'] as String?,
-    cid: json['cid'] as String?,
-    language:
-        (json['language'] as List<dynamic>?)?.map((e) => e as String).toSet(),
-    location: json['location'] as String?,
-    subParts: (json['subParts'] as List<dynamic>?)
-        ?.map((e) => EmailBodyPart.fromJson(e as Map<String, dynamic>))
-        .toSet(),
-  );
-}
+EmailBodyPart _$EmailBodyPartFromJson(Map<String, dynamic> json) =>
+    EmailBodyPart(
+      partId:
+          const PartIdNullableConverter().fromJson(json['partId'] as String?),
+      blobId: const IdNullableConverter().fromJson(json['blobId'] as String?),
+      size: const UnsignedIntNullableConverter().fromJson(json['size'] as int?),
+      headers: (json['headers'] as List<dynamic>?)
+          ?.map((e) => EmailHeader.fromJson(e as Map<String, dynamic>))
+          .toSet(),
+      name: json['name'] as String?,
+      type:
+          const MediaTypeNullableConverter().fromJson(json['type'] as String?),
+      charset: json['charset'] as String?,
+      disposition: json['disposition'] as String?,
+      cid: json['cid'] as String?,
+      language:
+          (json['language'] as List<dynamic>?)?.map((e) => e as String).toSet(),
+      location: json['location'] as String?,
+      subParts: (json['subParts'] as List<dynamic>?)
+          ?.map((e) => EmailBodyPart.fromJson(e as Map<String, dynamic>))
+          .toSet(),
+    );
 
 Map<String, dynamic> _$EmailBodyPartToJson(EmailBodyPart instance) {
   final val = <String, dynamic>{};

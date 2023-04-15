@@ -6,13 +6,12 @@ part of 'test_capability.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-TestCapability _$TestCapabilityFromJson(Map<String, dynamic> json) {
-  return TestCapability(
-    json['testParam1'] as int,
-    json['testParam2'] as String,
-    (json['testParam3'] as List<dynamic>).map((e) => e as String).toSet(),
-  );
-}
+TestCapability _$TestCapabilityFromJson(Map<String, dynamic> json) =>
+    TestCapability(
+      json['testParam1'] as int,
+      json['testParam2'] as String,
+      (json['testParam3'] as List<dynamic>).map((e) => e as String).toSet(),
+    );
 
 Map<String, dynamic> _$TestCapabilityToJson(TestCapability instance) =>
     <String, dynamic>{

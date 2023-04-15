@@ -6,14 +6,14 @@ part of 'email_comparator.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-EmailComparator _$EmailComparatorFromJson(Map<String, dynamic> json) {
-  return EmailComparator(
-    const EmailComparatorPropertyConverter().fromJson(json['property'] as String),
-  )
-    ..isAscending = json['isAscending'] as bool?
-    ..collation = const CollationIdentifierNullableConverter()
-        .fromJson(json['collation'] as String?);
-}
+EmailComparator _$EmailComparatorFromJson(Map<String, dynamic> json) =>
+    EmailComparator(
+      const EmailComparatorPropertyConverter()
+          .fromJson(json['property'] as String),
+    )
+      ..isAscending = json['isAscending'] as bool?
+      ..collation = const CollationIdentifierNullableConverter()
+          .fromJson(json['collation'] as String?);
 
 Map<String, dynamic> _$EmailComparatorToJson(EmailComparator instance) {
   final val = <String, dynamic>{};
@@ -27,6 +27,7 @@ Map<String, dynamic> _$EmailComparatorToJson(EmailComparator instance) {
   writeNotNull('isAscending', instance.isAscending);
   writeNotNull('collation',
       const CollationIdentifierNullableConverter().toJson(instance.collation));
-  val['property'] = const ComparatorPropertyConverter().toJson(instance.property);
+  val['property'] =
+      const ComparatorPropertyConverter().toJson(instance.property);
   return val;
 }
