@@ -12,13 +12,13 @@ class Participants with EquatableMixin {
   final String? participationStatus;
   final bool? expectReply;
 
-  Participants(
-      {this.name,
-      this.mailto,
-      this.kind,
-      this.role,
-      this.participationStatus,
-      this.expectReply});
+  Participants({
+    this.name,
+    this.mailto,
+    this.kind,
+    this.role,
+    this.participationStatus,
+    this.expectReply});
 
   factory Participants.fromJson(Map<String, dynamic> json) =>
       _$ParticipantsFromJson(json);
@@ -26,6 +26,12 @@ class Participants with EquatableMixin {
   Map<String, dynamic> toJson() => _$ParticipantsToJson(this);
 
   @override
-  List<Object?> get props =>
-      [name, mailto, kind, role, participationStatus, expectReply];
+  List<Object?> get props => [
+    name,
+    mailto,
+    kind,
+    role,
+    participationStatus,
+    expectReply
+  ];
 }

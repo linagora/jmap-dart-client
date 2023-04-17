@@ -9,6 +9,8 @@ import 'package:jmap_dart_client/jmap/core/request/request_invocation.dart';
 import 'package:jmap_dart_client/jmap/core/unsigned_int.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../core/request/result_reference.dart';
+
 part 'parse_calender_method.g.dart';
 
 @UnsignedIntNullableConverter()
@@ -24,7 +26,7 @@ class ParseCalenderMethod extends GetMethod with OptionalMaxBodyValueBytes {
 
   @override
   Set<CapabilityIdentifier> get requiredCapabilities =>
-      {CapabilityIdentifier.jmapCore, CapabilityIdentifier.calendarEvent};
+      {CapabilityIdentifier.jmapCore, CapabilityIdentifier.jameCalendarEvent};
 
   factory ParseCalenderMethod.fromJson(Map<String, dynamic> json) =>
       _$ParseCalenderMethodFromJson(json);

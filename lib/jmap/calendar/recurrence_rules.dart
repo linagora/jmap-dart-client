@@ -11,12 +11,12 @@ class RecurrenceRules with EquatableMixin {
   final List<int>? bySetPosition;
   final String? until;
 
-  RecurrenceRules(
-      {this.frequency,
-      this.byDay,
-      this.byMonth,
-      this.bySetPosition,
-      this.until});
+  RecurrenceRules({
+    this.frequency,
+    this.byDay,
+    this.byMonth,
+    this.bySetPosition,
+    this.until});
 
   factory RecurrenceRules.fromJson(Map<String, dynamic> json) =>
       _$RecurrenceRulesFromJson(json);

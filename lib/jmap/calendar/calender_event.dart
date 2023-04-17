@@ -56,22 +56,22 @@ class CalendarEvent with EquatableMixin {
 
   @override
   List<Object?> get props => [
-        uid,
-        title,
-        description,
-        start,
-        duration,
-        end,
-        timeZone,
-        location,
-        method,
-        sequence,
-        priority,
-        freeBusyStatus,
-        privacy,
-        organizer,
-        participants,
-        extensionFields,
-        recurrenceRules
-      ];
+    uid,
+    title,
+    description,
+    start,
+    duration,
+    end,
+    timeZone,
+    location,
+    method,
+    sequence,
+    priority,
+    freeBusyStatus,
+    privacy,
+    organizer,
+    participants,
+    extensionFields,
+    recurrenceRules
+  ];
 }
