@@ -33,7 +33,7 @@ class ParseCalenderMethod extends GetMethod with OptionalMaxBodyValueBytes {
 
   Map<String, dynamic> toJson() => _$ParseCalenderMethodToJson(this);
   @override
-  List<Object?> get props => [methodName, accountId, blobIds];
+  List<Object?> get props => [methodName, accountId];
 }
 
 mixin OptionalMaxBodyValueBytes {

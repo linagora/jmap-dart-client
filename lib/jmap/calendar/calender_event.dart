@@ -30,24 +30,24 @@ class CalendarEvent with EquatableMixin {
   final ExtensionFields? extensionFields;
   final List<RecurrenceRules>? recurrenceRules;
 
-  CalendarEvent(
-      {this.uid,
-      this.title,
-      this.description,
-      this.start,
-      this.duration,
-      this.end,
-      this.timeZone,
-      this.location,
-      this.method,
-      this.sequence,
-      this.priority,
-      this.freeBusyStatus,
-      this.privacy,
-      this.organizer,
-      this.participants,
-      this.extensionFields,
-      this.recurrenceRules});
+  CalendarEvent({
+    this.uid,
+    this.title,
+    this.description,
+    this.start,
+    this.duration,
+    this.end,
+    this.timeZone,
+    this.location,
+    this.method,
+    this.sequence,
+    this.priority,
+    this.freeBusyStatus,
+    this.privacy,
+    this.organizer,
+    this.participants,
+    this.extensionFields,
+    this.recurrenceRules});
 
   factory CalendarEvent.fromJson(Map<String, dynamic> json) =>
       _$CalendarEventFromJson(json);

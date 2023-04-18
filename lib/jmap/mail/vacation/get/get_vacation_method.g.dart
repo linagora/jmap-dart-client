@@ -10,8 +10,6 @@ GetVacationMethod _$GetVacationMethodFromJson(Map<String, dynamic> json) =>
     GetVacationMethod(
       const AccountIdConverter().fromJson(json['accountId'] as String),
     )
-      ..blobIds =
-          (json['blobIds'] as List<dynamic>?)?.map((e) => e as String).toList()
       ..ids = (json['ids'] as List<dynamic>?)
           ?.map((e) => const IdConverter().fromJson(e as String))
           .toSet()
@@ -28,7 +26,6 @@ GetVacationMethod _$GetVacationMethodFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$GetVacationMethodToJson(GetVacationMethod instance) {
   final val = <String, dynamic>{
     'accountId': const AccountIdConverter().toJson(instance.accountId),
-    'blobIds': instance.blobIds,
   };
 
   void writeNotNull(String key, dynamic value) {

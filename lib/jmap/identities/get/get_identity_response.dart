@@ -15,9 +15,12 @@ part 'get_identity_response.g.dart';
 @IdConverter()
 @JsonSerializable()
 class GetIdentityResponse extends GetResponse<Identity> {
-  GetIdentityResponse(AccountId accountId, State state, List<Identity> list, List<Id>? notFound) : super(accountId, state, list, notFound);
+  GetIdentityResponse(
+      AccountId accountId, State state, List<Identity> list, List<Id>? notFound)
+      : super(accountId, state, list, notFound);
 
-  factory GetIdentityResponse.fromJson(Map<String, dynamic> json) => _$GetIdentityResponseFromJson(json);
+  factory GetIdentityResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetIdentityResponseFromJson(json);
 
   static GetIdentityResponse deserialize(Map<String, dynamic> json) {
     return GetIdentityResponse.fromJson(json);

@@ -15,9 +15,9 @@ import 'package:jmap_dart_client/jmap/mail/mailbox/mailbox_filter_condition.dart
 import 'package:jmap_dart_client/jmap/mail/mailbox/mailbox_rights.dart';
 import 'package:jmap_dart_client/jmap/mail/mailbox/query/query_mailbox_method.dart';
 
-void main(){
+void main() {
   group('Query mailbox test', () {
-     final expectedReported = Mailbox(
+    final expectedReported = Mailbox(
       id: MailboxId(Id('9bf84410-32cf-11eb-995c-a3ae66e9f96a')),
       role: Role('spam'),
       name: MailboxName('Spam'),
@@ -132,26 +132,30 @@ void main(){
 
       final httpClient = HttpClient(dio);
       final processingInvocation = ProcessingInvocation();
-      final jmapRequestBuilder =JmapRequestBuilder(httpClient, processingInvocation);
+      final jmapRequestBuilder =
+          JmapRequestBuilder(httpClient, processingInvocation);
       final accountId = AccountId(Id(
           '0d14dbabe6482aff5cbf922e04cef51a40b4eabccbe12d28fe27c97038752555'));
       final queryMailboxMethod = QueryMailboxMethod(accountId)
         ..addFilters(MailboxFilterCondition(role: Role('Spam')))
         ..addLimit(UnsignedInt(1));
-      final queryMailboxInvocation = jmapRequestBuilder.invocation(queryMailboxMethod, methodCallId: MethodCallId('c2'));
+      final queryMailboxInvocation = jmapRequestBuilder
+          .invocation(queryMailboxMethod, methodCallId: MethodCallId('c2'));
 
       final getMailBoxMethod = GetMailboxMethod(accountId)
         ..addReferenceIds(processingInvocation.createResultReference(
           queryMailboxInvocation.methodCallId,
           ReferencePath('ids/*'),
         ));
-      final getMailboxInvocation = jmapRequestBuilder.invocation(getMailBoxMethod, methodCallId: MethodCallId('c3'));
+      final getMailboxInvocation = jmapRequestBuilder
+          .invocation(getMailBoxMethod, methodCallId: MethodCallId('c3'));
       final result = await (jmapRequestBuilder
             ..usings(getMailBoxMethod.requiredCapabilities))
           .build()
           .execute();
 
-      final resultList = result.parse<GetMailboxResponse>(getMailboxInvocation.methodCallId, GetMailboxResponse.deserialize);
+      final resultList = result.parse<GetMailboxResponse>(
+          getMailboxInvocation.methodCallId, GetMailboxResponse.deserialize);
 
       expect(resultList?.list.first.name?.name, 'Spam');
       expect(resultList?.list.first.role?.value, 'spam');
