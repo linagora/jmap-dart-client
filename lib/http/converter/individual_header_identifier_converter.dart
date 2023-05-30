@@ -3,9 +3,19 @@ import 'package:jmap_dart_client/jmap/mail/email/individual_header_identifier.da
 
 class IndividualHeaderIdentifierNullableConverter {
 
-  MapEntry<IndividualHeaderIdentifier, String?> parseEntry(String key, String? value) => MapEntry(IndividualHeaderIdentifier(key), value);
+  Map<IndividualHeaderIdentifier, String?>? parseEntry(String key, String? value) {
+    if (value == null) {
+      return null;
+    } else {
+      return Map.fromEntries([MapEntry(IndividualHeaderIdentifier(key), value)]);
+    }
+  }
 
   String? toJson(Map<IndividualHeaderIdentifier, String?>? header, IndividualHeaderIdentifier individualHeaderIdentifier) {
-    return header?[individualHeaderIdentifier];
+    if (header == null) {
+      return null;
+    } else {
+      return header[individualHeaderIdentifier];
+    }
   }
 }
