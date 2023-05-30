@@ -5,7 +5,7 @@ import 'package:jmap_dart_client/http/converter/email/email_mailbox_ids_converte
 import 'package:jmap_dart_client/http/converter/email_id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/individual_header_identifier_converter.dart';
-import 'package:jmap_dart_client/http/converter/message_ids_header_value_converter.dart';
+import 'package:jmap_dart_client/http/converter/message_ids_header_value_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/thread_id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/unsigned_int_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/utc_date_nullable_converter.dart';
@@ -55,7 +55,7 @@ class Email with EquatableMixin {
   final EmailBodyPart? bodyStructure;
   final Map<PartId, EmailBodyValue>? bodyValues;
   final Map<IndividualHeaderIdentifier, String?>? headerUserAgent;
-  final Map<IndividualHeaderIdentifier, String>? headerMdn;
+  final Map<IndividualHeaderIdentifier, String?>? headerMdn;
 
   Email({
     this.id,
@@ -90,7 +90,7 @@ class Email with EquatableMixin {
 
   factory Email.fromJson(Map<String, dynamic> json) {
     return Email(
-      id: const EmailIdNullableConverter().fromJson(json['id'] as String),
+      id: const EmailIdNullableConverter().fromJson(json['id'] as String?),
       blobId: const IdNullableConverter().fromJson(json['blobId'] as String?),
       threadId: const ThreadIdNullableConverter().fromJson(json['threadId'] as String?),
       mailboxIds: (json['mailboxIds'] as Map<String, dynamic>?)?.map((key, value) => EmailMailboxIdsConverter().parseEntry(key, value)),
@@ -98,15 +98,9 @@ class Email with EquatableMixin {
       size: const UnsignedIntNullableConverter().fromJson(json['size'] as int?),
       receivedAt: const UTCDateNullableConverter().fromJson(json['receivedAt'] as String?),
       headers: (json['headers'] as List<dynamic>?)?.map((json) => EmailHeader.fromJson(json)).toSet(),
-      messageId: json['messageId'] == null
-          ? null
-          : const MessageIdsHeaderValueConverter().fromJson((json['messageId'] as List<dynamic>)),
-      inReplyTo: json['inReplyTo'] == null
-          ? null
-          : const MessageIdsHeaderValueConverter().fromJson((json['inReplyTo'] as List<dynamic>)),
-      references: json['references'] == null
-          ? null
-          : const MessageIdsHeaderValueConverter().fromJson((json['references'] as List<dynamic>)),
+      messageId: const MessageIdsHeaderValueNullableConverter().fromJson((json['messageId'] as List<dynamic>?)),
+      inReplyTo: const MessageIdsHeaderValueNullableConverter().fromJson((json['inReplyTo'] as List<dynamic>?)),
+      references: const MessageIdsHeaderValueNullableConverter().fromJson((json['references'] as List<dynamic>?)),
       subject: json['subject'] as String?,
       sentAt: const UTCDateNullableConverter().fromJson(json['sentAt'] as String?),
       hasAttachment: json['hasAttachment'] as bool?,
@@ -121,13 +115,11 @@ class Email with EquatableMixin {
       htmlBody: (json['htmlBody'] as List<dynamic>?)?.map((json) => EmailBodyPart.fromJson(json)).toSet(),
       attachments: (json['attachments'] as List<dynamic>?)?.map((json) => EmailBodyPart.fromJson(json)).toSet(),
       bodyStructure: json['bodyStructure'] == null
-          ? null
-          : EmailBodyPart.fromJson(json['bodyStructure'] as Map<String, dynamic>),
+        ? null
+        : EmailBodyPart.fromJson(json['bodyStructure'] as Map<String, dynamic>),
       bodyValues: (json['bodyValues'] as Map<String, dynamic>?)?.map((key, value) => EmailBodyValueConverter().parseEntry(key, value)),
-      headerUserAgent: (json[IndividualHeaderIdentifier.headerUserAgent.value] as Map<String, dynamic>?)?.map((key, value) =>
-          MapEntry(IndividualHeaderIdentifier(key), value as String?)),
-      headerMdn: (json[IndividualHeaderIdentifier.headerMdn.value] as Map<String, dynamic>?)?.map((key, value) => 
-          MapEntry(IndividualHeaderIdentifier(key), value as String)),
+      headerUserAgent: IndividualHeaderIdentifierNullableConverter().parseEntry(IndividualHeaderIdentifier.headerUserAgent.value, json[IndividualHeaderIdentifier.headerUserAgent.value] as String?),
+      headerMdn: IndividualHeaderIdentifierNullableConverter().parseEntry(IndividualHeaderIdentifier.headerMdn.value, json[IndividualHeaderIdentifier.headerMdn.value] as String?),
     );
   }
 
@@ -147,10 +139,10 @@ class Email with EquatableMixin {
     writeNotNull('keywords', keywords?.map((key, value) => EmailKeywordIdentifierConverter().toJson(key, value)));
     writeNotNull('size', const UnsignedIntNullableConverter().toJson(size));
     writeNotNull('receivedAt', const UTCDateNullableConverter().toJson(receivedAt));
-    writeNotNull('headers', headers?.toList(),);
-    writeNotNull('messageId', messageId != null ? const MessageIdsHeaderValueConverter().toJson(messageId!) : null);
-    writeNotNull('inReplyTo', inReplyTo != null ? const MessageIdsHeaderValueConverter().toJson(inReplyTo!) : null);
-    writeNotNull('references', references != null ? const MessageIdsHeaderValueConverter().toJson(references!) : null);
+    writeNotNull('headers', headers?.map((header) => header.toJson()).toList());
+    writeNotNull('messageId', const MessageIdsHeaderValueNullableConverter().toJson(messageId));
+    writeNotNull('inReplyTo', const MessageIdsHeaderValueNullableConverter().toJson(inReplyTo));
+    writeNotNull('references', const MessageIdsHeaderValueNullableConverter().toJson(references));
     writeNotNull('subject', subject);
     writeNotNull('sentAt', const UTCDateNullableConverter().toJson(sentAt));
     writeNotNull('hasAttachment', hasAttachment);
@@ -174,19 +166,33 @@ class Email with EquatableMixin {
   @override
   List<Object?> get props => [
     id,
-    subject,
+    blobId,
+    threadId,
     mailboxIds,
+    keywords,
+    size,
+    receivedAt,
+    headers,
+    messageId,
+    inReplyTo,
+    references,
+    subject,
+    sentAt,
+    hasAttachment,
+    preview,
+    sender,
     from,
     to,
     cc,
     bcc,
-    keywords,
-    size,
-    receivedAt,
-    sentAt,
     replyTo,
-    preview,
-    hasAttachment,
+    textBody,
+    htmlBody,
+    attachments,
+    bodyStructure,
+    bodyValues,
+    headerUserAgent,
+    headerMdn
   ];
 }
 
@@ -217,7 +223,7 @@ class ThreadId with EquatableMixin {
 }
 
 class MessageIdsHeaderValue with EquatableMixin {
-  final Set<Id> ids;
+  final Set<String> ids;
 
   MessageIdsHeaderValue(this.ids);
 
