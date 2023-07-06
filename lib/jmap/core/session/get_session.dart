@@ -11,7 +11,7 @@ class GetSession {
   GetSession(this._httpClient, this._capabilitiesConverter);
 
   Future<Session> execute() async {
-    return await _httpClient.get('/.well-known/jmap')
+    return await _httpClient.get('/jmap/session')
       .then((value) => extractData(value))
       .catchError((error) => throw error);
   }
