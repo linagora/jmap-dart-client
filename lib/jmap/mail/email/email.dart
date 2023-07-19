@@ -56,6 +56,7 @@ class Email with EquatableMixin {
   final Map<PartId, EmailBodyValue>? bodyValues;
   final Map<IndividualHeaderIdentifier, String?>? headerUserAgent;
   final Map<IndividualHeaderIdentifier, String?>? headerMdn;
+  final Map<IndividualHeaderIdentifier, String?>? headerCalendarEvent;
 
   Email({
     this.id,
@@ -86,6 +87,7 @@ class Email with EquatableMixin {
     this.bodyValues,
     this.headerUserAgent,
     this.headerMdn,
+    this.headerCalendarEvent
   });
 
   factory Email.fromJson(Map<String, dynamic> json) {
@@ -120,6 +122,7 @@ class Email with EquatableMixin {
       bodyValues: (json['bodyValues'] as Map<String, dynamic>?)?.map((key, value) => EmailBodyValueConverter().parseEntry(key, value)),
       headerUserAgent: IndividualHeaderIdentifierNullableConverter().parseEntry(IndividualHeaderIdentifier.headerUserAgent.value, json[IndividualHeaderIdentifier.headerUserAgent.value] as String?),
       headerMdn: IndividualHeaderIdentifierNullableConverter().parseEntry(IndividualHeaderIdentifier.headerMdn.value, json[IndividualHeaderIdentifier.headerMdn.value] as String?),
+      headerCalendarEvent: IndividualHeaderIdentifierNullableConverter().parseEntry(IndividualHeaderIdentifier.headerCalendarEvent.value, json[IndividualHeaderIdentifier.headerCalendarEvent.value] as String?),
     );
   }
 
@@ -160,6 +163,7 @@ class Email with EquatableMixin {
     writeNotNull('bodyValues', bodyValues?.map((key, value) => EmailBodyValueConverter().toJson(key, value)));
     writeNotNull(IndividualHeaderIdentifier.headerUserAgent.value, IndividualHeaderIdentifierNullableConverter().toJson(headerUserAgent, IndividualHeaderIdentifier.headerUserAgent));
     writeNotNull(IndividualHeaderIdentifier.headerMdn.value, IndividualHeaderIdentifierNullableConverter().toJson(headerMdn, IndividualHeaderIdentifier.headerMdn));
+    writeNotNull(IndividualHeaderIdentifier.headerCalendarEvent.value, IndividualHeaderIdentifierNullableConverter().toJson(headerCalendarEvent, IndividualHeaderIdentifier.headerCalendarEvent));
     return val;
   }
 
@@ -192,7 +196,8 @@ class Email with EquatableMixin {
     bodyStructure,
     bodyValues,
     headerUserAgent,
-    headerMdn
+    headerMdn,
+    headerCalendarEvent
   ];
 }
 
