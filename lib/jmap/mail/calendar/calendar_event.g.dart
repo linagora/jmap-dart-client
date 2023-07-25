@@ -17,6 +17,10 @@ CalendarEvent _$CalendarEventFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['start'] as String),
       endDate:
           json['end'] == null ? null : DateTime.parse(json['end'] as String),
+      startUtcDate: const UTCDateNullableConverter()
+          .fromJson(json['utcStart'] as String?),
+      endUtcDate:
+          const UTCDateNullableConverter().fromJson(json['utcEnd'] as String?),
       duration: const CalendarDurationNullableConverter()
           .fromJson(json['duration'] as String?),
       timeZone: json['timeZone'] as String?,
@@ -62,6 +66,10 @@ Map<String, dynamic> _$CalendarEventToJson(CalendarEvent instance) {
   writeNotNull('description', instance.description);
   writeNotNull('start', instance.startDate?.toIso8601String());
   writeNotNull('end', instance.endDate?.toIso8601String());
+  writeNotNull('utcStart',
+      const UTCDateNullableConverter().toJson(instance.startUtcDate));
+  writeNotNull(
+      'utcEnd', const UTCDateNullableConverter().toJson(instance.endUtcDate));
   writeNotNull('duration',
       const CalendarDurationNullableConverter().toJson(instance.duration));
   writeNotNull('timeZone', instance.timeZone);

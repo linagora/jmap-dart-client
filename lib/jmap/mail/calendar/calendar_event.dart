@@ -5,6 +5,8 @@ import 'package:jmap_dart_client/http/converter/calendar/calendar_extension_fiel
 import 'package:jmap_dart_client/http/converter/calendar/calendar_priority_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/calendar/calendar_sequence_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/calendar/event_id_nullable_converter.dart';
+import 'package:jmap_dart_client/http/converter/utc_date_nullable_converter.dart';
+import 'package:jmap_dart_client/jmap/core/utc_date.dart';
 import 'package:jmap_dart_client/jmap/mail/calendar/properties/attendee/calendar_attendee.dart';
 import 'package:jmap_dart_client/jmap/mail/calendar/properties/calendar_duration.dart';
 import 'package:jmap_dart_client/jmap/mail/calendar/properties/calendar_event_status.dart';
@@ -21,6 +23,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'calendar_event.g.dart';
 
+@UTCDateNullableConverter()
 @CalendarPriorityNullableConverter()
 @CalendarSequenceNullableConverter()
 @CalendarDurationNullableConverter()
@@ -40,6 +43,12 @@ class CalendarEvent with EquatableMixin {
 
   @JsonKey(name: 'end')
   final DateTime? endDate;
+
+  @JsonKey(name: 'utcStart')
+  final UTCDate? startUtcDate;
+
+  @JsonKey(name: 'utcEnd')
+  final UTCDate? endUtcDate;
 
   final CalendarDuration? duration;
   final String? timeZone;
@@ -62,6 +71,8 @@ class CalendarEvent with EquatableMixin {
     this.description,
     this.startDate,
     this.endDate,
+    this.startUtcDate,
+    this.endUtcDate,
     this.duration,
     this.timeZone,
     this.location,
@@ -89,6 +100,8 @@ class CalendarEvent with EquatableMixin {
     description,
     startDate,
     endDate,
+    startUtcDate,
+    endUtcDate,
     duration,
     timeZone,
     location,
