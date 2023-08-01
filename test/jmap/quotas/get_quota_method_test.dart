@@ -17,20 +17,22 @@ void main() {
       Id('382312d0-fa5c-11eb-b647-2fef1ee78d9e'),
       ResourceType.count,
       UnsignedInt(20000),
-      UnsignedInt(50000),
       Scope.account,
       'tdvu@example.com',
-      [DataType.mail]
+      [DataType.mail],
+      limit: UnsignedInt(50000),
+      hardLimit: UnsignedInt(50000),
     );
 
     final expectQuota2 = Quota(
       Id('382312d0-fa5c-11eb-b647-2fef1ee876hd'),
       ResourceType.count,
       UnsignedInt(10000),
-      UnsignedInt(70000),
       Scope.account,
       'datvu@example.com',
       [DataType.mail, DataType.calendar, DataType.contact],
+      limit: UnsignedInt(70000),
+      hardLimit: UnsignedInt(70000),
       description: 'Personal account usage',
       softLimit: UnsignedInt(30000),
       warnLimit: UnsignedInt(12000)
@@ -58,6 +60,7 @@ void main() {
                     "resourceType": "count",
                     "used": 20000,
                     "limit": 50000,
+                    "hardLimit": 50000,
                     "scope": "account",
                     "name": "tdvu@example.com",
                     "dataTypes" : ["Mail"]
@@ -69,6 +72,7 @@ void main() {
                     "warnLimit": 12000,
                     "softLimit": 30000,
                     "limit": 70000,
+                    "hardLimit": 70000,
                     "scope": "account",
                     "name": "datvu@example.com",
                     "description": "Personal account usage",
