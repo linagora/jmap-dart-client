@@ -10,12 +10,15 @@ Quota _$QuotaFromJson(Map<String, dynamic> json) => Quota(
       const IdConverter().fromJson(json['id'] as String),
       $enumDecode(_$ResourceTypeEnumMap, json['resourceType']),
       const UnsignedIntNullableConverter().fromJson(json['used'] as int?),
-      const UnsignedIntNullableConverter().fromJson(json['limit'] as int?),
       $enumDecode(_$ScopeEnumMap, json['scope']),
       json['name'] as String,
       (json['dataTypes'] as List<dynamic>)
           .map((e) => const DataTypeConverter().fromJson(e as String))
           .toList(),
+      hardLimit: const UnsignedIntNullableConverter()
+          .fromJson(json['hardLimit'] as int?),
+      limit:
+          const UnsignedIntNullableConverter().fromJson(json['limit'] as int?),
       warnLimit: const UnsignedIntNullableConverter()
           .fromJson(json['warnLimit'] as int?),
       softLimit: const UnsignedIntNullableConverter()
@@ -27,12 +30,6 @@ Map<String, dynamic> _$QuotaToJson(Quota instance) {
   final val = <String, dynamic>{
     'id': const IdConverter().toJson(instance.id),
     'resourceType': _$ResourceTypeEnumMap[instance.resourceType]!,
-    'used': const UnsignedIntNullableConverter().toJson(instance.used),
-    'limit': const UnsignedIntNullableConverter().toJson(instance.limit),
-    'scope': _$ScopeEnumMap[instance.scope]!,
-    'name': instance.name,
-    'dataTypes':
-        instance.dataTypes.map(const DataTypeConverter().toJson).toList(),
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -41,6 +38,16 @@ Map<String, dynamic> _$QuotaToJson(Quota instance) {
     }
   }
 
+  writeNotNull(
+      'used', const UnsignedIntNullableConverter().toJson(instance.used));
+  writeNotNull('hardLimit',
+      const UnsignedIntNullableConverter().toJson(instance.hardLimit));
+  writeNotNull(
+      'limit', const UnsignedIntNullableConverter().toJson(instance.limit));
+  val['scope'] = _$ScopeEnumMap[instance.scope]!;
+  val['name'] = instance.name;
+  val['dataTypes'] =
+      instance.dataTypes.map(const DataTypeConverter().toJson).toList();
   writeNotNull('warnLimit',
       const UnsignedIntNullableConverter().toJson(instance.warnLimit));
   writeNotNull('softLimit',

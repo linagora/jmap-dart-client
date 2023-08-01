@@ -13,34 +13,30 @@ part 'quota.g.dart';
 @DataTypeConverter()
 @IdConverter()
 @UnsignedIntNullableConverter()
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class Quota with EquatableMixin {
   final Id id;
   final ResourceType resourceType;
   final UnsignedInt? used;
+  final UnsignedInt? hardLimit;
   final UnsignedInt? limit;
   final Scope scope;
   final String name;
   final List<DataType> dataTypes;
-
-  @JsonKey(includeIfNull: false)
   final UnsignedInt? warnLimit;
-
-  @JsonKey(includeIfNull: false)
   final UnsignedInt? softLimit;
-
-  @JsonKey(includeIfNull: false)
   final String? description;
 
   Quota(
     this.id,
     this.resourceType,
     this.used,
-    this.limit,
     this.scope,
     this.name,
     this.dataTypes,
     {
+      this.hardLimit,
+      this.limit,
       this.warnLimit,
       this.softLimit,
       this.description
@@ -56,10 +52,11 @@ class Quota with EquatableMixin {
     id,
     resourceType,
     used,
-    limit,
     scope,
     name,
     dataTypes,
+    hardLimit,
+    limit,
     warnLimit,
     softLimit,
     description
