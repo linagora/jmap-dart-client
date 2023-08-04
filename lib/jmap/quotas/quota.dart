@@ -23,6 +23,7 @@ class Quota with EquatableMixin {
   final Scope scope;
   final String name;
   final List<DataType> dataTypes;
+  final List<DataType>? types;
   final UnsignedInt? warnLimit;
   final UnsignedInt? softLimit;
   final String? description;
@@ -30,16 +31,17 @@ class Quota with EquatableMixin {
   Quota(
     this.id,
     this.resourceType,
-    this.used,
     this.scope,
     this.name,
     this.dataTypes,
     {
+      this.used,
       this.hardLimit,
       this.limit,
       this.warnLimit,
       this.softLimit,
-      this.description
+      this.description,
+      this.types
     }
   );
 
@@ -59,6 +61,7 @@ class Quota with EquatableMixin {
     limit,
     warnLimit,
     softLimit,
-    description
+    description,
+    types
   ];
 }
