@@ -9,12 +9,12 @@ part of 'quota.dart';
 Quota _$QuotaFromJson(Map<String, dynamic> json) => Quota(
       const IdConverter().fromJson(json['id'] as String),
       $enumDecode(_$ResourceTypeEnumMap, json['resourceType']),
-      const UnsignedIntNullableConverter().fromJson(json['used'] as int?),
       $enumDecode(_$ScopeEnumMap, json['scope']),
       json['name'] as String,
       (json['dataTypes'] as List<dynamic>)
           .map((e) => const DataTypeConverter().fromJson(e as String))
           .toList(),
+      used: const UnsignedIntNullableConverter().fromJson(json['used'] as int?),
       hardLimit: const UnsignedIntNullableConverter()
           .fromJson(json['hardLimit'] as int?),
       limit:
@@ -24,6 +24,9 @@ Quota _$QuotaFromJson(Map<String, dynamic> json) => Quota(
       softLimit: const UnsignedIntNullableConverter()
           .fromJson(json['softLimit'] as int?),
       description: json['description'] as String?,
+      types: (json['types'] as List<dynamic>?)
+          ?.map((e) => const DataTypeConverter().fromJson(e as String))
+          .toList(),
     );
 
 Map<String, dynamic> _$QuotaToJson(Quota instance) {
@@ -48,6 +51,8 @@ Map<String, dynamic> _$QuotaToJson(Quota instance) {
   val['name'] = instance.name;
   val['dataTypes'] =
       instance.dataTypes.map(const DataTypeConverter().toJson).toList();
+  writeNotNull(
+      'types', instance.types?.map(const DataTypeConverter().toJson).toList());
   writeNotNull('warnLimit',
       const UnsignedIntNullableConverter().toJson(instance.warnLimit));
   writeNotNull('softLimit',
