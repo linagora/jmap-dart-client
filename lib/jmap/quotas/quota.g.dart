@@ -11,9 +11,6 @@ Quota _$QuotaFromJson(Map<String, dynamic> json) => Quota(
       $enumDecode(_$ResourceTypeEnumMap, json['resourceType']),
       $enumDecode(_$ScopeEnumMap, json['scope']),
       json['name'] as String,
-      (json['dataTypes'] as List<dynamic>)
-          .map((e) => const DataTypeConverter().fromJson(e as String))
-          .toList(),
       used: const UnsignedIntNullableConverter().fromJson(json['used'] as int?),
       hardLimit: const UnsignedIntNullableConverter()
           .fromJson(json['hardLimit'] as int?),
@@ -25,6 +22,9 @@ Quota _$QuotaFromJson(Map<String, dynamic> json) => Quota(
           .fromJson(json['softLimit'] as int?),
       description: json['description'] as String?,
       types: (json['types'] as List<dynamic>?)
+          ?.map((e) => const DataTypeConverter().fromJson(e as String))
+          .toList(),
+      dataTypes: (json['dataTypes'] as List<dynamic>?)
           ?.map((e) => const DataTypeConverter().fromJson(e as String))
           .toList(),
     );
@@ -49,8 +49,8 @@ Map<String, dynamic> _$QuotaToJson(Quota instance) {
       'limit', const UnsignedIntNullableConverter().toJson(instance.limit));
   val['scope'] = _$ScopeEnumMap[instance.scope]!;
   val['name'] = instance.name;
-  val['dataTypes'] =
-      instance.dataTypes.map(const DataTypeConverter().toJson).toList();
+  writeNotNull('dataTypes',
+      instance.dataTypes?.map(const DataTypeConverter().toJson).toList());
   writeNotNull(
       'types', instance.types?.map(const DataTypeConverter().toJson).toList());
   writeNotNull('warnLimit',
