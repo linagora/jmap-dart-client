@@ -4,6 +4,7 @@ import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:jmap_dart_client/http/http_client.dart';
 import 'package:jmap_dart_client/jmap/account_id.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
+import 'package:jmap_dart_client/jmap/core/properties/properties.dart';
 import 'package:jmap_dart_client/jmap/core/utc_date.dart';
 import 'package:jmap_dart_client/jmap/jmap_request.dart';
 import 'package:jmap_dart_client/jmap/mail/calendar/calendar_event.dart';
@@ -142,6 +143,12 @@ void main() {
       ]
     );
 
+    final CalendarEvent expectedCalendarEvent3 = CalendarEvent(
+      eventId: EventId('ea127690-0440-404b-af98-9823c855a283'),
+      title: 'Gatling: break LemonLDAP!',
+      description: 'Let\'s write some basic OIDC benchmarks',
+    );
+
     final accountId = AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6'));
     final blobId1 = Id('0f9f65ab-dc7b-4146-850f-6e4881093965');
     final blobId2 = Id('1f9f65ab-dc7b-4146-850f-6e4881093965');
@@ -163,63 +170,65 @@ void main() {
               {
                 "accountId": accountId.id.value,
                 "parsed": {
-                  blobId1.value: {
-                    "uid": "ea127690-0440-404b-af98-9823c855a283",
-                    "title": "Gatling: break LemonLDAP!",
-                    "description": "Let's write some basic OIDC benchmarks",
-                    "start": "2023-02-09T10:00:00",
-                    "duration": "PT2H0M0S",
-                    "end": "2023-02-09T12:00:00",
-                    "utcStart": "2023-07-26T08:45:00Z",
-                    "utcEnd": "2023-07-26T09:45:00Z",
-                    "timeZone": "Asia/Ho_Chi_Minh",
-                    "location": "5 Dien Bien Phu, Ha Noi",
-                    "method": "REQUEST",
-                    "sequence": 0,
-                    "priority": 5,
-                    "freeBusyStatus": "busy",
-                    "privacy": "public",
-                    "organizer": {
-                      "name": "Benoît TELLIER",
-                      "mailto": "btellier@linagora.com"
-                    },
-                    "participants": [
-                      {
+                  blobId1.value: [
+                    {
+                      "uid": "ea127690-0440-404b-af98-9823c855a283",
+                      "title": "Gatling: break LemonLDAP!",
+                      "description": "Let's write some basic OIDC benchmarks",
+                      "start": "2023-02-09T10:00:00",
+                      "duration": "PT2H0M0S",
+                      "end": "2023-02-09T12:00:00",
+                      "utcStart": "2023-07-26T08:45:00Z",
+                      "utcEnd": "2023-07-26T09:45:00Z",
+                      "timeZone": "Asia/Ho_Chi_Minh",
+                      "location": "5 Dien Bien Phu, Ha Noi",
+                      "method": "REQUEST",
+                      "sequence": 0,
+                      "priority": 5,
+                      "freeBusyStatus": "busy",
+                      "privacy": "public",
+                      "organizer": {
                         "name": "Benoît TELLIER",
-                        "mailto": "btellier@domain.tld",
-                        "kind": "individual",
-                        "role": "chair",
-                        "participationStatus": "accepted",
-                        "expectReply": false
+                        "mailto": "btellier@linagora.com"
                       },
-                      {
-                        "name": "Van Tung TRAN",
-                        "mailto": "vttran@domain.tld",
-                        "kind": "individual",
-                        "role": "requested-participant",
-                        "participationStatus": "needs-action",
-                        "expectReply": true
-                      }
-                    ],
-                    "extensionFields": {
-                      "X-OPENPAAS-VIDEOCONFERENCE": [
-                        "https://jitsi.linagora.com/abcd"
+                      "participants": [
+                        {
+                          "name": "Benoît TELLIER",
+                          "mailto": "btellier@domain.tld",
+                          "kind": "individual",
+                          "role": "chair",
+                          "participationStatus": "accepted",
+                          "expectReply": false
+                        },
+                        {
+                          "name": "Van Tung TRAN",
+                          "mailto": "vttran@domain.tld",
+                          "kind": "individual",
+                          "role": "requested-participant",
+                          "participationStatus": "needs-action",
+                          "expectReply": true
+                        }
                       ],
-                      "X-OPENPAAS-CUSTOM-HEADER1": [
-                        "whatever1",
-                        "whatever2"
+                      "extensionFields": {
+                        "X-OPENPAAS-VIDEOCONFERENCE": [
+                          "https://jitsi.linagora.com/abcd"
+                        ],
+                        "X-OPENPAAS-CUSTOM-HEADER1": [
+                          "whatever1",
+                          "whatever2"
+                        ]
+                      },
+                      "recurrenceRules": [
+                        {
+                          "frequency": "yearly",
+                          "byDay": ["mo"],
+                          "byMonth": ["10"],
+                          "bySetPosition": [1, 2],
+                          "until": "2024-01-11T09:00:00Z"
+                        }
                       ]
-                    },
-                    "recurrenceRules": [
-                      {
-                        "frequency": "yearly",
-                        "byDay": ["mo"],
-                        "byMonth": ["10"],
-                        "bySetPosition": [1, 2],
-                        "until": "2024-01-11T09:00:00Z"
-                      }
-                    ]
-                  }
+                    }
+                  ]
                 }
               },
               "c0"
@@ -262,7 +271,7 @@ void main() {
         invocation.methodCallId,
         CalendarEventParseResponse.deserialize);
 
-      expect(calendarEventParsed!.parsed![blobId1], equals(expectedCalendarEvent));
+      expect(calendarEventParsed!.parsed![blobId1], containsOnce(expectedCalendarEvent));
     });
 
     test('CalendarEventParseMethod parse should support several blobIds', () async {
@@ -280,120 +289,124 @@ void main() {
               {
                 "accountId": accountId.id.value,
                 "parsed": {
-                  blobId1.value: {
-                    "uid": "ea127690-0440-404b-af98-9823c855a283",
-                    "title": "Gatling: break LemonLDAP!",
-                    "description": "Let's write some basic OIDC benchmarks",
-                    "start": "2023-02-09T10:00:00",
-                    "duration": "PT2H0M0S",
-                    "end": "2023-02-09T12:00:00",
-                    "utcStart": "2023-07-26T08:45:00Z",
-                    "utcEnd": "2023-07-26T09:45:00Z",
-                    "timeZone": "Asia/Ho_Chi_Minh",
-                    "location": "5 Dien Bien Phu, Ha Noi",
-                    "method": "REQUEST",
-                    "sequence": 0,
-                    "priority": 5,
-                    "freeBusyStatus": "busy",
-                    "privacy": "public",
-                    "organizer": {
-                      "name": "Benoît TELLIER",
-                      "mailto": "btellier@linagora.com"
-                    },
-                    "participants": [
-                      {
+                  blobId1.value: [
+                    {
+                      "uid": "ea127690-0440-404b-af98-9823c855a283",
+                      "title": "Gatling: break LemonLDAP!",
+                      "description": "Let's write some basic OIDC benchmarks",
+                      "start": "2023-02-09T10:00:00",
+                      "duration": "PT2H0M0S",
+                      "end": "2023-02-09T12:00:00",
+                      "utcStart": "2023-07-26T08:45:00Z",
+                      "utcEnd": "2023-07-26T09:45:00Z",
+                      "timeZone": "Asia/Ho_Chi_Minh",
+                      "location": "5 Dien Bien Phu, Ha Noi",
+                      "method": "REQUEST",
+                      "sequence": 0,
+                      "priority": 5,
+                      "freeBusyStatus": "busy",
+                      "privacy": "public",
+                      "organizer": {
                         "name": "Benoît TELLIER",
-                        "mailto": "btellier@domain.tld",
-                        "kind": "individual",
-                        "role": "chair",
-                        "participationStatus": "accepted",
-                        "expectReply": false
+                        "mailto": "btellier@linagora.com"
                       },
-                      {
-                        "name": "Van Tung TRAN",
-                        "mailto": "vttran@domain.tld",
-                        "kind": "individual",
-                        "role": "requested-participant",
-                        "participationStatus": "needs-action",
-                        "expectReply": true
-                      }
-                    ],
-                    "extensionFields": {
-                      "X-OPENPAAS-VIDEOCONFERENCE": [
-                        "https://jitsi.linagora.com/abcd"
+                      "participants": [
+                        {
+                          "name": "Benoît TELLIER",
+                          "mailto": "btellier@domain.tld",
+                          "kind": "individual",
+                          "role": "chair",
+                          "participationStatus": "accepted",
+                          "expectReply": false
+                        },
+                        {
+                          "name": "Van Tung TRAN",
+                          "mailto": "vttran@domain.tld",
+                          "kind": "individual",
+                          "role": "requested-participant",
+                          "participationStatus": "needs-action",
+                          "expectReply": true
+                        }
                       ],
-                      "X-OPENPAAS-CUSTOM-HEADER1": [
-                        "whatever1",
-                        "whatever2"
+                      "extensionFields": {
+                        "X-OPENPAAS-VIDEOCONFERENCE": [
+                          "https://jitsi.linagora.com/abcd"
+                        ],
+                        "X-OPENPAAS-CUSTOM-HEADER1": [
+                          "whatever1",
+                          "whatever2"
+                        ]
+                      },
+                      "recurrenceRules": [
+                        {
+                          "frequency": "yearly",
+                          "byDay": ["mo"],
+                          "byMonth": ["10"],
+                          "bySetPosition": [1, 2],
+                          "until": "2024-01-11T09:00:00Z"
+                        }
                       ]
-                    },
-                    "recurrenceRules": [
-                      {
-                        "frequency": "yearly",
-                        "byDay": ["mo"],
-                        "byMonth": ["10"],
-                        "bySetPosition": [1, 2],
-                        "until": "2024-01-11T09:00:00Z"
-                      }
-                    ]
-                  },
-                  blobId2.value: {
-                    "uid": "2a127690-0440-404b-af98-9823c855a283",
-                    "title": "Title 2",
-                    "description": "Let's write some basic OIDC benchmarks",
-                    "start": "2023-02-09T10:00:00",
-                    "duration": "PT2H0M0S",
-                    "end": "2023-02-09T12:00:00",
-                    "utcStart": "2023-07-26T08:45:00Z",
-                    "utcEnd": "2023-07-26T09:45:00Z",
-                    "timeZone": "Asia/Ho_Chi_Minh",
-                    "location": "5 Dien Bien Phu, Ha Noi",
-                    "method": "REQUEST",
-                    "sequence": 0,
-                    "priority": 5,
-                    "freeBusyStatus": "busy",
-                    "privacy": "public",
-                    "organizer": {
-                      "name": "Benoît TELLIER",
-                      "mailto": "btellier@linagora.com"
-                    },
-                    "participants": [
-                      {
+                    }
+                  ],
+                  blobId2.value: [
+                    {
+                      "uid": "2a127690-0440-404b-af98-9823c855a283",
+                      "title": "Title 2",
+                      "description": "Let's write some basic OIDC benchmarks",
+                      "start": "2023-02-09T10:00:00",
+                      "duration": "PT2H0M0S",
+                      "end": "2023-02-09T12:00:00",
+                      "utcStart": "2023-07-26T08:45:00Z",
+                      "utcEnd": "2023-07-26T09:45:00Z",
+                      "timeZone": "Asia/Ho_Chi_Minh",
+                      "location": "5 Dien Bien Phu, Ha Noi",
+                      "method": "REQUEST",
+                      "sequence": 0,
+                      "priority": 5,
+                      "freeBusyStatus": "busy",
+                      "privacy": "public",
+                      "organizer": {
                         "name": "Benoît TELLIER",
-                        "mailto": "btellier@domain.tld",
-                        "kind": "individual",
-                        "role": "chair",
-                        "participationStatus": "accepted",
-                        "expectReply": false
+                        "mailto": "btellier@linagora.com"
                       },
-                      {
-                        "name": "Van Tung TRAN",
-                        "mailto": "vttran@domain.tld",
-                        "kind": "individual",
-                        "role": "requested-participant",
-                        "participationStatus": "needs-action",
-                        "expectReply": true
-                      }
-                    ],
-                    "extensionFields": {
-                      "X-OPENPAAS-VIDEOCONFERENCE": [
-                        "https://jitsi.linagora.com/abcd"
+                      "participants": [
+                        {
+                          "name": "Benoît TELLIER",
+                          "mailto": "btellier@domain.tld",
+                          "kind": "individual",
+                          "role": "chair",
+                          "participationStatus": "accepted",
+                          "expectReply": false
+                        },
+                        {
+                          "name": "Van Tung TRAN",
+                          "mailto": "vttran@domain.tld",
+                          "kind": "individual",
+                          "role": "requested-participant",
+                          "participationStatus": "needs-action",
+                          "expectReply": true
+                        }
                       ],
-                      "X-OPENPAAS-CUSTOM-HEADER1": [
-                        "whatever1",
-                        "whatever2"
+                      "extensionFields": {
+                        "X-OPENPAAS-VIDEOCONFERENCE": [
+                          "https://jitsi.linagora.com/abcd"
+                        ],
+                        "X-OPENPAAS-CUSTOM-HEADER1": [
+                          "whatever1",
+                          "whatever2"
+                        ]
+                      },
+                      "recurrenceRules": [
+                        {
+                          "frequency": "yearly",
+                          "byDay": ["mo"],
+                          "byMonth": ["10"],
+                          "bySetPosition": [1, 2],
+                          "until": "2024-01-11T09:00:00Z"
+                        }
                       ]
-                    },
-                    "recurrenceRules": [
-                      {
-                        "frequency": "yearly",
-                        "byDay": ["mo"],
-                        "byMonth": ["10"],
-                        "bySetPosition": [1, 2],
-                        "until": "2024-01-11T09:00:00Z"
-                      }
-                    ]
-                  }
+                    }
+                  ]
                 }
               },
               "c0"
@@ -438,9 +451,9 @@ void main() {
         CalendarEventParseResponse.deserialize);
 
       expect(calendarEventParsed!.parsed!.length, 2);
-      expect(calendarEventParsed.parsed!.values, containsAll([expectedCalendarEvent, expectedCalendarEvent2]));
-      expect(calendarEventParsed.parsed![blobId1], expectedCalendarEvent);
-      expect(calendarEventParsed.parsed![blobId2], expectedCalendarEvent2);
+      expect(calendarEventParsed.parsed!.values, containsAll([[expectedCalendarEvent], [expectedCalendarEvent2]]));
+      expect(calendarEventParsed.parsed![blobId1], containsOnce(expectedCalendarEvent));
+      expect(calendarEventParsed.parsed![blobId2], containsOnce(expectedCalendarEvent2));
     });
 
     test('CalendarEventParseMethod parse should return not found result when blobId does not exist', () async {
@@ -563,6 +576,84 @@ void main() {
         CalendarEventParseResponse.deserialize);
 
       expect(calendarEventParsed!.notParsable, contains(blobIdNotParsable));
+    });
+
+    test('CalendarEventParseMethod parse with properties should succeed', () async {
+      final baseOption  = BaseOptions(method: 'POST');
+      final dio = Dio(baseOption)
+        ..options.baseUrl = 'http://domain.com/jmap';
+      final dioAdapter = DioAdapter(dio: dio);
+      dioAdapter.onPost(
+        '',
+        (server) => server.reply(200, {
+          "sessionState": "2c9f1b12-b35a-43e6-9af2-0106fb53a943",
+          "methodResponses": [
+            [
+              "CalendarEvent/parse",
+              {
+                "accountId": accountId.id.value,
+                "parsed": {
+                  blobId1.value: [
+                    {
+                      "uid": "ea127690-0440-404b-af98-9823c855a283",
+                      "title": "Gatling: break LemonLDAP!",
+                      "description": "Let's write some basic OIDC benchmarks",
+                    }
+                  ]
+                }
+              },
+              "c0"
+            ]
+          ]
+        }),
+        data: {
+          "using": [
+            "urn:ietf:params:jmap:core",
+            "com:linagora:params:calendar:event"
+          ],
+          "methodCalls": [
+            [
+              "CalendarEvent/parse",
+              {
+                "accountId": accountId.id.value,
+                "blobIds": [
+                  blobId1.value
+                ],
+                "properties": [
+                  "uid",
+                  "title",
+                  "description"
+                ]
+              },
+              "c0"
+            ]
+          ]
+        },
+        headers: {
+          "accept": "application/json;jmapVersion=rfc-8621",
+          "content-length": 481
+        }
+      );
+
+      final calendarEventParseMethod = CalendarEventParseMethod(accountId, {blobId1})
+        ..addProperties(Properties({
+            "uid",
+            "title",
+            "description"
+        }));
+      final httpClient = HttpClient(dio);
+      final requestBuilder = JmapRequestBuilder(httpClient, ProcessingInvocation());
+      final invocation = requestBuilder.invocation(calendarEventParseMethod);
+      final response = await (requestBuilder
+          ..usings(calendarEventParseMethod.requiredCapabilities))
+        .build()
+        .execute();
+
+      final calendarEventParsed = response.parse<CalendarEventParseResponse>(
+        invocation.methodCallId,
+        CalendarEventParseResponse.deserialize);
+
+      expect(calendarEventParsed!.parsed![blobId1], containsOnce(expectedCalendarEvent3));
     });
   });
 }
