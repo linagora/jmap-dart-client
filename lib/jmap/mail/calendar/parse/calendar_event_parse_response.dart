@@ -9,7 +9,7 @@ class CalendarEventParseResponse extends ParseResponse<CalendarEvent> {
   CalendarEventParseResponse(
     AccountId accountId,
     {
-      Map<Id, CalendarEvent>? parsed,
+      Map<Id, List<CalendarEvent>>? parsed,
       List<Id>? notParsable,
       List<Id>? notFound
     }
@@ -26,7 +26,7 @@ class CalendarEventParseResponse extends ParseResponse<CalendarEvent> {
       parsed: (json['parsed'] as Map<String, dynamic>?)
         ?.map((key, value) => MapEntry(
             const IdConverter().fromJson(key),
-            CalendarEvent.fromJson(value as Map<String, dynamic>)
+            (value as List<dynamic>).map((e) => CalendarEvent.fromJson(e as Map<String, dynamic>)).toList()
           )),
       notParsable: (json['notParsable'] as List<dynamic>?)
         ?.map((value) => const IdConverter().fromJson(value as String))
