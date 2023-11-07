@@ -10,7 +10,6 @@ import 'package:jmap_dart_client/http/converter/total_threads_converter.dart';
 import 'package:jmap_dart_client/http/converter/unread_emails_converter.dart';
 import 'package:jmap_dart_client/http/converter/unread_threads_converter.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
-import 'package:jmap_dart_client/jmap/core/properties/properties.dart';
 import 'package:jmap_dart_client/jmap/core/unsigned_int.dart';
 import 'package:jmap_dart_client/jmap/mail/mailbox/mailbox_rights.dart';
 import 'package:jmap_dart_client/jmap/mail/mailbox/namespace.dart';
@@ -30,11 +29,6 @@ part 'mailbox.g.dart';
 @MailboxNameConverter()
 @JsonSerializable()
 class Mailbox with EquatableMixin {
-  static Properties allProperties = Properties({
-    'id', 'name', 'parentId', 'role', 'sortOrder', 'totalEmails', 'unreadEmails',
-    'totalThreads', 'unreadThreads', 'myRights', 'isSubscribed'
-  });
-
   @JsonKey(includeIfNull: false)
   final MailboxId? id;
 
