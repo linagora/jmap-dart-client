@@ -10,7 +10,6 @@ import 'package:jmap_dart_client/http/converter/thread_id_nullable_converter.dar
 import 'package:jmap_dart_client/http/converter/unsigned_int_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/utc_date_nullable_converter.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
-import 'package:jmap_dart_client/jmap/core/properties/properties.dart';
 import 'package:jmap_dart_client/jmap/core/reference_id.dart';
 import 'package:jmap_dart_client/jmap/core/unsigned_int.dart';
 import 'package:jmap_dart_client/jmap/core/utc_date.dart';
@@ -23,11 +22,6 @@ import 'package:jmap_dart_client/jmap/mail/email/keyword_identifier.dart';
 import 'package:jmap_dart_client/jmap/mail/mailbox/mailbox.dart';
 
 class Email with EquatableMixin {
-  static Properties allProperties = Properties({
-    'id', 'subject','from', 'to', 'cc', 'bcc', 'keywords', 'size', 'receivedAt',
-    'sentAt', 'replyTo', 'preview', 'hasAttachment'
-  });
-
   final EmailId? id;
   final Id? blobId;
   final ThreadId? threadId;
