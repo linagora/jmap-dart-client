@@ -95,7 +95,21 @@ class Mailbox with EquatableMixin {
   Map<String, dynamic> toJson() => _$MailboxToJson(this);
 
   @override
-  List<Object?> get props => [id, name, parentId, role];
+  List<Object?> get props => [
+    id,
+    name,
+    parentId,
+    role,
+    sortOrder,
+    totalEmails,
+    unreadEmails,
+    totalThreads,
+    unreadThreads,
+    myRights,
+    isSubscribed,
+    namespace,
+    rights
+  ];
 }
 
 class MailboxId with EquatableMixin {
@@ -129,7 +143,7 @@ class SortOrder with EquatableMixin {
   late final UnsignedInt value;
 
   SortOrder({int sortValue = 0}) {
-    this.value = UnsignedInt(sortValue);
+    value = UnsignedInt(sortValue);
   }
 
   @override
