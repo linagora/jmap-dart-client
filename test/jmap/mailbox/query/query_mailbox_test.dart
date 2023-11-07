@@ -37,6 +37,7 @@ void main(){
         true,
         true,
       ),
+     isSubscribed: IsSubscribed(true),
     );
 
     test('Query Mailbox spam report', () async {
