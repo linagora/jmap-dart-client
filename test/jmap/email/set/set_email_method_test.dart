@@ -124,7 +124,7 @@ void main() {
             subject: 'set email 3',
             htmlBody: {EmailBodyPart(partId: PartId('a49d'), type: MediaType.parse('text/html'))},
             bodyValues: {
-              PartId('a49d'): EmailBodyValue('test html html', false, false)
+              PartId('a49d'): EmailBodyValue(value: 'test html html', isEncodingProblem: false, isTruncated: false)
             },
           )
         );
@@ -242,7 +242,7 @@ void main() {
               subject: 'set email 3',
               htmlBody: {EmailBodyPart(partId: PartId('a49d'), type: MediaType.parse('text/html'))},
               bodyValues: {
-                PartId('a49d'): EmailBodyValue('test html html', false, false)
+                PartId('a49d'): EmailBodyValue(value: 'test html html', isEncodingProblem: false, isTruncated: false)
               },
               headerUserAgent: {IndividualHeaderIdentifier.headerUserAgent : 'Android/1.0.0 TeamMail/1.0'}
             )
@@ -350,7 +350,7 @@ void main() {
               subject: '[POSTMAN] SEND EMAIL WITH MDN MDN MDN',
               htmlBody: {EmailBodyPart(partId: PartId('abc123'), type: MediaType.parse('text/html'))},
               bodyValues: {
-                PartId('abc123'): EmailBodyValue('[POSTMAN] SEND EMAIL WITH MDN', false, false)
+                PartId('abc123'): EmailBodyValue(value: '[POSTMAN] SEND EMAIL WITH MDN', isEncodingProblem: false, isTruncated: false)
               },
               headerMdn: {IndividualHeaderIdentifier.headerMdn : "qkdo@linagora.com"}
             )
