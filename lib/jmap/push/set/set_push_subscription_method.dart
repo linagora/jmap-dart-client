@@ -31,7 +31,7 @@ class SetPushSubscriptionMethod extends SetMethodNoNeedAccountId<PushSubscriptio
     writeNotNull('update', update
       ?.map((id, update) => SetMethodPropertiesConverter().fromMapIdToJson(id, update.toJson())));
     writeNotNull('destroy', destroy
-      ?.map((destroyId) => IdConverter().toJson(destroyId)).toList());
+      ?.map((destroyId) => const IdConverter().toJson(destroyId)).toList());
 
     return val;
   }

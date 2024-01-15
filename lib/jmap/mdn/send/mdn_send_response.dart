@@ -17,11 +17,11 @@ class MDNSendResponse extends SendResponse<MDN> {
       const AccountIdConverter().fromJson(json['accountId'] as String),
       sent: (json['sent'] as Map<String, dynamic>?)
           ?.map((key, value) => MapEntry(
-              IdConverter().fromJson(key),
+              const IdConverter().fromJson(key),
               MDN.fromJson(value as Map<String, dynamic>))),
       notSent: (json['notSent'] as Map<String, dynamic>?)
           ?.map((key, value) => MapEntry(
-              IdConverter().fromJson(key),
+              const IdConverter().fromJson(key),
               SetError.fromJson(value))),
     );
   }

@@ -45,13 +45,13 @@ class SetEmailSubmissionMethod extends SetMethod<EmailSubmission> with OptionalO
         ?.map((id, update) => SetMethodPropertiesConverter()
         .fromMapIdToJson(id, update.toJson())));
     writeNotNull('destroy', destroy
-        ?.map((destroyId) => IdConverter()
+        ?.map((destroyId) => const IdConverter()
         .toJson(destroyId)).toList());
     writeNotNull('onSuccessUpdateEmail', onSuccessUpdateEmail
         ?.map((id, update) => SetMethodPropertiesConverter()
         .fromMapEmailSubmissionIdToJson(id, update)));
     writeNotNull('onSuccessDestroyEmail', onSuccessDestroyEmail
-        ?.map((destroyId) => ReferencesEmailSubmissionIdConverter()
+        ?.map((destroyId) => const ReferencesEmailSubmissionIdConverter()
         .toJson(destroyId)).toList());
 
     return val;
@@ -66,9 +66,7 @@ mixin OptionalOnSuccessUpdateEmail {
   Map<EmailSubmissionId, PatchObject>? onSuccessUpdateEmail;
 
   void addOnSuccessUpdateEmail(Map<EmailSubmissionId, PatchObject> values) {
-    if (onSuccessUpdateEmail == null) {
-      onSuccessUpdateEmail = Map<EmailSubmissionId, PatchObject>();
-    }
+    onSuccessUpdateEmail ??= <EmailSubmissionId, PatchObject>{};
     onSuccessUpdateEmail?.addAll(values);
   }
 }
@@ -78,9 +76,7 @@ mixin OptionalOnSuccessDestroyEmail {
   Set<EmailSubmissionId>? onSuccessDestroyEmail;
 
   void addOnSuccessDestroyEmail(Set<EmailSubmissionId> values) {
-    if (onSuccessDestroyEmail == null) {
-      onSuccessDestroyEmail = Set();
-    }
+    onSuccessDestroyEmail ??= <EmailSubmissionId>{};
     onSuccessDestroyEmail?.addAll(values);
   }
 }
