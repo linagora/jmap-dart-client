@@ -244,10 +244,10 @@ void main() {
         })
         ..addFilters(LogicFilterOperator(
             Operator.OR,
-            Set<Filter>.from([
+            <Filter>{
               EmailFilterCondition(hasKeyword: "music"),
               EmailFilterCondition(hasKeyword: "video"),
-            ])));
+            }));
       final queryEmailInvocation = jmapRequestBuilder
           .invocation(queryEmailMethod, methodCallId: MethodCallId('c2'));
 
