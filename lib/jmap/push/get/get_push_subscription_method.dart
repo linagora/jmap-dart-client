@@ -27,5 +27,6 @@ class GetPushSubscriptionMethod extends GetMethodNoNeedAccountId {
 
   factory GetPushSubscriptionMethod.fromJson(Map<String, dynamic> json) => _$GetPushSubscriptionMethodFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$GetPushSubscriptionMethodToJson(this);
 }
