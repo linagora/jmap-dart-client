@@ -172,7 +172,7 @@ void main() {
               to: {EmailAddress("userD", 'userd@qa.open-paas.org')},
               htmlBody: {EmailBodyPart(partId: PartId('mmm'), blobId: Id('aaaa'), type: MediaType.parse('text/html'))},
               bodyValues: {
-                PartId('mmm'): EmailBodyValue('<!DOCTYPE html> <html> <body> <p><b>Hello test send 2</b></p><br><br></body> </html>', false, false)
+                PartId('mmm'): EmailBodyValue(value: '<!DOCTYPE html> <html> <body> <p><b>Hello test send 2</b></p><br><br></body> </html>', isEncodingProblem: false, isTruncated: false)
               }
             )
         );
@@ -188,7 +188,7 @@ void main() {
         ..addOnSuccessUpdateEmail({
           EmailSubmissionId(ReferenceId(ReferencePrefix.defaultPrefix, Id('a1234'))): PatchObject({
             PatchObject.mailboxIdsProperty: {
-              MailboxIdConverter().toJson(MailboxId(Id('5dfb3290-0a14-11ec-b57c-2fef1ee78d9e'))): true
+              const MailboxIdConverter().toJson(MailboxId(Id('5dfb3290-0a14-11ec-b57c-2fef1ee78d9e'))): true
             }
           })
         });
@@ -361,7 +361,7 @@ void main() {
                 to: {EmailAddress("userD", 'userd@qa.open-paas.org')},
                 htmlBody: {EmailBodyPart(partId: PartId('mmm'), blobId: Id('aaaa'), type: MediaType.parse('text/html'))},
                 bodyValues: {
-                  PartId('mmm'): EmailBodyValue('<!DOCTYPE html> <html> <body> <p><b>Hello test send 2</b></p><br><br></body> </html>', false, false)
+                  PartId('mmm'): EmailBodyValue(value: '<!DOCTYPE html> <html> <body> <p><b>Hello test send 2</b></p><br><br></body> </html>', isEncodingProblem: false, isTruncated: false)
                 },
                 headerUserAgent: {IndividualHeaderIdentifier.headerUserAgent : 'Android/1.0.0 TeamMail/1.0'}
             )
@@ -378,7 +378,7 @@ void main() {
         ..addOnSuccessUpdateEmail({
           EmailSubmissionId(ReferenceId(ReferencePrefix.defaultPrefix, Id('a1234'))): PatchObject({
             PatchObject.mailboxIdsProperty: {
-              MailboxIdConverter().toJson(MailboxId(Id('5dfb3290-0a14-11ec-b57c-2fef1ee78d9e'))): true
+              const MailboxIdConverter().toJson(MailboxId(Id('5dfb3290-0a14-11ec-b57c-2fef1ee78d9e'))): true
             }
           })
         });
