@@ -39,7 +39,7 @@ class SetEmailMethod extends SetMethod<Email> {
       ?.map((id, update) => SetMethodPropertiesConverter()
         .fromMapIdToJson(id, update.toJson())));
     writeNotNull('destroy', destroy
-      ?.map((destroyId) => IdConverter()
+      ?.map((destroyId) => const IdConverter()
         .toJson(destroyId)).toList());
     
     return val;
