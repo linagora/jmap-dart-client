@@ -15,8 +15,8 @@ QueryEmailResponse _$QueryEmailResponseFromJson(Map<String, dynamic> json) {
     (json['ids'] as List<dynamic>)
         .map((e) => const IdConverter().fromJson(e as String))
         .toSet(),
-    const UnsignedIntConverter().fromJson(json['total'] as int),
-    const UnsignedIntConverter().fromJson(json['limit'] as int),
+    const UnsignedIntNullableConverter().fromJson(json['total'] as int?),
+    const UnsignedIntNullableConverter().fromJson(json['limit'] as int?),
   );
 }
 
@@ -27,6 +27,6 @@ Map<String, dynamic> _$QueryEmailResponseToJson(QueryEmailResponse instance) =>
       'canCalculateChanges': instance.canCalculateChanges,
       'position': const UnsignedIntConverter().toJson(instance.position),
       'ids': instance.ids.map(const IdConverter().toJson).toList(),
-      'total': const UnsignedIntConverter().toJson(instance.total),
-      'limit': const UnsignedIntConverter().toJson(instance.limit),
+      'total': const UnsignedIntNullableConverter().toJson(instance.total),
+      'limit': const UnsignedIntNullableConverter().toJson(instance.limit),
     };
