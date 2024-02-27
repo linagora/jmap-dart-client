@@ -75,7 +75,10 @@ void main() {
                   "singleton": {
                     "isEnabled": true,
                     "fromDate": "2022-08-16T15:00:00.000Z",
-                    "textBody": "Hello dab"
+                    "toDate": null,
+                    "subject": null,
+                    "textBody": "Hello dab",
+                    "htmlBody": null
                   }
                 }
               },
@@ -92,7 +95,7 @@ void main() {
         },
         headers: {
           "accept": "application/json;jmapVersion=rfc-8621",
-          "content-length": 677
+          "content-length": 875
         }
       );
 

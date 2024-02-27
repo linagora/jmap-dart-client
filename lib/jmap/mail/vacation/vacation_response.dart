@@ -18,19 +18,15 @@ class VacationResponse with EquatableMixin {
   @JsonKey(includeIfNull: false)
   final bool? isEnabled;
 
-  @JsonKey(includeIfNull: false)
   final UTCDate? fromDate;
 
-  @JsonKey(includeIfNull: false)
   final UTCDate? toDate;
 
-  @JsonKey(includeIfNull: false)
   final String? subject;
 
   @JsonKey(includeIfNull: false)
   final String? textBody;
 
-  @JsonKey(includeIfNull: false)
   final String? htmlBody;
 
   VacationResponse({
