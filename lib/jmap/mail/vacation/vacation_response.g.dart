@@ -30,12 +30,10 @@ Map<String, dynamic> _$VacationResponseToJson(VacationResponse instance) {
 
   writeNotNull('id', const VacationIdNullableConverter().toJson(instance.id));
   writeNotNull('isEnabled', instance.isEnabled);
-  writeNotNull(
-      'fromDate', const UTCDateNullableConverter().toJson(instance.fromDate));
-  writeNotNull(
-      'toDate', const UTCDateNullableConverter().toJson(instance.toDate));
-  writeNotNull('subject', instance.subject);
+  val['fromDate'] = const UTCDateNullableConverter().toJson(instance.fromDate);
+  val['toDate'] = const UTCDateNullableConverter().toJson(instance.toDate);
+  val['subject'] = instance.subject;
   writeNotNull('textBody', instance.textBody);
-  writeNotNull('htmlBody', instance.htmlBody);
+  val['htmlBody'] = instance.htmlBody;
   return val;
 }
