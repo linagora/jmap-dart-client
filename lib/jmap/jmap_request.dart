@@ -1,4 +1,5 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:dio/dio.dart';
 import 'package:jmap_dart_client/http/http_client.dart';
 import 'package:jmap_dart_client/jmap/core/request/reference_path.dart';
 import 'package:jmap_dart_client/jmap/core/request/result_reference.dart';
@@ -20,14 +21,18 @@ class JmapRequest {
   RequestObject? _requestObject;
   RequestObject? get requestObject => _requestObject;
 
-  Future<ResponseObject> execute() async {
+  Future<ResponseObject> execute({CancelToken? cancelToken}) async {
     _requestObject = (RequestObject.builder()
         ..usings(_capabilities.asSet())
         ..methodCalls(_invocations.values.toList()))
       .build();
 
-    return _httpClient.post('', data: _requestObject?.toJson())
-      .then((value) => extractData(value))
+    return _httpClient.post(
+      '',
+      data: _requestObject?.toJson(),
+      cancelToken: cancelToken
+    )
+      .then(extractData)
       .catchError((error) => throw error);
   }
 
