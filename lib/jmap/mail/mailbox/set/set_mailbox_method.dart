@@ -40,6 +40,7 @@ class SetMailboxMethod extends SetMethod<Mailbox> with OptionalOnDestroyRemoveEm
     writeNotNull('destroy', destroy
       ?.map((destroyId) => const IdConverter().toJson(destroyId)).toList());
     writeNotNull('onDestroyRemoveEmails', onDestroyRemoveEmails);
+    writeNotNull('#destroy', referenceDestroy?.toJson());
 
     return val;
   }

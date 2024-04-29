@@ -53,6 +53,7 @@ class SetEmailSubmissionMethod extends SetMethod<EmailSubmission> with OptionalO
     writeNotNull('onSuccessDestroyEmail', onSuccessDestroyEmail
         ?.map((destroyId) => const ReferencesEmailSubmissionIdConverter()
         .toJson(destroyId)).toList());
+    writeNotNull('#destroy', referenceDestroy?.toJson());
 
     return val;
   }

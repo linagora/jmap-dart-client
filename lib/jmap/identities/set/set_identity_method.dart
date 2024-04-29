@@ -44,6 +44,7 @@ class SetIdentityMethod extends SetMethod<Identity> {
       ?.map((id, update) => SetMethodPropertiesConverter().fromMapIdToJson(id, update.toJson())));
     writeNotNull('destroy', destroy
       ?.map((destroyId) => const IdConverter().toJson(destroyId)).toList());
+    writeNotNull('#destroy', referenceDestroy?.toJson());
 
     return val;
   }
