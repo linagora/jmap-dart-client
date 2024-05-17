@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:jmap_dart_client/http/converter/capabilities_converter.dart';
 import 'package:jmap_dart_client/jmap/account_id.dart';
 import 'package:jmap_dart_client/jmap/core/account/account.dart';
+import 'package:jmap_dart_client/jmap/core/capability/calendar_event_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/capability_identifier.dart';
 import 'package:jmap_dart_client/jmap/core/capability/core_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/default_capability.dart';
@@ -29,6 +30,12 @@ void main() {
           "urn:ietf:params:jmap:submission": {
             "maxDelayedSend": 0,
             "submissionExtensions": {}
+          },
+          "com:linagora:params:calendar:event": {
+            "replySupportedLanguage": [
+                "en",
+                "fr"
+            ]
           },
           "urn:ietf:params:jmap:core": {
             "maxSizeUpload": 20971520,
@@ -116,6 +123,7 @@ void main() {
         },
         "primaryAccounts": {
           "urn:ietf:params:jmap:submission": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
+          "com:linagora:params:calendar:event": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
           "urn:ietf:params:jmap:websocket": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
           "urn:ietf:params:jmap:core": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
           "urn:ietf:params:jmap:mail": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
@@ -137,6 +145,9 @@ void main() {
           CapabilityIdentifier.jmapSubmission: SubmissionCapability(
             maxDelayedSend: UnsignedInt(0),
             submissionExtensions: {}
+          ),
+          CapabilityIdentifier.jamesCalendarEvent: CalendarEventCapability(
+            replySupportedLanguage: ["en", "fr"]
           ),
           CapabilityIdentifier.jmapCore: CoreCapability(
             maxSizeUpload: UnsignedInt(20971520),
@@ -204,6 +215,7 @@ void main() {
         },
         {
           CapabilityIdentifier.jmapSubmission: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
+          CapabilityIdentifier.jamesCalendarEvent: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
           CapabilityIdentifier.jmapWebSocket: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
           CapabilityIdentifier.jmapCore: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
           CapabilityIdentifier.jmapMail: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
