@@ -127,7 +127,13 @@ class MailboxName with EquatableMixin {
 class Role with EquatableMixin {
   final String value;
 
-  Role(this.value);
+  // JMAP spec states that mailboxes role must be one of IMAP Mailbox Name Attributes
+  // https://www.iana.org/assignments/imap-mailbox-name-attributes/imap-mailbox-name-attributes.xhtml
+  // According to this link, the attribute name for Junk/Spam folder is `junk`
+  // However, some servers and client use `spam` instead for historical reasons
+  // To allow compatibility, convert `spam` to `junk`.
+  // This should be removed some day, when every server and client has been fixed
+  Role(value) : value = value == "spam" ? "junk" : value;
 
   @override
   List<Object?> get props => [value];
