@@ -15,7 +15,7 @@ import 'package:jmap_dart_client/jmap/mail/mailbox/mailbox_filter_condition.dart
 import 'package:jmap_dart_client/jmap/mail/mailbox/mailbox_rights.dart';
 import 'package:jmap_dart_client/jmap/mail/mailbox/query/query_mailbox_method.dart';
 
-void main(){
+void main() {
   group('Query mailbox test', () {
      final expectedReported = Mailbox(
       id: MailboxId(Id('9bf84410-32cf-11eb-995c-a3ae66e9f96a')),
