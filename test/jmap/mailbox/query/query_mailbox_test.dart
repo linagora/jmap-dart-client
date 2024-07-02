@@ -158,7 +158,7 @@ void main() {
           getMailboxInvocation.methodCallId, GetMailboxResponse.deserialize);
 
       expect(resultList?.list.first.name?.name, 'Spam');
-      expect(resultList?.list.first.role?.value, 'junk');
+      expect(resultList?.list.first.role?.value, 'spam');
       expect(resultList?.list.first, equals(expectedReported));
     });
   });
