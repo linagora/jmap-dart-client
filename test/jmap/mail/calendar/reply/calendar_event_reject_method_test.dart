@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:jmap_dart_client/http/http_client.dart';
 import 'package:jmap_dart_client/jmap/account_id.dart';
+import 'package:jmap_dart_client/jmap/core/error/set_error.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
 import 'package:jmap_dart_client/jmap/core/method/request/calendar_event_reply_method.dart';
 import 'package:jmap_dart_client/jmap/core/method/response/calendar_event_reply_response.dart';
@@ -26,6 +27,7 @@ void main() {
   final notFoundBlobId = Id('ghi789');
   final blobIds = [successBlobId, failureBlobId, notFoundBlobId];
   final methodCallId = MethodCallId('c0');
+  final setErrorFixture = SetError(SetError.invalidPatch, description: '');
 
   Map<String, dynamic> constructData(CalendarEventReplyMethod method) => {
     "using": method.requiredCapabilities
@@ -50,7 +52,9 @@ void main() {
       {
         "accountId": accountId.id.value,
         "rejected": [successBlobId.value],
-        "notRejected": [failureBlobId.value],
+        "notRejected": {
+          failureBlobId.value: setErrorFixture
+        },
         "notFound": [notFoundBlobId.value],
       },
       methodCallId.value
@@ -84,7 +88,7 @@ void main() {
       expect(
         (response as CalendarEventRejectResponse?)?.rejected,
         equals([EventId(successBlobId.value)]));
-      expect(response?.notRejected, equals([failureBlobId]));
+      expect(response?.notRejected?.keys.toList(), equals([failureBlobId]));
       expect(response?.notFound, equals([notFoundBlobId]));
     });
   });

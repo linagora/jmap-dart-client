@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jmap_dart_client/jmap/account_id.dart';
+import 'package:jmap_dart_client/jmap/core/error/set_error.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
 import 'package:jmap_dart_client/jmap/mail/calendar/properties/event_id.dart';
 import 'package:jmap_dart_client/util/json_parsers.dart';
@@ -110,6 +111,59 @@ void main() {
         expect(
           () => jsonParsers.parsingListEventId(json, 'listEventId'),
           throwsA(isA<TypeError>()));
+      });
+    });
+
+    group('parsingMapSetError::test', () {
+      test('SHOULD return map SetError WHEN json contains map SetError object',() {
+        // arrange
+        SetError rawSetError = SetError(
+          SetError.invalidPatch,
+          description: 'invalidPatch');
+
+        final json = <String, dynamic>{
+          'notAccepted': {
+            'eventId': {
+              'type': 'invalidPatch',
+              'description': 'invalidPatch'
+            }
+          }
+        };
+
+        // act
+        final mapSetError = jsonParsers.parsingMapSetError(json, 'notAccepted');
+
+        // assert
+        expect(mapSetError?.keys, equals([Id('eventId')]));
+        expect(mapSetError?.values, equals([rawSetError]));
+      });
+
+      test('SHOULD return null WHEN json does not contains map SetError object',() {
+        // arrange
+        final json = <String, dynamic>{
+          'notAccepted': null
+        };
+
+        // act
+        final mapSetError = jsonParsers.parsingMapSetError(json, 'notAccepted');
+
+        // assert
+        expect(mapSetError, null);
+      });
+
+      test('SHOULD throw TypeError WHEN the value of eventId is not SetError object',() {
+        // arrange
+        final json = <String, dynamic>{
+          'notAccepted': {
+            'eventId': 'dab123'
+          }
+        };
+
+        // assert
+        expect(
+          () => jsonParsers.parsingMapSetError(json, 'notAccepted'),
+          throwsA(isA<TypeError>())
+        );
       });
     });
   });

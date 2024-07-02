@@ -1,3 +1,4 @@
+import 'package:jmap_dart_client/jmap/core/error/set_error.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
 import 'package:jmap_dart_client/jmap/core/method/response/calendar_event_reply_response.dart';
 import 'package:jmap_dart_client/jmap/mail/calendar/properties/event_id.dart';
@@ -13,14 +14,14 @@ class CalendarEventMaybeResponse extends CalendarEventReplyResponse {
     });
 
   final List<EventId>? maybe;
-  final List<Id>? notMaybe;
+  final Map<Id, SetError>? notMaybe;
 
   static CalendarEventMaybeResponse deserialize(Map<String, dynamic> json) {
     return CalendarEventMaybeResponse(
       JsonParsers().parsingAccountId(json),
       JsonParsers().parsingListId(json, 'notFound'),
       maybe: JsonParsers().parsingListEventId(json, 'maybe'),
-      notMaybe: JsonParsers().parsingListId(json, 'notMaybe'),
+      notMaybe: JsonParsers().parsingMapSetError(json, 'notMaybe'),
     );
   }
 
