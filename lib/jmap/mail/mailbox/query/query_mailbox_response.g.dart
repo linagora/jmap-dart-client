@@ -16,8 +16,8 @@ QueryMailboxResponse _$QueryMailboxResponseFromJson(
       (json['ids'] as List<dynamic>)
           .map((e) => const IdConverter().fromJson(e as String))
           .toSet(),
-      const UnsignedIntConverter().fromJson(json['total'] as int),
-      const UnsignedIntConverter().fromJson(json['limit'] as int),
+      const UnsignedIntNullableConverter().fromJson(json['total'] as int?),
+      const UnsignedIntNullableConverter().fromJson(json['limit'] as int?),
     );
 
 Map<String, dynamic> _$QueryMailboxResponseToJson(
@@ -28,6 +28,6 @@ Map<String, dynamic> _$QueryMailboxResponseToJson(
       'canCalculateChanges': instance.canCalculateChanges,
       'position': const UnsignedIntConverter().toJson(instance.position),
       'ids': instance.ids.map(const IdConverter().toJson).toList(),
-      'total': const UnsignedIntConverter().toJson(instance.total),
-      'limit': const UnsignedIntConverter().toJson(instance.limit),
+      'total': const UnsignedIntNullableConverter().toJson(instance.total),
+      'limit': const UnsignedIntNullableConverter().toJson(instance.limit),
     };

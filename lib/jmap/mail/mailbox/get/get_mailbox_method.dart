@@ -37,5 +37,6 @@ class GetMailboxMethod extends GetMethod {
 
   factory GetMailboxMethod.fromJson(Map<String, dynamic> json) => _$GetMailboxMethodFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$GetMailboxMethodToJson(this);
 }

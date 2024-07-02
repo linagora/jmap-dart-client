@@ -32,5 +32,6 @@ class GetQuotaMethod extends GetMethod {
 
   factory GetQuotaMethod.fromJson(Map<String, dynamic> json) => _$GetQuotaMethodFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$GetQuotaMethodToJson(this);
 }

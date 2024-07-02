@@ -6,10 +6,10 @@ import 'package:jmap_dart_client/jmap/core/utc_date.dart';
 
 void main() {
 
-  final utcDateStringTest = '2021-10-04T04:39:56.000Z';
+  const utcDateStringTest = '2021-10-04T04:39:56.000Z';
   final expectUTCDate = UTCDate(DateTime.parse('2021-10-04T04:39:56.000Z').toUtc());
   final testUTCDate = UTCDate(DateTime.parse('2021-10-04T04:39:56.000Z').toUtc());
-  final expectUTCDateString = '2021-10-04T04:39:56.000Z';
+  const expectUTCDateString = '2021-10-04T04:39:56.000Z';
 
   group('UTCDateConverter', () {
     test('should return UTCDate when receive a properly formatted json', () {

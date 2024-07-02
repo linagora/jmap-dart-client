@@ -25,7 +25,7 @@ import 'test_capability.dart';
 void main() {
   group('get session with default capabilities', () {
     test('get should parsing correctly session', () {
-      final sessionString = '''{
+      const sessionString = '''{
         "capabilities": {
           "urn:ietf:params:jmap:submission": {
             "maxDelayedSend": 0,
@@ -170,8 +170,8 @@ void main() {
             supportsPush: true,
             url: Uri.parse('ws://domain.com/jmap/ws')
           ),
-          CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:quota')): DefaultCapability(Map<String, dynamic>()),
-          CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares')): DefaultCapability(Map<String, dynamic>()),
+          CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:quota')): DefaultCapability(<String, dynamic>{}),
+          CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares')): DefaultCapability(<String, dynamic>{}),
           CapabilityIdentifier.jmapVacationResponse: VacationCapability(),
           CapabilityIdentifier.jmapMdn: MdnCapability()
         },
@@ -206,8 +206,8 @@ void main() {
                 emailQuerySortOptions: {"receivedAt", "sentAt", "size", "from", "to", "subject"},
                 mayCreateTopLevelMailbox: true
               ),
-              CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:quota')): DefaultCapability(Map<String, dynamic>()),
-              CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares')): DefaultCapability(Map<String, dynamic>()),
+              CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:quota')): DefaultCapability(<String, dynamic>{}),
+              CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares')): DefaultCapability(<String, dynamic>{}),
               CapabilityIdentifier.jmapVacationResponse: VacationCapability(),
               CapabilityIdentifier.jmapMdn: MdnCapability()
             }
@@ -238,7 +238,7 @@ void main() {
     });
 
     test('get should parsing correctly session with some limit capabilities', () {
-      final sessionString = '''{
+      const sessionString = '''{
         "capabilities": {
           "urn:ietf:params:jmap:submission": {
             "maxDelayedSend": 0,
@@ -404,7 +404,7 @@ void main() {
     });
 
     test('get should parsing correctly session with some capabilities miss property', () {
-      final sessionString = '''{
+      const sessionString = '''{
         "capabilities": {
           "urn:ietf:params:jmap:submission": {
             "maxDelayedSend": 0,
@@ -550,7 +550,7 @@ void main() {
 
   group('get session with unknown capability', () {
     test('get should parsing correctly session with default converter', () {
-      final sessionString = '''{
+      const sessionString = '''{
         "capabilities": {
           "urn:tmail:custom:params:mailbox": {
             "param1": 1,
@@ -705,8 +705,8 @@ void main() {
               supportsPush: true,
               url: Uri.parse('ws://domain.com/jmap/ws')
             ),
-            CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:quota')): DefaultCapability(Map<String, dynamic>()),
-            CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares')): DefaultCapability(Map<String, dynamic>()),
+            CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:quota')): DefaultCapability(<String, dynamic>{}),
+            CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares')): DefaultCapability(<String, dynamic>{}),
             CapabilityIdentifier.jmapVacationResponse: VacationCapability(),
             CapabilityIdentifier.jmapMdn: MdnCapability()
           },
@@ -742,8 +742,8 @@ void main() {
                     emailQuerySortOptions: {"receivedAt", "sentAt", "size", "from", "to", "subject"},
                     mayCreateTopLevelMailbox: true
                   ),
-                  CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:quota')): DefaultCapability(Map<String, dynamic>()),
-                  CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares')): DefaultCapability(Map<String, dynamic>()),
+                  CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:quota')): DefaultCapability(<String, dynamic>{}),
+                  CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares')): DefaultCapability(<String, dynamic>{}),
                   CapabilityIdentifier.jmapVacationResponse: VacationCapability(),
                   CapabilityIdentifier.jmapMdn: MdnCapability()
                 }
@@ -780,7 +780,7 @@ void main() {
 
   group('get session with custom capability', () {
     test('get should parsing correctly with relevant custom converter', () {
-      final sessionString = '''{
+      const sessionString = '''{
         "capabilities": {
           "urn:test:tmail:params:custom": {
             "testParam1": 100,
@@ -943,8 +943,8 @@ void main() {
               supportsPush: true,
               url: Uri.parse('ws://domain.com/jmap/ws')
             ),
-            CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:quota')): DefaultCapability(Map<String, dynamic>()),
-            CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares')): DefaultCapability(Map<String, dynamic>()),
+            CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:quota')): DefaultCapability(<String, dynamic>{}),
+            CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares')): DefaultCapability(<String, dynamic>{}),
             CapabilityIdentifier.jmapVacationResponse: VacationCapability(),
             CapabilityIdentifier.jmapMdn: MdnCapability()
           },
@@ -980,8 +980,8 @@ void main() {
                     emailQuerySortOptions: {"receivedAt", "sentAt", "size", "from", "to", "subject"},
                     mayCreateTopLevelMailbox: true
                   ),
-                  CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:quota')): DefaultCapability(Map<String, dynamic>()),
-                  CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares')): DefaultCapability(Map<String, dynamic>()),
+                  CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:quota')): DefaultCapability(<String, dynamic>{}),
+                  CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares')): DefaultCapability(<String, dynamic>{}),
                   CapabilityIdentifier.jmapVacationResponse: VacationCapability(),
                   CapabilityIdentifier.jmapMdn: MdnCapability()
                 }
@@ -1020,7 +1020,7 @@ void main() {
 
   group('get session with empty capability', () {
     test('get should ignore parsing empty capability properties', () {
-      final sessionString = '''{
+      const sessionString = '''{
         "capabilities": {
           "urn:ietf:params:jmap:submission": {
             "maxDelayedSend": 0,
@@ -1162,7 +1162,7 @@ void main() {
 
   group('get session for CYRUS server', () {
     test('get should parsing correctly session', () {
-      final sessionString = '''
+      const sessionString = '''
       {
         "username": "example",
         "apiUrl": "/jmap/",
@@ -1305,7 +1305,7 @@ void main() {
             CapabilityIdentifier.jmapSubmission: SubmissionCapability(),
             CapabilityIdentifier.jmapVacationResponse: VacationCapability(),
             CapabilityIdentifier.jmapMdn: MdnCapability(),
-            CapabilityIdentifier(Uri.parse('https://cyrusimap.org/ns/jmap/sieve')): DefaultCapability(Map<String, dynamic>()),
+            CapabilityIdentifier(Uri.parse('https://cyrusimap.org/ns/jmap/sieve')): DefaultCapability(<String, dynamic>{}),
           },
           {
             AccountId(Id('example')): Account(

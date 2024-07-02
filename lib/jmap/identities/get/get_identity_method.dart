@@ -37,5 +37,6 @@ class GetIdentityMethod extends GetMethod {
 
   factory GetIdentityMethod.fromJson(Map<String, dynamic> json) => _$GetIdentityMethodFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$GetIdentityMethodToJson(this);
 }

@@ -37,5 +37,6 @@ class GetVacationMethod extends GetMethod {
   factory GetVacationMethod.fromJson(Map<String, dynamic> json) =>
       _$GetVacationMethodFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$GetVacationMethodToJson(this);
 }

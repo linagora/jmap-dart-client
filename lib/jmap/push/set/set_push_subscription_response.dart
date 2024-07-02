@@ -25,25 +25,25 @@ class SetPushSubscriptionResponse extends SetResponseNoAccount<PushSubscription>
     return SetPushSubscriptionResponse(
       created: (json['created'] as Map<String, dynamic>?)
         ?.map((key, value) => MapEntry(
-            IdConverter().fromJson(key),
+            const IdConverter().fromJson(key),
             PushSubscription.fromJson(value as Map<String, dynamic>))),
       updated: (json['updated'] as Map<String, dynamic>?)
         ?.map((key, value) => MapEntry(
-            IdConverter().fromJson(key),
+            const IdConverter().fromJson(key),
             value != null ? PushSubscription.fromJson(value as Map<String, dynamic>) : null)),
       destroyed: (json['destroyed'] as List<dynamic>?)
-        ?.map((id) => IdConverter().fromJson(id)).toSet(),
+        ?.map((id) => const IdConverter().fromJson(id)).toSet(),
       notCreated: (json['notCreated'] as Map<String, dynamic>?)
         ?.map((key, value) => MapEntry(
-            IdConverter().fromJson(key),
+            const IdConverter().fromJson(key),
             SetError.fromJson(value))),
       notUpdated: (json['notUpdated'] as Map<String, dynamic>?)
         ?.map((key, value) => MapEntry(
-            IdConverter().fromJson(key),
+            const IdConverter().fromJson(key),
             SetError.fromJson(value))),
       notDestroyed: (json['notDestroyed'] as Map<String, dynamic>?)
         ?.map((key, value) => MapEntry(
-            IdConverter().fromJson(key),
+            const IdConverter().fromJson(key),
             SetError.fromJson(value))),
     );
   }

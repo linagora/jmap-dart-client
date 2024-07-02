@@ -9,8 +9,8 @@ abstract class QueryResponse extends ResponseRequiringAccountId {
   final bool canCalculateChanges;
   final UnsignedInt position;
   final Set<Id> ids;
-  final UnsignedInt total;
-  final UnsignedInt limit;
+  final UnsignedInt? total;
+  final UnsignedInt? limit;
 
   QueryResponse(
     AccountId accountId,

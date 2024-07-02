@@ -174,7 +174,7 @@ void main() {
     );
 
     if (resultList != null) {
-      resultList..sortEmails(comparator);
+      resultList.sortEmails(comparator);
     }
 
     return resultList?.list;

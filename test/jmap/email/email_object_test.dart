@@ -155,9 +155,9 @@ void main() {
         },
         bodyValues: {
           PartId('2'): EmailBodyValue(
-            'Dear, I update my last week activities. Thanks and BRs',
-            false,
-            false
+            value: 'Dear, I update my last week activities. Thanks and BRs',
+            isEncodingProblem: false,
+            isTruncated: false
           )
         },
         preview: 'Dear, I update my last week activities. Thanks and BRs',
@@ -330,9 +330,9 @@ void main() {
         },
         bodyValues: {
           PartId('2'): EmailBodyValue(
-            'Dear, I update my last week activities. Thanks and BRs',
-            false,
-            false
+            value: 'Dear, I update my last week activities. Thanks and BRs',
+            isEncodingProblem: false,
+            isTruncated: false
           )
         },
         preview: 'Dear, I update my last week activities. Thanks and BRs',
@@ -503,9 +503,9 @@ void main() {
         },
         bodyValues: {
           PartId('2'): EmailBodyValue(
-            'Dear, I update my last week activities. Thanks and BRs',
-            false,
-            false
+            value: 'Dear, I update my last week activities. Thanks and BRs',
+            isEncodingProblem: false,
+            isTruncated: false
           )
         },
         preview: 'Dear, I update my last week activities. Thanks and BRs',
