@@ -17,29 +17,30 @@ import 'package:jmap_dart_client/jmap/mail/mailbox/query/query_mailbox_method.da
 
 void main() {
   group('Query mailbox test', () {
+     final expectedReported = Mailbox(
+      id: MailboxId(Id('9bf84410-32cf-11eb-995c-a3ae66e9f96a')),
+      role: Role('spam'),
+      name: MailboxName('Spam'),
+      sortOrder: SortOrder(sortValue: 70),
+      totalEmails: TotalEmails(UnsignedInt(29)),
+      unreadEmails: UnreadEmails(UnsignedInt(29)),
+      totalThreads: TotalThreads(UnsignedInt(29)),
+      unreadThreads: UnreadThreads(UnsignedInt(29)),
+      myRights: MailboxRights(
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+      ),
+     isSubscribed: IsSubscribed(true),
+    );
+
     test('Query Mailbox spam report', () async {
-      final expectedReported = Mailbox(
-        id: MailboxId(Id('9bf84410-32cf-11eb-995c-a3ae66e9f96a')),
-        role: Role('spam'),
-        name: MailboxName('Spam'),
-        sortOrder: SortOrder(sortValue: 70),
-        totalEmails: TotalEmails(UnsignedInt(29)),
-        unreadEmails: UnreadEmails(UnsignedInt(29)),
-        totalThreads: TotalThreads(UnsignedInt(29)),
-        unreadThreads: UnreadThreads(UnsignedInt(29)),
-        myRights: MailboxRights(
-          true,
-          true,
-          true,
-          true,
-          true,
-          true,
-          true,
-          true,
-          true,
-        ),
-        isSubscribed: IsSubscribed(true),
-      );
       final baseOption = BaseOptions(method: 'POST');
       final dio = Dio(baseOption)..options.baseUrl = 'http://domain.com/jmap';
       final dioAdapter = DioAdapter(dio: dio);
