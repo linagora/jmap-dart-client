@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:jmap_dart_client/http/http_client.dart';
 import 'package:jmap_dart_client/jmap/account_id.dart';
@@ -139,7 +139,8 @@ void main() {
               [
                 "Mailbox/get",
                 {
-                  "accountId": "0eacc7a5c74b27ab36a823bc5c34da36e16c093705f241d6ed5f48ee73a4ecfb",
+                  "accountId":
+                      "0eacc7a5c74b27ab36a823bc5c34da36e16c093705f241d6ed5f48ee73a4ecfb",
                   "#ids": {
                     "resultOf": "c0",
                     "name": "Mailbox/changes",

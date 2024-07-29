@@ -1,7 +1,6 @@
-
 import 'dart:convert';
 
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:jmap_dart_client/jmap/core/utc_date.dart';
 import 'package:jmap_dart_client/jmap/mail/calendar/calendar_event.dart';
 import 'package:jmap_dart_client/jmap/mail/calendar/properties/attendee/calendar_attendee.dart';
@@ -80,59 +79,57 @@ void main() {
       }''';
 
       final CalendarEvent expectedCalendarEvent = CalendarEvent(
-        eventId: EventId('ea127690-0440-404b-af98-9823c855a283'),
-        title: 'Gatling: break LemonLDAP!',
-        description: 'Let\'s write some basic OIDC benchmarks',
-        startDate: DateTime.parse('2023-02-09T10:00:00'),
-        duration: CalendarDuration('PT2H0M0S'),
-        endDate: DateTime.parse('2023-02-09T12:00:00'),
-        timeZone: 'Asia/Ho_Chi_Minh',
-        location: '5 Dien Bien Phu, Ha Noi',
-        method: EventMethod.request,
-        sequence: CalendarSequence(0),
-        priority: CalendarPriority(5),
-        freeBusyStatus: CalendarFreeBusyStatus.busy,
-        privacy: CalendarPrivacy.public,
-        organizer: CalendarOrganizer(
-          name: 'Benoît TELLIER',
-          mailto: MailAddress('btellier@linagora.com')
-        ),
-        participants: [
-          CalendarAttendee(
-            name: CalendarAttendeeName('Benoît TELLIER'),
-            mailto: CalendarAttendeeMailTo(MailAddress('btellier@domain.tld')),
-            kind: CalendarAttendeeKind.individual,
-            role: CalendarAttendeeRole.chair,
-            participationStatus: CalendarAttendeeParticipationStatus.accepted,
-            expectReply: CalendarAttendeeExpectReply(false)
-          ),
-          CalendarAttendee(
-            name: CalendarAttendeeName('Van Tung TRAN'),
-            mailto: CalendarAttendeeMailTo(MailAddress('vttran@domain.tld')),
-            kind: CalendarAttendeeKind.individual,
-            role: CalendarAttendeeRole.requestedParticipant,
-            participationStatus: CalendarAttendeeParticipationStatus.needsAction,
-            expectReply: CalendarAttendeeExpectReply(true)
-          )
-        ],
-        extensionFields: CalendarExtensionFields({
-          'X-OPENPAAS-VIDEOCONFERENCE': ['https://jitsi.linagora.com/abcd'],
-          'X-OPENPAAS-CUSTOM-HEADER1': ['whatever1', 'whatever2']
-        }),
-        recurrenceRules: [
-          RecurrenceRule(
-            frequency: RecurrenceRuleFrequency.yearly,
-            byDay: [
-              DayOfWeek.monday
-            ],
-            byMonth: ['10'],
-            bySetPosition: [1, 2],
-            until: UTCDate(DateTime.parse('2024-01-11T09:00:00Z'))
-          )
-        ]
-      );
+          eventId: EventId('ea127690-0440-404b-af98-9823c855a283'),
+          title: 'Gatling: break LemonLDAP!',
+          description: 'Let\'s write some basic OIDC benchmarks',
+          startDate: DateTime.parse('2023-02-09T10:00:00'),
+          duration: CalendarDuration('PT2H0M0S'),
+          endDate: DateTime.parse('2023-02-09T12:00:00'),
+          timeZone: 'Asia/Ho_Chi_Minh',
+          location: '5 Dien Bien Phu, Ha Noi',
+          method: EventMethod.request,
+          sequence: CalendarSequence(0),
+          priority: CalendarPriority(5),
+          freeBusyStatus: CalendarFreeBusyStatus.busy,
+          privacy: CalendarPrivacy.public,
+          organizer: CalendarOrganizer(
+              name: 'Benoît TELLIER',
+              mailto: MailAddress('btellier@linagora.com')),
+          participants: [
+            CalendarAttendee(
+                name: CalendarAttendeeName('Benoît TELLIER'),
+                mailto:
+                    CalendarAttendeeMailTo(MailAddress('btellier@domain.tld')),
+                kind: CalendarAttendeeKind.individual,
+                role: CalendarAttendeeRole.chair,
+                participationStatus:
+                    CalendarAttendeeParticipationStatus.accepted,
+                expectReply: CalendarAttendeeExpectReply(false)),
+            CalendarAttendee(
+                name: CalendarAttendeeName('Van Tung TRAN'),
+                mailto:
+                    CalendarAttendeeMailTo(MailAddress('vttran@domain.tld')),
+                kind: CalendarAttendeeKind.individual,
+                role: CalendarAttendeeRole.requestedParticipant,
+                participationStatus:
+                    CalendarAttendeeParticipationStatus.needsAction,
+                expectReply: CalendarAttendeeExpectReply(true))
+          ],
+          extensionFields: CalendarExtensionFields({
+            'X-OPENPAAS-VIDEOCONFERENCE': ['https://jitsi.linagora.com/abcd'],
+            'X-OPENPAAS-CUSTOM-HEADER1': ['whatever1', 'whatever2']
+          }),
+          recurrenceRules: [
+            RecurrenceRule(
+                frequency: RecurrenceRuleFrequency.yearly,
+                byDay: [DayOfWeek.monday],
+                byMonth: ['10'],
+                bySetPosition: [1, 2],
+                until: UTCDate(DateTime.parse('2024-01-11T09:00:00Z')))
+          ]);
 
-      final parsedCalendarEvent = CalendarEvent.fromJson(json.decode(calendarEventString));
+      final parsedCalendarEvent =
+          CalendarEvent.fromJson(json.decode(calendarEventString));
 
       expect(parsedCalendarEvent, equals(expectedCalendarEvent));
     });

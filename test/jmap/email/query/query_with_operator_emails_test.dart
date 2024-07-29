@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:jmap_dart_client/http/http_client.dart';
 import 'package:jmap_dart_client/jmap/account_id.dart';
@@ -242,12 +242,10 @@ void main() {
         ..addSorts({
           EmailComparator(EmailComparatorProperty.sentAt)..setIsAscending(false)
         })
-        ..addFilters(LogicFilterOperator(
-            Operator.OR,
-            <Filter>{
-              EmailFilterCondition(hasKeyword: "music"),
-              EmailFilterCondition(hasKeyword: "video"),
-            }));
+        ..addFilters(LogicFilterOperator(Operator.OR, <Filter>{
+          EmailFilterCondition(hasKeyword: "music"),
+          EmailFilterCondition(hasKeyword: "video"),
+        }));
       final queryEmailInvocation = jmapRequestBuilder
           .invocation(queryEmailMethod, methodCallId: MethodCallId('c2'));
 
