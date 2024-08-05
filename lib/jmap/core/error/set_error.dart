@@ -15,6 +15,7 @@ class SetError with EquatableMixin {
   static final invalidPatch = ErrorType("invalidPatch");
   static final willDestroy = ErrorType("willDestroy");
   static final invalidProperties = ErrorType("invalidProperties");
+  static final invalidArguments = ErrorType("invalidArguments");
   static final singleton = ErrorType("singleton");
 
   final ErrorType type;
