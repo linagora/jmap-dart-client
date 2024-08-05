@@ -4,6 +4,7 @@ class PatchObject with EquatableMixin {
 
   static final mailboxIdsProperty = 'mailboxIds';
   static final keywordsProperty = 'keywords';
+  static const identityIdsProperty = 'identityIds';
 
   PatchObject(this.patches);
 
