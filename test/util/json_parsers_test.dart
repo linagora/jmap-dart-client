@@ -9,7 +9,7 @@ void main() {
 
   group('json parsers test:', () {
     group('parse account id test:', () {
-      test('should return account id when json contains account id', () {
+      test('should return account id when json contains account id',() {
         // arrange
         const rawAccountId = 'abc123';
         final json = {'accountId': rawAccountId};
@@ -21,33 +21,30 @@ void main() {
         expect(accountId, AccountId(Id(rawAccountId)));
       });
 
-      test(
-          'should throw TypeError exception when json doesn\'t contains account id',
-          () {
+      test('should throw TypeError exception when json doesn\'t contains account id',() {
         // arrange
         final json = <String, dynamic>{};
 
         // assert
-        expect(() => jsonParsers.parsingAccountId(json),
-            throwsA(isA<TypeError>()));
+        expect(
+          () => jsonParsers.parsingAccountId(json),
+          throwsA(isA<TypeError>()));
       });
 
-      test('should throw TypeError exception when accountId json is not String',
-          () {
+      test('should throw TypeError exception when accountId json is not String',() {
         // arrange
         const rawAccountId = 'abc123';
-        final json = {
-          'accountId': [rawAccountId]
-        };
+        final json = {'accountId': [rawAccountId]};
 
         // assert
-        expect(() => jsonParsers.parsingAccountId(json),
-            throwsA(isA<TypeError>()));
+        expect(
+          () => jsonParsers.parsingAccountId(json),
+          throwsA(isA<TypeError>()));
       });
     });
 
     group('parse list id test:', () {
-      test('should return list id when json contains list id', () {
+      test('should return list id when json contains list id',() {
         // arrange
         const rawListId = ['abc123'];
         final json = {'listId': rawListId};
@@ -59,7 +56,7 @@ void main() {
         expect(listId, rawListId.map((id) => Id(id)).toList());
       });
 
-      test('should return null when json doesn\'t contains list id', () {
+      test('should return null when json doesn\'t contains list id',() {
         // arrange
         final json = <String, dynamic>{};
 
@@ -70,18 +67,19 @@ void main() {
         expect(listId, null);
       });
 
-      test('should throw TypeError when list id json is not List<String>', () {
+      test('should throw TypeError when list id json is not List<String>',() {
         // arrange
         final json = {'listId': 'abc123'};
 
         // assert
-        expect(() => jsonParsers.parsingListEventId(json, 'listId'),
-            throwsA(isA<TypeError>()));
+        expect(
+          () => jsonParsers.parsingListEventId(json, 'listId'),
+          throwsA(isA<TypeError>()));
       });
     });
 
     group('parse list event id test:', () {
-      test('should return list event id when json contains list event id', () {
+      test('should return list event id when json contains list event id',() {
         // arrange
         const rawListEventId = ['abc123'];
         final json = {'listEventId': rawListEventId};
@@ -93,7 +91,7 @@ void main() {
         expect(listEventId, rawListEventId.map((id) => EventId(id)).toList());
       });
 
-      test('should return null when json doesn\'t contains list event id', () {
+      test('should return null when json doesn\'t contains list event id',() {
         // arrange
         final json = <String, dynamic>{};
 
@@ -104,14 +102,14 @@ void main() {
         expect(listEventId, null);
       });
 
-      test('should throw TypeError when list event id json is not List<String>',
-          () {
+      test('should throw TypeError when list event id json is not List<String>',() {
         // arrange
         final json = {'listEventId': 'abc123'};
 
         // assert
-        expect(() => jsonParsers.parsingListEventId(json, 'listEventId'),
-            throwsA(isA<TypeError>()));
+        expect(
+          () => jsonParsers.parsingListEventId(json, 'listEventId'),
+          throwsA(isA<TypeError>()));
       });
     });
   });

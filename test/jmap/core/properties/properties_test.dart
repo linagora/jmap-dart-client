@@ -6,15 +6,20 @@ void main() {
     test('empty properties should union other properties', () {
       final emptyProperties = Properties.empty();
 
-      expect(emptyProperties.union(Properties({'id', 'name'})),
-          equals(Properties({'id', 'name'})));
+      expect(
+        emptyProperties.union(Properties({'id', 'name'})),
+        equals(Properties({'id', 'name'}))
+      );
     });
 
     test('properties should union other properties', () {
       final properties = Properties({'role'});
       final unionProperties = properties.union(Properties({'id', 'name'}));
 
-      expect(unionProperties, equals(Properties({'role', 'id', 'name'})));
+      expect(
+        unionProperties,
+        equals(Properties({'role', 'id', 'name'}))
+      );
     });
   });
 
@@ -22,24 +27,35 @@ void main() {
     test('empty properties should not remove anything', () {
       final emptyProperties = Properties.empty();
 
-      expect(emptyProperties.removeAll(Properties({'id', 'name'})),
-          equals(emptyProperties));
+      expect(
+          emptyProperties.removeAll(Properties({'id', 'name'})),
+          equals(emptyProperties)
+      );
     });
 
-    test(
-        'two-item properties should remove all item when remove three-item properties',
-        () {
-      final twoItem = Properties({'id', 'name'});
+    test('two-item properties should remove all item when remove three-item properties', () {
+      final twoItem = Properties({
+        'id',
+        'name'
+      });
 
-      expect(twoItem.removeAll(Properties({'id', 'name', 'role'})),
-          equals(Properties.empty()));
+      expect(
+          twoItem.removeAll(Properties({'id', 'name', 'role'})),
+          equals(Properties.empty())
+      );
     });
 
     test('properties can remove all contained items', () {
-      final properties = Properties({'id', 'name', 'role'});
+      final properties = Properties({
+        'id',
+        'name',
+        'role'
+      });
 
-      expect(properties.removeAll(Properties({'id', 'name'})),
-          equals(Properties({'role'})));
+      expect(
+          properties.removeAll(Properties({'id', 'name'})),
+          equals(Properties({'role'}))
+      );
     });
   });
 }
