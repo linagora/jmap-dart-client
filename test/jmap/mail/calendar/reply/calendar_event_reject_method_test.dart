@@ -15,7 +15,7 @@ import 'package:jmap_dart_client/jmap/mail/calendar/reply/calendar_event_reject_
 void main() {
   final baseOption = BaseOptions(method: 'POST');
   final dio = Dio(baseOption)..options.baseUrl = 'http://domain.com/jmap';
-  final dioAdapter = DioAdapter(dio: dio);
+  final dioAdapter = DioAdapter(dio: dio, matcher: const UrlRequestMatcher());
   final dioAdapterHeaders = {"accept": "application/json;jmapVersion=rfc-8621"};
   final httpClient = HttpClient(dio);
   final processingInvocation = ProcessingInvocation();

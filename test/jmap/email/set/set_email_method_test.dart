@@ -30,7 +30,7 @@ void main() {
       final baseOption  = BaseOptions(method: 'POST');
       final dio = Dio(baseOption)
         ..options.baseUrl = 'http://domain.com/jmap';
-      final dioAdapter = DioAdapter(dio: dio);
+      final dioAdapter = DioAdapter(dio: dio, matcher: const UrlRequestMatcher());
       dioAdapter.onPost(
         '',
         (server) => server.reply(200, {
@@ -147,7 +147,7 @@ void main() {
       final baseOption  = BaseOptions(method: 'POST');
       final dio = Dio(baseOption)
         ..options.baseUrl = 'http://domain.com/jmap';
-      final dioAdapter = DioAdapter(dio: dio);
+      final dioAdapter = DioAdapter(dio: dio, matcher: const UrlRequestMatcher());
       dioAdapter.onPost(
           '',
               (server) => server.reply(200, {
@@ -266,7 +266,7 @@ void main() {
       final baseOption  = BaseOptions(method: 'POST');
       final dio = Dio(baseOption)
         ..options.baseUrl = 'http://domain.com/jmap';
-      final dioAdapter = DioAdapter(dio: dio);
+      final dioAdapter = DioAdapter(dio: dio, matcher: const UrlRequestMatcher());
       dioAdapter.onPost(
           '',
           (server) => server.reply(200, {
