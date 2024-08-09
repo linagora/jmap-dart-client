@@ -25,16 +25,14 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Install Flutter
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
+      # Install Dart
+      - uses: dart-lang/setup-dart@v1
         with:
-          flutter-version: "3.10.6"
-          channel: "stable"
+          sdk: 3.4
 
       # Install dependencies
       - name: Install dependencies
-        run: flutter pub get
+        run: dart pub get
         
       - name: Unit-tests
-        run: flutter test
+        run: dart test

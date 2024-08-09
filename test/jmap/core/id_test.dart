@@ -1,5 +1,4 @@
-
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
 
 void main() {

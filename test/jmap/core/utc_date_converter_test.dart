@@ -1,5 +1,4 @@
-
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:jmap_dart_client/http/converter/utc_date_converter.dart';
 import 'package:jmap_dart_client/http/converter/utc_date_nullable_converter.dart';
 import 'package:jmap_dart_client/jmap/core/utc_date.dart';
