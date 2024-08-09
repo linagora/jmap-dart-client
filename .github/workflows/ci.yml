@@ -28,7 +28,7 @@ jobs:
       # Install Dart
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: 2.19
+          sdk: 3.4
 
       # Install dependencies
       - name: Install dependencies

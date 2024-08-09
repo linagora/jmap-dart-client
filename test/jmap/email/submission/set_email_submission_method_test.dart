@@ -31,60 +31,61 @@ void main() {
         id: EmailId(Id('64469f10-8e15-11ec-984e-e3f8b83572b4')),
         blobId: Id('64469f10-8e15-11ec-984e-e3f8b83572b4'),
         threadId: ThreadId(Id('64469f10-8e15-11ec-984e-e3f8b83572b4')),
-        size: UnsignedInt(742)
-    );
+        size: UnsignedInt(742));
 
     test('set email submission method and response parsing', () async {
       final baseOption = BaseOptions(method: 'POST');
       final dio = Dio(baseOption)..options.baseUrl = 'http://domain.com/jmap';
-      final dioAdapter = DioAdapter(dio: dio);
+      final dioAdapter =
+          DioAdapter(dio: dio, matcher: const UrlRequestMatcher());
       dioAdapter.onPost(
           '',
           (server) => server.reply(200, {
-            "sessionState": "2c9f1b12-b35a-43e6-9af2-0106fb53a943",
-            "methodResponses": [
-              [
-                "Email/set",
-                {
-                  "accountId": "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
-                  "oldState": "3534e880-8e15-11ec-984e-e3f8b83572b4",
-                  "newState": "64b98520-8e15-11ec-984e-e3f8b83572b4",
-                  "created": {
-                    "dab1234": {
-                      "id": "64469f10-8e15-11ec-984e-e3f8b83572b4",
-                      "blobId": "64469f10-8e15-11ec-984e-e3f8b83572b4",
-                      "threadId": "64469f10-8e15-11ec-984e-e3f8b83572b4",
-                      "size": 742
-                    }
-                  }
-                },
-                "c0"
-              ],
-              [
-                "EmailSubmission/set",
-                {
-                  "accountId": "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
-                  "newState": "2c9f1b12-b35a-43e6-9af2-0106fb53a943",
-                  "created": {
-                    "a1234": "6a4cf0b9-956e-41d5-9122-4824e3ea9baf"
-                  }
-                },
-                "c1"
-              ],
-              [
-                "Email/set",
-                {
-                  "accountId": "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
-                  "oldState": "64b98520-8e15-11ec-984e-e3f8b83572b4",
-                  "newState": "64b98520-8e15-11ec-984e-e3f8b83572b4",
-                  "updated": {
-                    "64469f10-8e15-11ec-984e-e3f8b83572b4": null
-                  }
-                },
-                "c1"
-              ]
-            ]
-          }),
+                "sessionState": "2c9f1b12-b35a-43e6-9af2-0106fb53a943",
+                "methodResponses": [
+                  [
+                    "Email/set",
+                    {
+                      "accountId":
+                          "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
+                      "oldState": "3534e880-8e15-11ec-984e-e3f8b83572b4",
+                      "newState": "64b98520-8e15-11ec-984e-e3f8b83572b4",
+                      "created": {
+                        "dab1234": {
+                          "id": "64469f10-8e15-11ec-984e-e3f8b83572b4",
+                          "blobId": "64469f10-8e15-11ec-984e-e3f8b83572b4",
+                          "threadId": "64469f10-8e15-11ec-984e-e3f8b83572b4",
+                          "size": 742
+                        }
+                      }
+                    },
+                    "c0"
+                  ],
+                  [
+                    "EmailSubmission/set",
+                    {
+                      "accountId":
+                          "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
+                      "newState": "2c9f1b12-b35a-43e6-9af2-0106fb53a943",
+                      "created": {
+                        "a1234": "6a4cf0b9-956e-41d5-9122-4824e3ea9baf"
+                      }
+                    },
+                    "c1"
+                  ],
+                  [
+                    "Email/set",
+                    {
+                      "accountId":
+                          "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
+                      "oldState": "64b98520-8e15-11ec-984e-e3f8b83572b4",
+                      "newState": "64b98520-8e15-11ec-984e-e3f8b83572b4",
+                      "updated": {"64469f10-8e15-11ec-984e-e3f8b83572b4": null}
+                    },
+                    "c1"
+                  ]
+                ]
+              }),
           data: {
             "using": [
               "urn:ietf:params:jmap:submission",
@@ -95,7 +96,8 @@ void main() {
               [
                 "Email/set",
                 {
-                  "accountId": "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
+                  "accountId":
+                      "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
                   "create": {
                     "dab1234": {
                       "id": "dab1234",
@@ -104,23 +106,18 @@ void main() {
                       },
                       "subject": "test send email",
                       "from": [
-                        {
-                          "name": "userB",
-                          "email": "userb@qa.open-paas.org"
-                        }
+                        {"name": "userB", "email": "userb@qa.open-paas.org"}
                       ],
                       "to": [
-                        {
-                          "name": "userD",
-                          "email": "userd@qa.open-paas.org"
-                        }
+                        {"name": "userD", "email": "userd@qa.open-paas.org"}
                       ],
                       "htmlBody": [
                         {"partId": "mmm", "blobId": "aaaa", "type": "text/html"}
                       ],
                       "bodyValues": {
                         "mmm": {
-                          "value": "<!DOCTYPE html> <html> <body> <p><b>Hello test send 2</b></p><br><br></body> </html>",
+                          "value":
+                              "<!DOCTYPE html> <html> <body> <p><b>Hello test send 2</b></p><br><br></body> </html>",
                           "isEncodingProblem": false,
                           "isTruncated": false
                         }
@@ -133,7 +130,8 @@ void main() {
               [
                 "EmailSubmission/set",
                 {
-                  "accountId": "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
+                  "accountId":
+                      "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
                   "create": {
                     "a1234": {
                       "emailId": "#dab1234",
@@ -162,33 +160,48 @@ void main() {
             "content-length": 2220
           });
 
-      final setEmailMethod = SetEmailMethod(AccountId(Id('3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12')))
-        ..addCreate(Id('dab1234'),
+      final setEmailMethod = SetEmailMethod(AccountId(Id(
+          '3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12')))
+        ..addCreate(
+            Id('dab1234'),
             Email(
-              id: EmailId(Id('dab1234')),
-              mailboxIds: {MailboxId(Id('5dfb3290-0a14-11ec-b57c-2fef1ee78d9e')): true},
-              subject: 'test send email',
-              from: {EmailAddress("userB", 'userb@qa.open-paas.org')},
-              to: {EmailAddress("userD", 'userd@qa.open-paas.org')},
-              htmlBody: {EmailBodyPart(partId: PartId('mmm'), blobId: Id('aaaa'), type: MediaType.parse('text/html'))},
-              bodyValues: {
-                PartId('mmm'): EmailBodyValue(value: '<!DOCTYPE html> <html> <body> <p><b>Hello test send 2</b></p><br><br></body> </html>', isEncodingProblem: false, isTruncated: false)
-              }
-            )
-        );
+                id: EmailId(Id('dab1234')),
+                mailboxIds: {
+                  MailboxId(Id('5dfb3290-0a14-11ec-b57c-2fef1ee78d9e')): true
+                },
+                subject: 'test send email',
+                from: {EmailAddress("userB", 'userb@qa.open-paas.org')},
+                to: {EmailAddress("userD", 'userd@qa.open-paas.org')},
+                htmlBody: {
+                  EmailBodyPart(
+                      partId: PartId('mmm'),
+                      blobId: Id('aaaa'),
+                      type: MediaType.parse('text/html'))
+                },
+                bodyValues: {
+                  PartId('mmm'): EmailBodyValue(
+                      value:
+                          '<!DOCTYPE html> <html> <body> <p><b>Hello test send 2</b></p><br><br></body> </html>',
+                      isEncodingProblem: false,
+                      isTruncated: false)
+                }));
 
-      final setEmailSubmissionMethod = SetEmailSubmissionMethod(AccountId(Id('3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12')))
+      final setEmailSubmissionMethod = SetEmailSubmissionMethod(AccountId(Id(
+          '3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12')))
         ..addCreate(
             Id('a1234'),
             EmailSubmission(
-                emailId: EmailId(ReferenceId(ReferencePrefix.defaultPrefix, Id('dab1234'))),
-                envelope: Envelope(
-                    Address('userb@qa.open-paas.org'),
+                emailId: EmailId(
+                    ReferenceId(ReferencePrefix.defaultPrefix, Id('dab1234'))),
+                envelope: Envelope(Address('userb@qa.open-paas.org'),
                     {Address('userd@qa.open-paas.org')})))
         ..addOnSuccessUpdateEmail({
-          EmailSubmissionId(ReferenceId(ReferencePrefix.defaultPrefix, Id('a1234'))): PatchObject({
+          EmailSubmissionId(
+                  ReferenceId(ReferencePrefix.defaultPrefix, Id('a1234'))):
+              PatchObject({
             PatchObject.mailboxIdsProperty: {
-              const MailboxIdConverter().toJson(MailboxId(Id('5dfb3290-0a14-11ec-b57c-2fef1ee78d9e'))): true
+              const MailboxIdConverter().toJson(
+                  MailboxId(Id('5dfb3290-0a14-11ec-b57c-2fef1ee78d9e'))): true
             }
           })
         });
@@ -199,7 +212,8 @@ void main() {
 
       final setEmailInvocation = requestBuilder.invocation(setEmailMethod);
 
-      final setEmailSubmissionInvocation = requestBuilder.invocation(setEmailSubmissionMethod);
+      final setEmailSubmissionInvocation =
+          requestBuilder.invocation(setEmailSubmissionMethod);
 
       final response = await (requestBuilder
             ..usings(setEmailSubmissionMethod.requiredCapabilities))
@@ -207,34 +221,39 @@ void main() {
           .execute();
 
       final setEmailResponse = response.parse<SetEmailResponse>(
-          setEmailInvocation.methodCallId,
-          SetEmailResponse.deserialize);
+          setEmailInvocation.methodCallId, SetEmailResponse.deserialize);
 
       final setEmailUpdateResponse = response.parse<SetEmailResponse>(
           setEmailSubmissionInvocation.methodCallId,
           SetEmailResponse.deserialize,
           methodName: setEmailInvocation.methodName);
 
-      expect(setEmailResponse?.created?[Id('dab1234')],
-          equals(expectedCreated));
+      expect(
+          setEmailResponse?.created?[Id('dab1234')], equals(expectedCreated));
 
-      expect(setEmailUpdateResponse?.updated?[Id('64469f10-8e15-11ec-984e-e3f8b83572b4')],
+      expect(
+          setEmailUpdateResponse
+              ?.updated?[Id('64469f10-8e15-11ec-984e-e3f8b83572b4')],
           equals(null));
     });
 
-    test('set email submission method and response parsing with header User-Agent', () async {
+    test(
+        'set email submission method and response parsing with header User-Agent',
+        () async {
       final baseOption = BaseOptions(method: 'POST');
       final dio = Dio(baseOption)..options.baseUrl = 'http://domain.com/jmap';
-      final dioAdapter = DioAdapter(dio: dio);
+      final dioAdapter =
+          DioAdapter(dio: dio, matcher: const UrlRequestMatcher());
       dioAdapter.onPost(
           '',
-              (server) => server.reply(200, {
+          (server) => server.reply(200, {
                 "sessionState": "2c9f1b12-b35a-43e6-9af2-0106fb53a943",
                 "methodResponses": [
                   [
                     "Email/set",
                     {
-                      "accountId": "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
+                      "accountId":
+                          "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
                       "oldState": "3534e880-8e15-11ec-984e-e3f8b83572b4",
                       "newState": "64b98520-8e15-11ec-984e-e3f8b83572b4",
                       "created": {
@@ -251,7 +270,8 @@ void main() {
                   [
                     "EmailSubmission/set",
                     {
-                      "accountId": "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
+                      "accountId":
+                          "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
                       "newState": "2c9f1b12-b35a-43e6-9af2-0106fb53a943",
                       "created": {
                         "a1234": "6a4cf0b9-956e-41d5-9122-4824e3ea9baf"
@@ -262,12 +282,11 @@ void main() {
                   [
                     "Email/set",
                     {
-                      "accountId": "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
+                      "accountId":
+                          "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
                       "oldState": "64b98520-8e15-11ec-984e-e3f8b83572b4",
                       "newState": "64b98520-8e15-11ec-984e-e3f8b83572b4",
-                      "updated": {
-                        "64469f10-8e15-11ec-984e-e3f8b83572b4": null
-                      }
+                      "updated": {"64469f10-8e15-11ec-984e-e3f8b83572b4": null}
                     },
                     "c1"
                   ]
@@ -283,7 +302,8 @@ void main() {
               [
                 "Email/set",
                 {
-                  "accountId": "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
+                  "accountId":
+                      "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
                   "create": {
                     "dab1234": {
                       "id": "dab1234",
@@ -292,23 +312,18 @@ void main() {
                       },
                       "subject": "test send email",
                       "from": [
-                        {
-                          "name": "userB",
-                          "email": "userb@qa.open-paas.org"
-                        }
+                        {"name": "userB", "email": "userb@qa.open-paas.org"}
                       ],
                       "to": [
-                        {
-                          "name": "userD",
-                          "email": "userd@qa.open-paas.org"
-                        }
+                        {"name": "userD", "email": "userd@qa.open-paas.org"}
                       ],
                       "htmlBody": [
                         {"partId": "mmm", "blobId": "aaaa", "type": "text/html"}
                       ],
                       "bodyValues": {
                         "mmm": {
-                          "value": "<!DOCTYPE html> <html> <body> <p><b>Hello test send 2</b></p><br><br></body> </html>",
+                          "value":
+                              "<!DOCTYPE html> <html> <body> <p><b>Hello test send 2</b></p><br><br></body> </html>",
                           "isEncodingProblem": false,
                           "isTruncated": false
                         }
@@ -322,7 +337,8 @@ void main() {
               [
                 "EmailSubmission/set",
                 {
-                  "accountId": "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
+                  "accountId":
+                      "3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12",
                   "create": {
                     "a1234": {
                       "emailId": "#dab1234",
@@ -351,64 +367,84 @@ void main() {
             "content-length": 2336
           });
 
-      final setEmailMethod = SetEmailMethod(AccountId(Id('3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12')))
-        ..addCreate(Id('dab1234'),
+      final setEmailMethod = SetEmailMethod(AccountId(Id(
+          '3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12')))
+        ..addCreate(
+            Id('dab1234'),
             Email(
                 id: EmailId(Id('dab1234')),
-                mailboxIds: {MailboxId(Id('5dfb3290-0a14-11ec-b57c-2fef1ee78d9e')): true},
+                mailboxIds: {
+                  MailboxId(Id('5dfb3290-0a14-11ec-b57c-2fef1ee78d9e')): true
+                },
                 subject: 'test send email',
                 from: {EmailAddress("userB", 'userb@qa.open-paas.org')},
                 to: {EmailAddress("userD", 'userd@qa.open-paas.org')},
-                htmlBody: {EmailBodyPart(partId: PartId('mmm'), blobId: Id('aaaa'), type: MediaType.parse('text/html'))},
-                bodyValues: {
-                  PartId('mmm'): EmailBodyValue(value: '<!DOCTYPE html> <html> <body> <p><b>Hello test send 2</b></p><br><br></body> </html>', isEncodingProblem: false, isTruncated: false)
+                htmlBody: {
+                  EmailBodyPart(
+                      partId: PartId('mmm'),
+                      blobId: Id('aaaa'),
+                      type: MediaType.parse('text/html'))
                 },
-                headerUserAgent: {IndividualHeaderIdentifier.headerUserAgent : 'Android/1.0.0 TeamMail/1.0'}
-            )
-        );
+                bodyValues: {
+                  PartId('mmm'): EmailBodyValue(
+                      value:
+                          '<!DOCTYPE html> <html> <body> <p><b>Hello test send 2</b></p><br><br></body> </html>',
+                      isEncodingProblem: false,
+                      isTruncated: false)
+                },
+                headerUserAgent: {
+                  IndividualHeaderIdentifier.headerUserAgent:
+                      'Android/1.0.0 TeamMail/1.0'
+                }));
 
-      final setEmailSubmissionMethod = SetEmailSubmissionMethod(AccountId(Id('3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12')))
+      final setEmailSubmissionMethod = SetEmailSubmissionMethod(AccountId(Id(
+          '3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12')))
         ..addCreate(
             Id('a1234'),
             EmailSubmission(
-                emailId: EmailId(ReferenceId(ReferencePrefix.defaultPrefix, Id('dab1234'))),
-                envelope: Envelope(
-                    Address('userb@qa.open-paas.org'),
+                emailId: EmailId(
+                    ReferenceId(ReferencePrefix.defaultPrefix, Id('dab1234'))),
+                envelope: Envelope(Address('userb@qa.open-paas.org'),
                     {Address('userd@qa.open-paas.org')})))
         ..addOnSuccessUpdateEmail({
-          EmailSubmissionId(ReferenceId(ReferencePrefix.defaultPrefix, Id('a1234'))): PatchObject({
+          EmailSubmissionId(
+                  ReferenceId(ReferencePrefix.defaultPrefix, Id('a1234'))):
+              PatchObject({
             PatchObject.mailboxIdsProperty: {
-              const MailboxIdConverter().toJson(MailboxId(Id('5dfb3290-0a14-11ec-b57c-2fef1ee78d9e'))): true
+              const MailboxIdConverter().toJson(
+                  MailboxId(Id('5dfb3290-0a14-11ec-b57c-2fef1ee78d9e'))): true
             }
           })
         });
 
       final httpClient = HttpClient(dio);
       final requestBuilder =
-      JmapRequestBuilder(httpClient, ProcessingInvocation());
+          JmapRequestBuilder(httpClient, ProcessingInvocation());
 
       final setEmailInvocation = requestBuilder.invocation(setEmailMethod);
 
-      final setEmailSubmissionInvocation = requestBuilder.invocation(setEmailSubmissionMethod);
+      final setEmailSubmissionInvocation =
+          requestBuilder.invocation(setEmailSubmissionMethod);
 
       final response = await (requestBuilder
-        ..usings(setEmailSubmissionMethod.requiredCapabilities))
+            ..usings(setEmailSubmissionMethod.requiredCapabilities))
           .build()
           .execute();
 
       final setEmailResponse = response.parse<SetEmailResponse>(
-          setEmailInvocation.methodCallId,
-          SetEmailResponse.deserialize);
+          setEmailInvocation.methodCallId, SetEmailResponse.deserialize);
 
       final setEmailUpdateResponse = response.parse<SetEmailResponse>(
           setEmailSubmissionInvocation.methodCallId,
           SetEmailResponse.deserialize,
           methodName: setEmailInvocation.methodName);
 
-      expect(setEmailResponse?.created?[Id('dab1234')],
-          equals(expectedCreated));
+      expect(
+          setEmailResponse?.created?[Id('dab1234')], equals(expectedCreated));
 
-      expect(setEmailUpdateResponse?.updated?[Id('64469f10-8e15-11ec-984e-e3f8b83572b4')],
+      expect(
+          setEmailUpdateResponse
+              ?.updated?[Id('64469f10-8e15-11ec-984e-e3f8b83572b4')],
           equals(null));
     });
   });

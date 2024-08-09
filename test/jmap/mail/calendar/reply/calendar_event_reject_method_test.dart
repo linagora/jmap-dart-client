@@ -15,7 +15,7 @@ import 'package:jmap_dart_client/jmap/mail/calendar/reply/calendar_event_reject_
 void main() {
   final baseOption = BaseOptions(method: 'POST');
   final dio = Dio(baseOption)..options.baseUrl = 'http://domain.com/jmap';
-  final dioAdapter = DioAdapter(dio: dio);
+  final dioAdapter = DioAdapter(dio: dio, matcher: const UrlRequestMatcher());
   final dioAdapterHeaders = {"accept": "application/json;jmapVersion=rfc-8621"};
   final httpClient = HttpClient(dio);
   final processingInvocation = ProcessingInvocation();
@@ -28,43 +28,47 @@ void main() {
   final methodCallId = MethodCallId('c0');
 
   Map<String, dynamic> constructData(CalendarEventReplyMethod method) => {
-    "using": method.requiredCapabilities
-      .map((capability) => capability.value.toString())
-      .toList(),
-    "methodCalls": [
-      [
-        method.methodName.value,
-        {
-          "accountId": accountId.id.value,
-          "blobIds": blobIds.map((id) => id.value).toList(),
-        },
-        methodCallId.value
-      ]
-    ]
-  };
+        "using": method.requiredCapabilities
+            .map((capability) => capability.value.toString())
+            .toList(),
+        "methodCalls": [
+          [
+            method.methodName.value,
+            {
+              "accountId": accountId.id.value,
+              "blobIds": blobIds.map((id) => id.value).toList(),
+            },
+            methodCallId.value
+          ]
+        ]
+      };
 
   Map<String, dynamic> constructResponse(CalendarEventReplyMethod method) => {
-    "sessionState": "abcdefghij",
-    "methodResponses": [[
-      method.methodName.value,
-      {
-        "accountId": accountId.id.value,
-        "rejected": [successBlobId.value],
-        "notRejected": [failureBlobId.value],
-        "notFound": [notFoundBlobId.value],
-      },
-      methodCallId.value
-    ]]
-  };
+        "sessionState": "abcdefghij",
+        "methodResponses": [
+          [
+            method.methodName.value,
+            {
+              "accountId": accountId.id.value,
+              "rejected": [successBlobId.value],
+              "notRejected": [failureBlobId.value],
+              "notFound": [notFoundBlobId.value],
+            },
+            methodCallId.value
+          ]
+        ]
+      };
 
   group('calendar event reject method', () {
     final method = CalendarEventRejectMethod(accountId, blobIds: blobIds);
 
-    test('should succeed with success blob data, '
-    'and fail with failure blob data '
-    'and not found with not found blob data', () async {
+    test(
+        'should succeed with success blob data, '
+        'and fail with failure blob data '
+        'and not found with not found blob data', () async {
       // arrange
-      final invocation = requestBuilder.invocation(method, methodCallId: methodCallId);
+      final invocation =
+          requestBuilder.invocation(method, methodCallId: methodCallId);
       dioAdapter.onPost(
         '',
         (server) => server.reply(200, constructResponse(method)),
@@ -73,17 +77,16 @@ void main() {
       );
 
       // act
-      final response = (await (requestBuilder..usings(method.requiredCapabilities))
-        .build()
-        .execute())
+      final response = (await (requestBuilder
+                ..usings(method.requiredCapabilities))
+              .build()
+              .execute())
           .parse<CalendarEventReplyResponse>(
-            invocation.methodCallId,
-            CalendarEventRejectResponse.deserialize); 
-      
+              invocation.methodCallId, CalendarEventRejectResponse.deserialize);
+
       // assert
-      expect(
-        (response as CalendarEventRejectResponse?)?.rejected,
-        equals([EventId(successBlobId.value)]));
+      expect((response as CalendarEventRejectResponse?)?.rejected,
+          equals([EventId(successBlobId.value)]));
       expect(response?.notRejected, equals([failureBlobId]));
       expect(response?.notFound, equals([notFoundBlobId]));
     });
