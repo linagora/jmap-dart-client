@@ -43,8 +43,7 @@ void main() {
     test('get changes email', () async {
       final baseOption = BaseOptions(method: 'POST');
       final dio = Dio(baseOption)..options.baseUrl = 'http://domain.com/jmap';
-      final dioAdapter =
-          DioAdapter(dio: dio, matcher: const UrlRequestMatcher());
+      final dioAdapter = DioAdapter(dio: dio);
       dioAdapter.onPost(
           '',
           (server) => server.reply(200, {
@@ -140,8 +139,7 @@ void main() {
               [
                 "Mailbox/get",
                 {
-                  "accountId":
-                      "0eacc7a5c74b27ab36a823bc5c34da36e16c093705f241d6ed5f48ee73a4ecfb",
+                  "accountId": "0eacc7a5c74b27ab36a823bc5c34da36e16c093705f241d6ed5f48ee73a4ecfb",
                   "#ids": {
                     "resultOf": "c0",
                     "name": "Mailbox/changes",
