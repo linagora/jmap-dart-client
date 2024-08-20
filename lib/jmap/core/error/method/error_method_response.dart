@@ -15,6 +15,7 @@ abstract class ErrorMethodResponse extends MethodResponse {
   static final accountNotSupportedByMethod = ErrorType("accountNotSupportedByMethod");
   static final accountReadOnly = ErrorType("accountReadOnly");
   static final cannotCalculateChanges = ErrorType("cannotCalculateChanges");
+  static final overQuota = ErrorType("overQuota");
 
   final ErrorType type;
   final String? description;
