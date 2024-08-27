@@ -6,6 +6,7 @@ class IndividualHeaderIdentifier with EquatableMixin {
   static final headerCalendarEvent = IndividualHeaderIdentifier('header:X-MEETING-UID:asText');
   static final acceptLanguageHeader = IndividualHeaderIdentifier('header:Accept-Language:asText');
   static final contentLanguageHeader = IndividualHeaderIdentifier('header:Content-Language:asText');
+  static final sMimeStatusHeader = IndividualHeaderIdentifier('header:X-SMIME-Status:asText');
 
   final String value;
 

@@ -51,6 +51,7 @@ class Email with EquatableMixin {
   final Map<IndividualHeaderIdentifier, String?>? headerUserAgent;
   final Map<IndividualHeaderIdentifier, String?>? headerMdn;
   final Map<IndividualHeaderIdentifier, String?>? headerCalendarEvent;
+  final Map<IndividualHeaderIdentifier, String?>? sMimeStatusHeader;
 
   Email({
     this.id,
@@ -81,7 +82,8 @@ class Email with EquatableMixin {
     this.bodyValues,
     this.headerUserAgent,
     this.headerMdn,
-    this.headerCalendarEvent
+    this.headerCalendarEvent,
+    this.sMimeStatusHeader,
   });
 
   factory Email.fromJson(Map<String, dynamic> json) {
@@ -117,6 +119,7 @@ class Email with EquatableMixin {
       headerUserAgent: IndividualHeaderIdentifierNullableConverter().parseEntry(IndividualHeaderIdentifier.headerUserAgent.value, json[IndividualHeaderIdentifier.headerUserAgent.value] as String?),
       headerMdn: IndividualHeaderIdentifierNullableConverter().parseEntry(IndividualHeaderIdentifier.headerMdn.value, json[IndividualHeaderIdentifier.headerMdn.value] as String?),
       headerCalendarEvent: IndividualHeaderIdentifierNullableConverter().parseEntry(IndividualHeaderIdentifier.headerCalendarEvent.value, json[IndividualHeaderIdentifier.headerCalendarEvent.value] as String?),
+      sMimeStatusHeader: IndividualHeaderIdentifierNullableConverter().parseEntry(IndividualHeaderIdentifier.sMimeStatusHeader.value, json[IndividualHeaderIdentifier.sMimeStatusHeader.value] as String?),
     );
   }
 
@@ -158,6 +161,7 @@ class Email with EquatableMixin {
     writeNotNull(IndividualHeaderIdentifier.headerUserAgent.value, IndividualHeaderIdentifierNullableConverter().toJson(headerUserAgent, IndividualHeaderIdentifier.headerUserAgent));
     writeNotNull(IndividualHeaderIdentifier.headerMdn.value, IndividualHeaderIdentifierNullableConverter().toJson(headerMdn, IndividualHeaderIdentifier.headerMdn));
     writeNotNull(IndividualHeaderIdentifier.headerCalendarEvent.value, IndividualHeaderIdentifierNullableConverter().toJson(headerCalendarEvent, IndividualHeaderIdentifier.headerCalendarEvent));
+    writeNotNull(IndividualHeaderIdentifier.sMimeStatusHeader.value, IndividualHeaderIdentifierNullableConverter().toJson(sMimeStatusHeader, IndividualHeaderIdentifier.sMimeStatusHeader));
     return val;
   }
 
@@ -191,7 +195,8 @@ class Email with EquatableMixin {
     bodyValues,
     headerUserAgent,
     headerMdn,
-    headerCalendarEvent
+    headerCalendarEvent,
+    sMimeStatusHeader,
   ];
 }
 
