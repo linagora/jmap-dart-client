@@ -1,4 +1,7 @@
-## [0.2.0] - 2024-21-08
+## [0.2.1] - 2024-08-28
+- Add X-SMIME-Status header parsed property for email
+
+## [0.2.0] - 2024-08-21
 - Add PublicAsset/get + PublicAsset/set methods
 - Add `overQuota` error type
 
