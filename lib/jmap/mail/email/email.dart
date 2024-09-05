@@ -52,6 +52,7 @@ class Email with EquatableMixin {
   final Map<IndividualHeaderIdentifier, String?>? headerMdn;
   final Map<IndividualHeaderIdentifier, String?>? headerCalendarEvent;
   final Map<IndividualHeaderIdentifier, String?>? sMimeStatusHeader;
+  final Map<IndividualHeaderIdentifier, String?>? identityHeader;
 
   Email({
     this.id,
@@ -84,6 +85,7 @@ class Email with EquatableMixin {
     this.headerMdn,
     this.headerCalendarEvent,
     this.sMimeStatusHeader,
+    this.identityHeader,
   });
 
   factory Email.fromJson(Map<String, dynamic> json) {
@@ -120,6 +122,7 @@ class Email with EquatableMixin {
       headerMdn: IndividualHeaderIdentifierNullableConverter().parseEntry(IndividualHeaderIdentifier.headerMdn.value, json[IndividualHeaderIdentifier.headerMdn.value] as String?),
       headerCalendarEvent: IndividualHeaderIdentifierNullableConverter().parseEntry(IndividualHeaderIdentifier.headerCalendarEvent.value, json[IndividualHeaderIdentifier.headerCalendarEvent.value] as String?),
       sMimeStatusHeader: IndividualHeaderIdentifierNullableConverter().parseEntry(IndividualHeaderIdentifier.sMimeStatusHeader.value, json[IndividualHeaderIdentifier.sMimeStatusHeader.value] as String?),
+      identityHeader: IndividualHeaderIdentifierNullableConverter().parseEntry(IndividualHeaderIdentifier.identityHeader.value, json[IndividualHeaderIdentifier.identityHeader.value] as String?),
     );
   }
 
@@ -162,6 +165,7 @@ class Email with EquatableMixin {
     writeNotNull(IndividualHeaderIdentifier.headerMdn.value, IndividualHeaderIdentifierNullableConverter().toJson(headerMdn, IndividualHeaderIdentifier.headerMdn));
     writeNotNull(IndividualHeaderIdentifier.headerCalendarEvent.value, IndividualHeaderIdentifierNullableConverter().toJson(headerCalendarEvent, IndividualHeaderIdentifier.headerCalendarEvent));
     writeNotNull(IndividualHeaderIdentifier.sMimeStatusHeader.value, IndividualHeaderIdentifierNullableConverter().toJson(sMimeStatusHeader, IndividualHeaderIdentifier.sMimeStatusHeader));
+    writeNotNull(IndividualHeaderIdentifier.identityHeader.value, IndividualHeaderIdentifierNullableConverter().toJson(identityHeader, IndividualHeaderIdentifier.identityHeader));
     return val;
   }
 
@@ -197,6 +201,7 @@ class Email with EquatableMixin {
     headerMdn,
     headerCalendarEvent,
     sMimeStatusHeader,
+    identityHeader,
   ];
 }
 
