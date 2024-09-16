@@ -1,3 +1,6 @@
+## [0.2.1] - 2024-09-16
+- Add X-JMAP-Identity header
+
 ## [0.2.1] - 2024-08-28
 - Add X-SMIME-Status header parsed property for email
 
