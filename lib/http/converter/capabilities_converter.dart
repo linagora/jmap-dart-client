@@ -9,6 +9,7 @@ import 'package:jmap_dart_client/jmap/core/capability/mail_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/mdn_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/submission_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/vacation_capability.dart';
+import 'package:jmap_dart_client/jmap/core/capability/web_socket_ticket_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/websocket_capability.dart';
 
 class CapabilitiesConverter {
@@ -26,6 +27,7 @@ class CapabilitiesConverter {
         CapabilityIdentifier.jamesCalendarEvent: CalendarEventCapability.deserialize,
         CapabilityIdentifier.jmapVacationResponse: VacationCapability.deserialize,
         CapabilityIdentifier.jmapWebSocket: WebSocketCapability.deserialize,
+        CapabilityIdentifier.jmapWebSocketTicket: WebSocketTicketCapability.deserialize,
         CapabilityIdentifier.jmapMdn: MdnCapability.deserialize
       });
   }

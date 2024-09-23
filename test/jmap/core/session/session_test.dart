@@ -12,6 +12,7 @@ import 'package:jmap_dart_client/jmap/core/capability/mail_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/mdn_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/submission_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/vacation_capability.dart';
+import 'package:jmap_dart_client/jmap/core/capability/web_socket_ticket_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/websocket_capability.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
 import 'package:jmap_dart_client/jmap/core/session/session.dart';
@@ -67,6 +68,10 @@ void main() {
           "urn:ietf:params:jmap:websocket": {
             "supportsPush": true,
             "url": "ws://domain.com/jmap/ws"
+          },
+          "com:linagora:params:jmap:ws:ticket": {
+            "generationEndpoint": "http://localhost/jmap/ws/ticket",
+            "revocationEndpoint": "http://localhost/jmap/ws/ticket"
           },
           "urn:apache:james:params:jmap:mail:quota": {},
           "urn:apache:james:params:jmap:mail:shares": {},
@@ -125,6 +130,7 @@ void main() {
           "urn:ietf:params:jmap:submission": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
           "com:linagora:params:calendar:event": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
           "urn:ietf:params:jmap:websocket": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
+          "com:linagora:params:jmap:ws:ticket": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
           "urn:ietf:params:jmap:core": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
           "urn:ietf:params:jmap:mail": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
           "urn:apache:james:params:jmap:mail:quota": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
@@ -170,6 +176,9 @@ void main() {
             supportsPush: true,
             url: Uri.parse('ws://domain.com/jmap/ws')
           ),
+          CapabilityIdentifier.jmapWebSocketTicket: WebSocketTicketCapability(
+            generationEndpoint: Uri.parse('http://localhost/jmap/ws/ticket'),
+            revocationEndpoint: Uri.parse('http://localhost/jmap/ws/ticket')),
           CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:quota')): DefaultCapability(<String, dynamic>{}),
           CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares')): DefaultCapability(<String, dynamic>{}),
           CapabilityIdentifier.jmapVacationResponse: VacationCapability(),
@@ -217,6 +226,7 @@ void main() {
           CapabilityIdentifier.jmapSubmission: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
           CapabilityIdentifier.jamesCalendarEvent: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
           CapabilityIdentifier.jmapWebSocket: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
+          CapabilityIdentifier.jmapWebSocketTicket: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
           CapabilityIdentifier.jmapCore: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
           CapabilityIdentifier.jmapMail: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
           CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:quota')): AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),

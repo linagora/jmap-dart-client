@@ -1,4 +1,7 @@
-## [0.2.1] - 2024-09-16
+## [0.2.3] - 2024-09-16
+- Add web socket ticket capability
+
+## [0.2.2] - 2024-09-16
 - Add X-JMAP-Identity header
 
 ## [0.2.1] - 2024-08-28
