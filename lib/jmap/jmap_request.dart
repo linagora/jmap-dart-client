@@ -21,7 +21,13 @@ class JmapRequest {
   RequestObject? _requestObject;
   RequestObject? get requestObject => _requestObject;
 
-  Future<ResponseObject> execute({CancelToken? cancelToken}) async {
+  Future<ResponseObject> execute({
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
     _requestObject = (RequestObject.builder()
         ..usings(_capabilities.asSet())
         ..methodCalls(_invocations.values.toList()))
@@ -30,7 +36,11 @@ class JmapRequest {
     return _httpClient.post(
       '',
       data: _requestObject?.toJson(),
-      cancelToken: cancelToken
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
     )
       .then(extractData)
       .catchError((error) => throw error);
