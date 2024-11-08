@@ -1,3 +1,6 @@
+## [0.3.0] - 2024-11-08
+- Add SearchSnippet/get method
+
 ## [0.2.3] - 2024-09-16
 - Add web socket ticket capability
 
