@@ -33,7 +33,7 @@ Map<String, dynamic> _$VacationResponseToJson(VacationResponse instance) {
   val['fromDate'] = const UTCDateNullableConverter().toJson(instance.fromDate);
   val['toDate'] = const UTCDateNullableConverter().toJson(instance.toDate);
   val['subject'] = instance.subject;
-  writeNotNull('textBody', instance.textBody);
+  val['textBody'] = instance.textBody;
   val['htmlBody'] = instance.htmlBody;
   return val;
 }
