@@ -24,7 +24,6 @@ class VacationResponse with EquatableMixin {
 
   final String? subject;
 
-  @JsonKey(includeIfNull: false)
   final String? textBody;
 
   final String? htmlBody;
