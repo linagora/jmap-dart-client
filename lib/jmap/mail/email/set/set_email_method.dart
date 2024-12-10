@@ -41,6 +41,7 @@ class SetEmailMethod extends SetMethod<Email> {
     writeNotNull('destroy', destroy
       ?.map((destroyId) => const IdConverter()
         .toJson(destroyId)).toList());
+    writeNotNull('#destroy', referenceDestroy?.toJson());
     
     return val;
   }

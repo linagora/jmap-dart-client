@@ -34,6 +34,7 @@ class SetVacationMethod extends SetMethod<VacationResponse>
     writeNotNull('ifInState', ifInState?.value);
     writeNotNull('update', updateSingleton
         ?.map((id, update) => SetMethodPropertiesConverter().fromMapIdToJson(id, update.toJson())));
+    writeNotNull('#destroy', referenceDestroy?.toJson());
 
     return val;
   }
