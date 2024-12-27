@@ -1,3 +1,6 @@
+## [0.3.1] - 2024-12-27
+- Add #destroy for set method 
+
 ## [0.3.0] - 2024-11-08
 - Add SearchSnippet/get method
 
