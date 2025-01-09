@@ -6,19 +6,20 @@ part of 'query_email_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-QueryEmailResponse _$QueryEmailResponseFromJson(Map<String, dynamic> json) {
-  return QueryEmailResponse(
-    const AccountIdConverter().fromJson(json['accountId'] as String),
-    const StateConverter().fromJson(json['queryState'] as String),
-    json['canCalculateChanges'] as bool,
-    const UnsignedIntConverter().fromJson(json['position'] as int),
-    (json['ids'] as List<dynamic>)
-        .map((e) => const IdConverter().fromJson(e as String))
-        .toSet(),
-    const UnsignedIntNullableConverter().fromJson(json['total'] as int?),
-    const UnsignedIntNullableConverter().fromJson(json['limit'] as int?),
-  );
-}
+QueryEmailResponse _$QueryEmailResponseFromJson(Map<String, dynamic> json) =>
+    QueryEmailResponse(
+      const AccountIdConverter().fromJson(json['accountId'] as String),
+      const StateConverter().fromJson(json['queryState'] as String),
+      json['canCalculateChanges'] as bool,
+      const UnsignedIntConverter().fromJson(json['position'] as int),
+      (json['ids'] as List<dynamic>)
+          .map((e) => const IdConverter().fromJson(e as String))
+          .toSet(),
+      _$JsonConverterFromJson<int, UnsignedInt>(
+          json['total'], const UnsignedIntConverter().fromJson),
+      _$JsonConverterFromJson<int, UnsignedInt>(
+          json['limit'], const UnsignedIntConverter().fromJson),
+    );
 
 Map<String, dynamic> _$QueryEmailResponseToJson(QueryEmailResponse instance) =>
     <String, dynamic>{
@@ -27,6 +28,20 @@ Map<String, dynamic> _$QueryEmailResponseToJson(QueryEmailResponse instance) =>
       'canCalculateChanges': instance.canCalculateChanges,
       'position': const UnsignedIntConverter().toJson(instance.position),
       'ids': instance.ids.map(const IdConverter().toJson).toList(),
-      'total': const UnsignedIntNullableConverter().toJson(instance.total),
-      'limit': const UnsignedIntNullableConverter().toJson(instance.limit),
+      'total': _$JsonConverterToJson<int, UnsignedInt>(
+          instance.total, const UnsignedIntConverter().toJson),
+      'limit': _$JsonConverterToJson<int, UnsignedInt>(
+          instance.limit, const UnsignedIntConverter().toJson),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);
