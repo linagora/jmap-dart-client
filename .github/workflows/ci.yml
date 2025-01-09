@@ -3,7 +3,7 @@
 name: CI
 
 env:
-  FLUTTER_VERSION: 3.22.2
+  FLUTTER_VERSION: 3.24.5
 
 # Controls when the workflow will run
 on: [push, pull_request, workflow_dispatch]

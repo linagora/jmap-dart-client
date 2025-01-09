@@ -20,9 +20,7 @@ mixin OptionalIds {
   Set<Id>? ids;
 
   void addIds(Set<Id> values) {
-    if (ids == null) {
-      ids = Set();
-    }
+    ids ??= <Id>{};
     ids?.addAll(values);
   }
 }

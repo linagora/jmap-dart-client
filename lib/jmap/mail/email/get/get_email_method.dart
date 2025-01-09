@@ -37,6 +37,7 @@ class GetEmailMethod extends GetMethod with OptionalEmailBodyProperties, Optiona
 
   factory GetEmailMethod.fromJson(Map<String, dynamic> json) => _$GetEmailMethodFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$GetEmailMethodToJson(this);
 }
 
