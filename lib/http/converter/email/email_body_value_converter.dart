@@ -12,6 +12,6 @@ class EmailBodyValueConverter {
   }
 
   MapEntry<String, dynamic> toJson(PartId partId, EmailBodyValue value) {
-    return MapEntry(PartIdConverter().toJson(partId), value.toJson());
+    return MapEntry(const PartIdConverter().toJson(partId), value.toJson());
   }
 }
