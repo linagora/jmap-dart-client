@@ -53,9 +53,9 @@ class EmailSubmission with EquatableMixin {
       deliveryStatus: (json['deliveryStatus'] as Map<String, dynamic>?)
           ?.map((key, value) => DeliveryStatusConverter().parseEntry(key, value)),
       dsnBlobIds: (json['dsnBlobIds'] as List<dynamic>?)
-          ?.map((json) => IdConverter().fromJson(json)).toSet(),
+          ?.map((json) => const IdConverter().fromJson(json)).toSet(),
       mdnBlobIds: (json['mdnBlobIds'] as List<dynamic>?)
-          ?.map((json) => IdConverter().fromJson(json)).toSet()
+          ?.map((json) => const IdConverter().fromJson(json)).toSet()
     );
   }
 

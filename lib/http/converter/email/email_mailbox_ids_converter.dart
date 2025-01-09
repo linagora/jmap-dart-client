@@ -6,6 +6,6 @@ class EmailMailboxIdsConverter {
   MapEntry<MailboxId, bool> parseEntry(String key, bool value) => MapEntry(MailboxId(Id(key)), value);
 
   MapEntry<String, bool> toJson(MailboxId mailboxId, bool value) {
-    return MapEntry(IdConverter().toJson(mailboxId.id), value);
+    return MapEntry(const IdConverter().toJson(mailboxId.id), value);
   }
 }

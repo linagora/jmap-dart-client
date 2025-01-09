@@ -7,7 +7,7 @@ class MethodResponseConverter implements JsonConverter<MethodResponse, dynamic> 
 
   @override
   MethodResponse fromJson(dynamic json) {
-    return this.fromJson(json);
+    return fromJson(json);
   }
 
   @override
