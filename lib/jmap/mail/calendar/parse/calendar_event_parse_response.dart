@@ -5,7 +5,7 @@ import 'package:jmap_dart_client/jmap/core/id.dart';
 import 'package:jmap_dart_client/jmap/core/method/response/parse_response.dart';
 import 'package:jmap_dart_client/jmap/mail/calendar/calendar_event.dart';
 
-class CalendarEventParseResponse extends ParseResponse<CalendarEvent> {
+class CalendarEventParseResponse extends ParseResponse<List<CalendarEvent>> {
   CalendarEventParseResponse(
     AccountId accountId,
     {
