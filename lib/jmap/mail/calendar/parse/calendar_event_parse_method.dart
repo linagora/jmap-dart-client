@@ -4,9 +4,8 @@ import 'package:jmap_dart_client/http/converter/properties_converter.dart';
 import 'package:jmap_dart_client/jmap/core/capability/capability_identifier.dart';
 import 'package:jmap_dart_client/jmap/core/method/request/parse_method.dart';
 import 'package:jmap_dart_client/jmap/core/request/request_invocation.dart';
-import 'package:jmap_dart_client/jmap/mail/calendar/calendar_event.dart';
 
-class CalendarEventParseMethod extends ParseMethod<CalendarEvent> {
+class CalendarEventParseMethod extends ParseMethod {
 
   CalendarEventParseMethod(super.accountId, super.blobIds);
 
