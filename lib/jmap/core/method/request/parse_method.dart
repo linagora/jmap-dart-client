@@ -3,7 +3,7 @@ import 'package:jmap_dart_client/jmap/core/id.dart';
 import 'package:jmap_dart_client/jmap/core/method/method.dart';
 import 'package:jmap_dart_client/jmap/core/method/request/get_method.dart';
 
-abstract class ParseMethod<T> extends MethodRequiringAccountId with OptionalProperties {
+abstract class ParseMethod extends MethodRequiringAccountId with OptionalProperties {
 
   final Set<Id> blobIds;
 

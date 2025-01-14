@@ -1,3 +1,6 @@
+## [0.3.2] - 2024-01-10
+- Add Email/parse method
+
 ## [0.3.1] - 2024-12-27
 - Add #destroy for set method 
 
