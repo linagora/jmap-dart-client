@@ -5,7 +5,7 @@ class Properties with EquatableMixin {
 
   Properties(this.value);
 
-  static Properties empty() => Properties(Set());
+  static Properties empty() => Properties(<String>{});
 
   Properties union(Properties other) => Properties(value.union(other.value));
 

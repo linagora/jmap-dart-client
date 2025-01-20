@@ -54,9 +54,7 @@ mixin OptionalSort {
   Set<Comparator>? sort;
 
   void addSorts(Set<Comparator> value) {
-    if (sort == null) {
-      sort = Set();
-    }
+    sort ??= <Comparator>{};
     sort?.addAll(value);
   }
 }

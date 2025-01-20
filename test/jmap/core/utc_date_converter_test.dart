@@ -13,21 +13,21 @@ void main() {
 
   group('UTCDateConverter', () {
     test('should return UTCDate when receive a properly formatted json', () {
-      expect(expectUTCDate, UTCDateConverter().fromJson(utcDateStringTest));
+      expect(expectUTCDate, const UTCDateConverter().fromJson(utcDateStringTest));
     });
 
     test('should return utc date string valid when receive a utc date', () {
-      expect(expectUTCDateString, UTCDateConverter().toJson(testUTCDate));
+      expect(expectUTCDateString, const UTCDateConverter().toJson(testUTCDate));
     });
   });
 
   group('UTCDateNullableConverter', () {
     test('should return UTCDate when receive a properly formatted json', () {
-      expect(expectUTCDate, UTCDateNullableConverter().fromJson(utcDateStringTest));
+      expect(expectUTCDate, const UTCDateNullableConverter().fromJson(utcDateStringTest));
     });
 
     test('should return utc date string valid when receive a utc date', () {
-      expect(expectUTCDateString, UTCDateNullableConverter().toJson(testUTCDate));
+      expect(expectUTCDateString, const UTCDateNullableConverter().toJson(testUTCDate));
     });
   });
 }
