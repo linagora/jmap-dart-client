@@ -4,6 +4,7 @@ import 'package:jmap_dart_client/jmap/core/capability/capability_identifier.dart
 import 'package:jmap_dart_client/jmap/core/capability/capability_properties.dart';
 import 'package:jmap_dart_client/jmap/core/capability/core_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/default_capability.dart';
+import 'package:jmap_dart_client/jmap/core/capability/download_all_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/empty_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/mail_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/mdn_capability.dart';
@@ -28,7 +29,8 @@ class CapabilitiesConverter {
         CapabilityIdentifier.jmapVacationResponse: VacationCapability.deserialize,
         CapabilityIdentifier.jmapWebSocket: WebSocketCapability.deserialize,
         CapabilityIdentifier.jmapWebSocketTicket: WebSocketTicketCapability.deserialize,
-        CapabilityIdentifier.jmapMdn: MdnCapability.deserialize
+        CapabilityIdentifier.jmapMdn: MdnCapability.deserialize,
+        CapabilityIdentifier.downloadAll: DownloadAllCapability.fromJson,
       });
   }
 

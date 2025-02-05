@@ -8,6 +8,7 @@ import 'package:jmap_dart_client/jmap/core/capability/calendar_event_capability.
 import 'package:jmap_dart_client/jmap/core/capability/capability_identifier.dart';
 import 'package:jmap_dart_client/jmap/core/capability/core_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/default_capability.dart';
+import 'package:jmap_dart_client/jmap/core/capability/download_all_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/mail_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/mdn_capability.dart';
 import 'package:jmap_dart_client/jmap/core/capability/submission_capability.dart';
@@ -26,6 +27,8 @@ import 'test_capability.dart';
 void main() {
   group('get session with default capabilities', () {
     test('get should parsing correctly session', () {
+      const downloadAllEndpoint = 'http://localhost/jmap/downloadAll/{accountId}/{emailId}?name={name}';
+
       const sessionString = '''{
         "capabilities": {
           "urn:ietf:params:jmap:submission": {
@@ -76,7 +79,10 @@ void main() {
           "urn:apache:james:params:jmap:mail:quota": {},
           "urn:apache:james:params:jmap:mail:shares": {},
           "urn:ietf:params:jmap:vacationresponse": {},
-          "urn:ietf:params:jmap:mdn": {}
+          "urn:ietf:params:jmap:mdn": {},
+          "com:linagora:params:downloadAll": {
+            "endpoint": "$downloadAllEndpoint"
+          }
         },
         "accounts": {
           "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6": {
@@ -122,7 +128,10 @@ void main() {
               "urn:apache:james:params:jmap:mail:quota": {},
               "urn:apache:james:params:jmap:mail:shares": {},
               "urn:ietf:params:jmap:vacationresponse": {},
-              "urn:ietf:params:jmap:mdn": {}
+              "urn:ietf:params:jmap:mdn": {},
+              "com:linagora:params:downloadAll": {
+                "endpoint": "$downloadAllEndpoint"
+              }
             }
           }
         },
@@ -136,7 +145,8 @@ void main() {
           "urn:apache:james:params:jmap:mail:quota": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
           "urn:apache:james:params:jmap:mail:shares": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
           "urn:ietf:params:jmap:vacationresponse": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
-          "urn:ietf:params:jmap:mdn": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6"
+          "urn:ietf:params:jmap:mdn": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6",
+          "com:linagora:params:downloadAll": "29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6"
         },
         "username": "bob@domain.tld",
         "apiUrl": "http://domain.com/jmap",
@@ -182,7 +192,10 @@ void main() {
           CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:quota')): DefaultCapability(<String, dynamic>{}),
           CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares')): DefaultCapability(<String, dynamic>{}),
           CapabilityIdentifier.jmapVacationResponse: VacationCapability(),
-          CapabilityIdentifier.jmapMdn: MdnCapability()
+          CapabilityIdentifier.jmapMdn: MdnCapability(),
+          CapabilityIdentifier.downloadAll: DownloadAllCapability(
+            endpoint: downloadAllEndpoint,
+          ),
         },
         {
           AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')): Account(
@@ -218,7 +231,10 @@ void main() {
               CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:quota')): DefaultCapability(<String, dynamic>{}),
               CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares')): DefaultCapability(<String, dynamic>{}),
               CapabilityIdentifier.jmapVacationResponse: VacationCapability(),
-              CapabilityIdentifier.jmapMdn: MdnCapability()
+              CapabilityIdentifier.jmapMdn: MdnCapability(),
+              CapabilityIdentifier.downloadAll: DownloadAllCapability(
+                endpoint: downloadAllEndpoint,
+              ),
             }
           )
         },
@@ -233,6 +249,7 @@ void main() {
           CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:shares')): AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
           CapabilityIdentifier.jmapVacationResponse: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
           CapabilityIdentifier.jmapMdn: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
+          CapabilityIdentifier.downloadAll: AccountId(Id('29883977c13473ae7cb7678ef767cbfbaffc8a44a6e463d971d23a65c1dc4af6')),
         },
         UserName('bob@domain.tld'),
         Uri.parse('http://domain.com/jmap'),
