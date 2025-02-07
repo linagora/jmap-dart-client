@@ -8,6 +8,9 @@ class IndividualHeaderIdentifier with EquatableMixin {
   static final contentLanguageHeader = IndividualHeaderIdentifier('header:Content-Language:asText');
   static final sMimeStatusHeader = IndividualHeaderIdentifier('header:X-SMIME-Status:asText');
   static final identityHeader = IndividualHeaderIdentifier('header:X-JMAP-Identity:asText');
+  static final xPriorityHeader = IndividualHeaderIdentifier('header:X-Priority:asText');
+  static final priorityHeader = IndividualHeaderIdentifier('header:Priority:asText');
+  static final importanceHeader = IndividualHeaderIdentifier('header:Importance:asText');
 
   final String value;
 
