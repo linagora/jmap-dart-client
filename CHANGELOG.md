@@ -1,3 +1,6 @@
+## [0.3.3] - 2025-02-07
+- Add priority headers for email
+
 ## [0.3.2] - 2024-01-10
 - Add Email/parse method
 
