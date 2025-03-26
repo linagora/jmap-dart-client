@@ -6,8 +6,12 @@ part 'calendar_event_capability.g.dart';
 @JsonSerializable(includeIfNull: false)
 class CalendarEventCapability extends CapabilityProperties {
   final List<String>? replySupportedLanguage;
+  final bool? supportFreeBusyQuery;
 
-  CalendarEventCapability({this.replySupportedLanguage});
+  CalendarEventCapability({
+    this.replySupportedLanguage,
+    this.supportFreeBusyQuery,
+  });
   
   factory CalendarEventCapability.fromJson(Map<String, dynamic> json) 
     => _$CalendarEventCapabilityFromJson(json);
@@ -19,5 +23,5 @@ class CalendarEventCapability extends CapabilityProperties {
   }
   
   @override
-  List<Object?> get props => [replySupportedLanguage];
+  List<Object?> get props => [replySupportedLanguage, supportFreeBusyQuery];
 }
