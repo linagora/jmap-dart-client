@@ -13,6 +13,7 @@ CalendarEventCapability _$CalendarEventCapabilityFromJson(
           ?.map((e) => e as String)
           .toList(),
       supportFreeBusyQuery: json['supportFreeBusyQuery'] as bool?,
+      counterSupport: json['counterSupport'] as bool?,
     );
 
 Map<String, dynamic> _$CalendarEventCapabilityToJson(
@@ -27,5 +28,6 @@ Map<String, dynamic> _$CalendarEventCapabilityToJson(
 
   writeNotNull('replySupportedLanguage', instance.replySupportedLanguage);
   writeNotNull('supportFreeBusyQuery', instance.supportFreeBusyQuery);
+  writeNotNull('counterSupport', instance.counterSupport);
   return val;
 }
