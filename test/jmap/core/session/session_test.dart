@@ -36,7 +36,8 @@ void main() {
             "replySupportedLanguage": [
                 "en",
                 "fr"
-            ]
+            ],
+            "counterSupport": true
           },
           "urn:ietf:params:jmap:core": {
             "maxSizeUpload": 20971520,
@@ -153,7 +154,8 @@ void main() {
             submissionExtensions: {}
           ),
           CapabilityIdentifier.jamesCalendarEvent: CalendarEventCapability(
-            replySupportedLanguage: ["en", "fr"]
+            replySupportedLanguage: ["en", "fr"],
+            counterSupport: true,
           ),
           CapabilityIdentifier.jmapCore: CoreCapability(
             maxSizeUpload: UnsignedInt(20971520),
