@@ -1,9 +1,10 @@
 import 'package:jmap_dart_client/http/converter/account_id_converter.dart';
-import 'package:jmap_dart_client/http/converter/thread_id_converter.dart';
+import 'package:jmap_dart_client/http/converter/id_converter.dart';
+import 'package:jmap_dart_client/http/converter/properties_converter.dart';
 import 'package:jmap_dart_client/jmap/core/capability/capability_identifier.dart';
-import 'package:jmap_dart_client/jmap/core/method/method.dart';
+import 'package:jmap_dart_client/jmap/core/method/request/get_method.dart';
 import 'package:jmap_dart_client/jmap/core/request/request_invocation.dart';
-import 'package:jmap_dart_client/jmap/mail/email/email.dart';
+import 'package:jmap_dart_client/jmap/core/request/result_reference.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'get_thread_method.g.dart';
@@ -13,13 +14,12 @@ part 'get_thread_method.g.dart';
   explicitToJson: true,
   converters: [
     AccountIdConverter(),
-    ThreadIdConverter(),
+    IdConverter(),
+    PropertiesConverter(),
   ],
 )
-class GetThreadMethod extends MethodRequiringAccountId {
-  GetThreadMethod(super.accountId, this.ids);
-
-  final List<ThreadId> ids;
+class GetThreadMethod extends GetMethod {
+  GetThreadMethod(super.accountId);
 
   @override
   MethodName get methodName => MethodName('Thread/get');

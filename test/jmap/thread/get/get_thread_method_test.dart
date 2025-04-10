@@ -21,14 +21,12 @@ void main() {
   final processingInvocation = ProcessingInvocation();
   final requestBuilder = JmapRequestBuilder(httpClient, processingInvocation);
   final accountId = AccountId(Id('123abc'));
-  final foundThreadId = ThreadId(Id('found-thread-id'));
+  final foundId = Id('found-thread-id');
   final emailIdFound = EmailId(Id('email-id-found'));
-  final foundThread = Thread(id: foundThreadId, emailIds: [emailIdFound]);
-  final notFoundThreadId = ThreadId(Id('not-found-thread-id'));
-  final getThreadMethod = GetThreadMethod(
-    accountId,
-    [foundThreadId, notFoundThreadId],
-  );
+  final foundThread = Thread(id: ThreadId(foundId), emailIds: [emailIdFound]);
+  final notFoundId = Id('not-found-thread-id');
+  final getThreadMethod = GetThreadMethod(accountId)
+    ..addIds({foundId, notFoundId});
   final methodCallId = MethodCallId('c0');
 
   group('get thread method test:', () {
@@ -48,7 +46,7 @@ void main() {
             getThreadMethod.methodName.value,
             {
               "accountId": accountId.id.value,
-              "ids": getThreadMethod.ids.map((e) => e.id.value).toList(),
+              "ids": getThreadMethod.ids?.map((e) => e.value).toList(),
             },
             methodCallId.value
           ]
@@ -63,7 +61,7 @@ void main() {
               "accountId": accountId.id.value,
               "state": "state",
               "list": [foundThread.toJson()],
-              "notFound": [notFoundThreadId.id.value],
+              "notFound": [notFoundId.value],
             },
             methodCallId.value,
           ]
@@ -93,7 +91,7 @@ void main() {
           accountId,
           State('state'),
           [foundThread],
-          [notFoundThreadId.id],
+          [notFoundId],
         )),
       );
     });
