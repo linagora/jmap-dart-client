@@ -1,3 +1,7 @@
+## [0.3.4] - 2025-04-16
+- Add CalendarEventCounter/accept method
+- Add CalendarEventAttendance/get method
+
 ## [0.3.3] - 2025-02-07
 - Add priority headers for email
 
