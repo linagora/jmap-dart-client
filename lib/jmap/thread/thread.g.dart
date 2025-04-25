@@ -7,23 +7,14 @@ part of 'thread.dart';
 // **************************************************************************
 
 Thread _$ThreadFromJson(Map<String, dynamic> json) => Thread(
-      id: const ThreadIdNullableConverter().fromJson(json['id'] as String?),
-      emailIds: (json['emailIds'] as List<dynamic>?)
-          ?.map((e) => const EmailIdConverter().fromJson(e as String))
+      id: const ThreadIdConverter().fromJson(json['id'] as String),
+      emailIds: (json['emailIds'] as List<dynamic>)
+          .map((e) => const EmailIdConverter().fromJson(e as String))
           .toList(),
     );
 
-Map<String, dynamic> _$ThreadToJson(Thread instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', const ThreadIdNullableConverter().toJson(instance.id));
-  writeNotNull('emailIds',
-      instance.emailIds?.map(const EmailIdConverter().toJson).toList());
-  return val;
-}
+Map<String, dynamic> _$ThreadToJson(Thread instance) => <String, dynamic>{
+      'id': const ThreadIdConverter().toJson(instance.id),
+      'emailIds':
+          instance.emailIds.map(const EmailIdConverter().toJson).toList(),
+    };
