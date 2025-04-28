@@ -1,3 +1,6 @@
+## [0.3.5] - 2025-04-28
+- Upgrade `build_runner` version to `2.4.10`
+
 ## [0.3.4] - 2025-04-16
 - Add CalendarEventCounter/accept method
 - Add CalendarEventAttendance/get method
