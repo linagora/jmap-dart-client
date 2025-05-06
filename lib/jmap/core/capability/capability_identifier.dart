@@ -13,6 +13,7 @@ class CapabilityIdentifier with EquatableMixin {
   static final jamesSortOrder = CapabilityIdentifier(Uri.parse('urn:apache:james:params:jmap:mail:identity:sortorder'));
   static final jamesCalendarEvent = CapabilityIdentifier(Uri.parse('com:linagora:params:calendar:event'));
   static final jmapPublicAsset = CapabilityIdentifier(Uri.parse('com:linagora:params:jmap:public:assets'));
+  static final jmapMailboxClear = CapabilityIdentifier(Uri.parse('com:linagora:params:jmap:mailbox:clear'));
 
   final Uri value;
 
