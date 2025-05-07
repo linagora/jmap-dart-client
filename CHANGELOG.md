@@ -1,3 +1,7 @@
+## [0.3.6] - 2025-05-07
+- Fix incompatible `build_runner_core` with `logging 1.3.0` – missing `onLevelChanged`
+- Support `Mailbox/clear` method JMAP extension
+
 ## [0.3.5] - 2025-04-28
 - Upgrade `build_runner` version to `2.4.10`
 
