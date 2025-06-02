@@ -56,6 +56,8 @@ class Email with EquatableMixin {
   final Map<IndividualHeaderIdentifier, String?>? xPriorityHeader;
   final Map<IndividualHeaderIdentifier, String?>? importanceHeader;
   final Map<IndividualHeaderIdentifier, String?>? priorityHeader;
+  final Map<IndividualHeaderIdentifier, String?>? listPostHeader;
+  final Map<IndividualHeaderIdentifier, String?>? listUnsubscribeHeader;
 
   Email({
     this.id,
@@ -92,6 +94,8 @@ class Email with EquatableMixin {
     this.xPriorityHeader,
     this.importanceHeader,
     this.priorityHeader,
+    this.listPostHeader,
+    this.listUnsubscribeHeader,
   });
 
   factory Email.fromJson(Map<String, dynamic> json) {
@@ -143,6 +147,16 @@ class Email with EquatableMixin {
         .parseEntry(
           IndividualHeaderIdentifier.priorityHeader.value,
           json[IndividualHeaderIdentifier.priorityHeader.value] as String?,
+        ),
+      listPostHeader: IndividualHeaderIdentifierNullableConverter()
+        .parseEntry(
+          IndividualHeaderIdentifier.listPostHeader.value,
+          json[IndividualHeaderIdentifier.listPostHeader.value] as String?,
+        ),
+      listUnsubscribeHeader: IndividualHeaderIdentifierNullableConverter()
+        .parseEntry(
+          IndividualHeaderIdentifier.listUnsubscribeHeader.value,
+          json[IndividualHeaderIdentifier.listUnsubscribeHeader.value] as String?,
         ),
     );
   }
@@ -208,6 +222,20 @@ class Email with EquatableMixin {
         IndividualHeaderIdentifier.priorityHeader,
       ),
     );
+    writeNotNull(
+      IndividualHeaderIdentifier.listPostHeader.value,
+      IndividualHeaderIdentifierNullableConverter().toJson(
+        listPostHeader,
+        IndividualHeaderIdentifier.listPostHeader,
+      ),
+    );
+    writeNotNull(
+      IndividualHeaderIdentifier.listUnsubscribeHeader.value,
+      IndividualHeaderIdentifierNullableConverter().toJson(
+        listUnsubscribeHeader,
+        IndividualHeaderIdentifier.listUnsubscribeHeader,
+      ),
+    );
     return val;
   }
 
@@ -247,6 +275,8 @@ class Email with EquatableMixin {
     xPriorityHeader,
     importanceHeader,
     priorityHeader,
+    listPostHeader,
+    listUnsubscribeHeader,
   ];
 }
 
