@@ -17,7 +17,7 @@ dependencies:
 
   quiver: 3.2.1
 
-  dio: 5.0.0
+  dio: 5.2.0
 
   json_annotation: 4.8.0
 
