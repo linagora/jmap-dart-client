@@ -152,7 +152,6 @@ void main() {
           },
           headers: {
             "accept": "application/json;jmapVersion=rfc-8621",
-            "content-length": 1019
           });
 
       final HttpClient httpClient = HttpClient(dio);
