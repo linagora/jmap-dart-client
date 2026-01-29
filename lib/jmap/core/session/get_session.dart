@@ -7,13 +7,12 @@ import 'package:jmap_dart_client/jmap/core/session/session.dart';
 class GetSession {
   final HttpClient _httpClient;
   final CapabilitiesConverter _capabilitiesConverter;
-
-  GetSession(this._httpClient, this._capabilitiesConverter);
+  final bool useWellKnown;
+  GetSession(this._httpClient, this._capabilitiesConverter, this.useWellKnown);
 
   Future<Session> execute() async {
-    return await _httpClient.get('/.well-known/jmap')
-      .then((value) => extractData(value))
-      .catchError((error) => throw error);
+    final url = useWellKnown ? '/.well-known/jmap' : '';
+    return await _httpClient.get(url).then((value) => extractData(value)).catchError((error) => throw error);
   }
 
   Session extractData(Map<String, dynamic> body) {
@@ -24,8 +23,9 @@ class GetSession {
 class GetSessionBuilder {
   final HttpClient _httpClient;
   final CapabilitiesConverter _capabilitiesConverter = CapabilitiesConverter();
+  final bool useWellKnown;
 
-  GetSessionBuilder(this._httpClient);
+  GetSessionBuilder(this._httpClient, {this.useWellKnown = true});
 
   void registerCapabilityConverter(Map<CapabilityIdentifier, CapabilityProperties Function(Map<String, dynamic>)> converters) {
     _capabilitiesConverter.addConverters(converters);
@@ -33,6 +33,6 @@ class GetSessionBuilder {
   }
 
   GetSession build() {
-    return GetSession(_httpClient, _capabilitiesConverter);
+    return GetSession(_httpClient, _capabilitiesConverter, useWellKnown);
   }
 }

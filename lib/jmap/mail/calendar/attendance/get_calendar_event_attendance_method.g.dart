@@ -40,10 +40,10 @@ Map<String, dynamic> _$GetCalendarEventAttendanceMethodToJson(
   }
 
   writeNotNull('ids', instance.ids?.map(const IdConverter().toJson).toList());
+  val['blobIds'] = instance.blobIds.map(const IdConverter().toJson).toList();
   writeNotNull('#ids', instance.referenceIds?.toJson());
   writeNotNull(
       'properties', const PropertiesConverter().toJson(instance.properties));
   writeNotNull('#properties', instance.referenceProperties?.toJson());
-  val['blobIds'] = instance.blobIds.map(const IdConverter().toJson).toList();
   return val;
 }

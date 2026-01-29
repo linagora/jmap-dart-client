@@ -1,3 +1,8 @@
+# Important Note
+
+You are looking at a fork of the project [jmap-dart-client](https://github.com/linagora/jmap-dart-client).
+See [FORK.md](FORK.md) for more details on things added by this fork.
+
 # JMAP Dart client
 
 A [JMAP](https://jmap.io/) client library to make JMAP method calls and process the responses.
