@@ -159,7 +159,6 @@ void main() {
           },
           headers: {
             "accept": "application/json;jmapVersion=rfc-8621",
-            "content-length": 2220
           });
 
       final setEmailMethod = SetEmailMethod(AccountId(Id('3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12')))
@@ -348,7 +347,6 @@ void main() {
           },
           headers: {
             "accept": "application/json;jmapVersion=rfc-8621",
-            "content-length": 2336
           });
 
       final setEmailMethod = SetEmailMethod(AccountId(Id('3ce33c876a726662c627746eb9537a1d13c2338193ef27bd051a3ce5c0fe5b12')))

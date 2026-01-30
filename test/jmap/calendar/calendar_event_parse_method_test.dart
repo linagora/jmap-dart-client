@@ -255,7 +255,6 @@ void main() {
       },
       headers: {
         "accept": "application/json;jmapVersion=rfc-8621",
-        "content-length": 333
       });
 
       final calendarEventParseMethod = CalendarEventParseMethod(accountId, {blobId1});
@@ -434,7 +433,6 @@ void main() {
         },
         headers: {
           "accept": "application/json;jmapVersion=rfc-8621",
-          "content-length": 409
         });
 
       final calendarEventParseMethod = CalendarEventParseMethod(accountId, {blobId1, blobId2});
@@ -498,7 +496,6 @@ void main() {
         },
         headers: {
           "accept": "application/json;jmapVersion=rfc-8621",
-          "content-length": 333
         });
 
       final calendarEventParseMethod = CalendarEventParseMethod(accountId, {blobIdNotFound});
@@ -559,7 +556,6 @@ void main() {
         },
         headers: {
           "accept": "application/json;jmapVersion=rfc-8621",
-          "content-length": 333
         });
 
       final calendarEventParseMethod = CalendarEventParseMethod(accountId, {blobIdNotParsable});
@@ -631,7 +627,6 @@ void main() {
         },
         headers: {
           "accept": "application/json;jmapVersion=rfc-8621",
-          "content-length": 481
         }
       );
 
