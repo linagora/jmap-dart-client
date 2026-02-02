@@ -4,7 +4,6 @@ import 'package:jmap_dart_client/jmap/core/id.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 @IdNullableConverter()
-@JsonSerializable()
 class AddressBook with EquatableMixin {
 
   @JsonKey(includeIfNull: false)
