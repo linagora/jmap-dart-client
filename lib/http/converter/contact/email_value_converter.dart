@@ -1,4 +1,3 @@
-import 'package:jmap_dart_client/http/converter/contact/email_id_converter.dart';
 import 'package:jmap_dart_client/jmap/contact/contact_api_version.dart';
 import 'package:jmap_dart_client/jmap/contact/contact_ids.dart';
 import 'package:jmap_dart_client/jmap/contact/email_values.dart';

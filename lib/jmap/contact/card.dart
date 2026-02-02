@@ -101,8 +101,9 @@ class Card extends Contact {
       name: json['name'] is Map ? Name.fromJson(json['name']) : null,
       organizations: (json['organizations'] as Map<String, dynamic>?)
           ?.map((k, v) => OrganizationValueConverter().parseEntry(k, v, ContactApiVersion.jscontact)),
-      phones: (json['phones'] as Map<String, dynamic>?)
-          ?.map((k, v) => PhoneValueConverter().parseEntry(k, v)),
+      phones: (json['phones'] as Map?)
+          ?.map((k, v) =>
+            PhoneValueConverter().parseEntry(k.toString(), v)),
       anniversaries: (json['anniversaries'] as Map<String, dynamic>?)
           ?.map((k, v) => AnniversaryValueConverter().parseEntry(k, v)),
       relatedTo: (json['relatedTo'] as Map<String, dynamic>?)
@@ -252,13 +253,13 @@ class Card extends Contact {
 
     if (addresses != null) {
       result['addresses'] = {
-        for (final e in addresses!.entries) e.key.value: e.value.toJson()
+        for (final e in addresses!.entries) e.key.value: e.value.toJsContactJson()
       };
     }
 
     if (phones != null) {
       result['phones'] = {
-        for (final e in phones!.entries) e.key.value: e.value.toJson()
+        for (final e in phones!.entries) e.key.value: e.value.toJsContactJson()
       };
     }
 

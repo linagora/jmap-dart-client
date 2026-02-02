@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:jmap_dart_client/http/http_client.dart';
 import 'package:jmap_dart_client/jmap/account_id.dart';
 import 'package:jmap_dart_client/jmap/contact/address_values.dart';
+import 'package:jmap_dart_client/jmap/contact/anniversary_values.dart';
 import 'package:jmap_dart_client/jmap/contact/author.dart';
 import 'package:jmap_dart_client/jmap/contact/components.dart';
 import 'package:jmap_dart_client/jmap/contact/contact_api_version.dart';
@@ -45,7 +46,7 @@ void main() {
       accountId = client.accountId;
     });
 
-    test('roundtrip: create contact -> get contact -> update contact -> delete contact', () async {
+    test('roundtrip: create contact -> get contact -> update contact -> delete contact (notFound) [IETF]', () async {
       final contact = ContactCard(
         addressBookIds: {'b': true},
         nicknames: {
@@ -67,16 +68,21 @@ void main() {
         ),
         emails: {
           EmailId('1'): EmailValue(
+            type: "EmailAddress",
             email: 'jqpublic@xyz.example.com',
             contexts: {Context('work'): true},
             label: 'Work',
-          ),
-          EmailId('2'): EmailValue(
-            email: 'jane_doe@example.com',
             pref: 1,
           ),
+          EmailId('2'): EmailValue(
+            type: "EmailAddress",
+            email: 'jane_doe@example.com',
+            pref: 1,
+            contexts: {Context('private'): true}, 
+            label: 'Home',
+          ),
         },
-       phones: {
+        phones: {
           PhoneId('tel0'): PhoneValue(
             type: 'home',
             number: 'tel:+1-555-555-5555;ext=5555',
@@ -94,6 +100,7 @@ void main() {
         },
         addresses: {
           AddressId('k23'): AddressValue(
+            type: 'home',
             contexts: {Context('work'): true},
             components: [
               {'kind': 'number', 'value': '54321'},
@@ -107,6 +114,7 @@ void main() {
             ],
             countryCode: 'US',
             full: '54321 Oak St, Reston, VA 20190, USA',
+            coordinates: '38.9687,-77.3411',
             defaultSeparator: ', ',
             isOrdered: true,
           ),
@@ -132,9 +140,11 @@ void main() {
         },
         organizations: {
           OrganizationName('org1'): OrganizationValue(
+            type: 'OrgUnit',
             name: 'Pig Enterprises GmbH',
           ),
           OrganizationName('o1'): OrganizationValue(
+            type: 'OrgUnit',
             name: 'ABC, Inc.',
             units: [
               OrganizationUnit(name: 'North American Division'),
@@ -145,10 +155,12 @@ void main() {
         },
         titles: {
           TitleId('le9'): TitleValue(
+            type: 'title',
             kind: 'title',
             name: 'Research Scientist',
           ),
           TitleId('k2'): TitleValue(
+            type: 'title',
             kind: 'role',
             name: 'Project Leader',
             organizationId: 'o2',
@@ -158,10 +170,16 @@ void main() {
           'os1': OnlineServiceValue(
             service: 'Twitter',
             uri: 'https://twitter.com/pepapig',
+            user: '@pepapig',
+            label: 'Work Twitter',
+            contexts: {Context('work'): true},
           ),
           'os2': OnlineServiceValue(
             service: 'LinkedIn',
             uri: 'https://linkedin.com/in/pepapig',
+            user: 'pepapig',
+            label: 'Work LinkedIn',
+            contexts: {Context('work'): true},
           ),
         },
         preferredLanguages: {
@@ -178,6 +196,7 @@ void main() {
           'l3': LanguagePref(
             language: 'fr',
             contexts: {Context('private'): true},
+            pref: 3,
           ),
         },
         keywords: const {
@@ -209,36 +228,56 @@ void main() {
         schedulingAddresses: {
           'sched1': SchedulingAddress(
             uri: 'mailto:janedoe@example.com',
+            contexts: {Context('work'): true},
+            pref: 1,
+            label: 'Work scheduling',
           ),
         },
         directories: {
           'dir1': Directory(
             kind: 'entry',
             uri: 'https://dir.example.com/addrbook/jdoe/Jean%20Dupont.vcf',
+            pref: 1,
           ),
           'dir2': Directory(
             kind: 'directory',
             uri: 'ldap://ldap.example/o=Example%20Tech,ou=Engineering',
-            pref: 1,
+            pref: 2,
+            listAs: 2,
           ),
-        },
+        },  
         media: {
           'res45': Media(
+            mediaType: 'Media',
             kind: 'sound',
             uri: 'CID:JOHNQ.part8.19960229T080000.xyzMail@example.com',
+            contexts: {Context('work'): true},
+            pref: 1,
+            label: 'Company logo',
           ),
           'res47': Media(
+            mediaType: 'Media',
             kind: 'logo',
             uri: 'https://www.example.com/pub/logos/abccorp.jpg',
+            contexts: {Context('work'): true},
+            pref: 2,
+            label: 'profile logo',
           ),
           'res1': Media(
+            mediaType: 'Media',
             kind: 'photo',
             uri: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4...',
+            contexts: {Context('work'): true},
+            pref: 2,
+            label: 'Company logo',
           ),
         },
         cryptoKeys: {
           'mykey1': CryptoKey(
             uri: 'https://www.example.com/keys/jdoe.cer',
+            mediaType: 'application/pkix-cert',
+            pref: 1,
+            label: 'S/MIME certificate',
           ),
           'mykey2': CryptoKey(
             uri:
@@ -253,6 +292,15 @@ void main() {
                 'NTDF0aytsN0RJSXFYclFoTFVLREFDZU01cm9NeDBrTGhVV0I4UAorMHVq'
                 'MUNObE5ONEpSWmxDN3hGZnFpTWJGUlU5WjRONll3SURBUUFCCi0tLS0tR'
                 'U5EIFJTQSBQVUJMSUMgS0VZLS0tLS0K',
+            mediaType: 'application/pgp-keys',
+            pref: 2,
+            label: 'OpenPGP public key',
+          ),
+        },
+        anniversaries: {
+          AnniversaryId('a1'): AnniversaryValue(
+            type: 'PartialDate',
+            kind: 'birth',
           ),
         },
         created: '2025-11-04T10:00:00Z',
@@ -268,7 +316,6 @@ void main() {
         contact: contact,
         apiVersion: ContactApiVersion.ietf,
       );
-
       expect(created.created, isNotNull);
       final createdId = created.created!.values.first.id!.value;
       expect(createdId, isNotEmpty);
@@ -282,6 +329,7 @@ void main() {
       );
       expect(fetched, isNotNull);
       final roundtripped = fetched as ContactCard;
+
       expect(roundtripped.addresses, equals(contact.addresses));
       expect(roundtripped.addressBookIds, equals(contact.addressBookIds));
       expect(roundtripped.name, equals(contact.name));
@@ -302,7 +350,9 @@ void main() {
       expect(roundtripped.cryptoKeys, equals(contact.cryptoKeys));
       expect(roundtripped.localizations!['jp']!.keys,
       containsAll(['addresses/k23/full', 'addresses/k23/components']));
-
+      expect(roundtripped.anniversaries, equals(null));
+      // Server currently does not set/return `anniversaries` on ContactCard,
+      // so we assert that it stays null on roundtrip
       final patch = PatchObject({
         'name/components/2/value': 'Pig-Updated',
       });

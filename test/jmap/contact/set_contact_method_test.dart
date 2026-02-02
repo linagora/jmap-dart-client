@@ -110,7 +110,6 @@ void main() {
         contact: contact,
         apiVersion: ContactApiVersion.jscontact,
       );
-
       expect(created.created, isNotNull);
 
       final createdId = created.created!.values.first.id!;
@@ -273,7 +272,6 @@ void main() {
         id: id.value,
         apiVersion: ContactApiVersion.ietf,
       );
-
       expect(fetchedAfterCreate, isNotNull);
       final createdCard = fetchedAfterCreate as ContactCard;
 
@@ -407,6 +405,8 @@ void main() {
         (c) => c.id?.value == id.value,
         orElse: () => throw StateError('Created contact not found'),
       ) as Card;
+
+      expect(createdContact.addresses![AddressId('addr0')]!.street!.first.value, equals('Main Street 5'));
       expect(createdContact.fullName, equals('test address'));
       expect(
         createdContact.organizations![OrganizationName('org1')]!.name,
@@ -416,7 +416,10 @@ void main() {
         createdContact.anniversaries![AnniversaryId('a1')]!.date,
         equals('2023-05-10'),
       );
-
+      expect(
+        createdContact.phones![PhoneId('phone0')]!.phone,
+        equals('+4912345678'),
+      );
       // Update
       await ContactUtil.updateContact(
         client: client.httpClient,
