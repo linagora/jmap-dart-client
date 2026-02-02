@@ -79,8 +79,9 @@ class ContactCard extends Contact {
           ?.map((k, v) => MapEntry(k.toString(), v == true)),
       emails: (json['emails'] as Map<String, dynamic>?)
           ?.map((k, v) => EmailValueConverter().parseEntry(k, v)),
-      phones: (json['phones'] as Map<String, dynamic>?)
-          ?.map((k, v) => PhoneValueConverter().parseEntry(k, v)),
+      phones: (json['phones'] as Map?)
+          ?.map((k, v) =>
+              PhoneValueConverter().parseEntry(k.toString(), v)),
       addresses: (json['addresses'] as Map<String, dynamic>?)
           ?.map((k, v) => AddressValueConverter().parseEntry(k, v)),
       organizations: (json['organizations'] as Map<String, dynamic>?)
@@ -213,18 +214,19 @@ class ContactCard extends Contact {
     );
 
     map['phones'] = phones?.map(
-      (k, v) => PhoneValueConverter().toJson(k, v),
+      (k, v) => PhoneValueConverter().toJson(k, v, apiVersion: ContactApiVersion.ietf),
     );
 
+
     map['addresses'] = addresses?.map(
-      (k, v) => AddressValueConverter().toJson(k, v),
+      (k, v) => AddressValueConverter().toJson(k, v, apiVersion: ContactApiVersion.ietf),
     );
 
     map['organizations'] = organizations?.map(
       (k, v) => OrganizationValueConverter().toJson(
         k,
         v,
-        apiVersion: ContactApiVersion.ietf,),
+        apiVersion: ContactApiVersion.ietf),
     );
 
     map['relatedTo'] = relatedTo?.map(
