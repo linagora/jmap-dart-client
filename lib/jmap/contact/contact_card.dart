@@ -2,7 +2,6 @@ import 'package:jmap_dart_client/http/converter/contact/anniversary_value_conver
 import 'package:jmap_dart_client/http/converter/contact/language_preference_converter.dart';
 import 'package:jmap_dart_client/http/converter/contact/note_converter.dart';
 import 'package:jmap_dart_client/http/converter/contact/online_service_converter.dart';
-import 'package:jmap_dart_client/jmap/contact/anniversary_values.dart';
 import 'package:jmap_dart_client/jmap/contact/contact.dart';
 import 'package:jmap_dart_client/jmap/contact/contact_api_version.dart';
 import 'package:jmap_dart_client/jmap/contact/crypto_key.dart';
