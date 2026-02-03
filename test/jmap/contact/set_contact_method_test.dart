@@ -360,7 +360,9 @@ void main() {
             ),
           },
           anniversaries: {
-            AnniversaryId('a1'): AnniversaryValue(
+            AnniversaryId('a1'): const AnniversaryValue(
+              // TODO: If not a PartialDate, Anniversary.date should be a TimeStamp.
+              //  Compare https://www.rfc-editor.org/rfc/rfc9553.html#name-anniversaries
               date: '2023-05-10',
             ),
           },

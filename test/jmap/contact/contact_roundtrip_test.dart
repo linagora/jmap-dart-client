@@ -156,12 +156,12 @@ void main() {
         },
         titles: {
           TitleId('le9'): TitleValue(
-            type: 'title',
+            type: 'Title',
             kind: 'title',
             name: 'Research Scientist',
           ),
           TitleId('k2'): TitleValue(
-            type: 'title',
+            type: 'Title',
             kind: 'role',
             name: 'Project Leader',
             organizationId: 'o2',

@@ -11,7 +11,7 @@ class TitleValue with EquatableMixin {
   final String? organizationId; // e.g. "o2"
 
   TitleValue({
-    this.type = 'title',
+    this.type = 'Title',
     this.title,
     this.organization,
     this.kind,
