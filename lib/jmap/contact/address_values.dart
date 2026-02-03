@@ -23,7 +23,7 @@ class AddressValue with EquatableMixin {
   final bool? isOrdered;       
 
   AddressValue({
-    this.type,
+    this.type = 'Address',
     this.locality,
     this.region,
     this.country,

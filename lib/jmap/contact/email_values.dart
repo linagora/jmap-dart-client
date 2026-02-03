@@ -11,7 +11,7 @@ class EmailValue with EquatableMixin {
   final Map<Context, bool>? contexts;
 
   EmailValue({
-    this.type,
+    this.type = 'EmailAddress',
     this.email,
     this.pref,
     this.contexts,

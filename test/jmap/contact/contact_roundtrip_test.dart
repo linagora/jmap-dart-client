@@ -22,6 +22,7 @@ import 'package:jmap_dart_client/jmap/contact/online_service_values.dart';
 import 'package:jmap_dart_client/jmap/contact/contact_ids.dart';
 import 'package:jmap_dart_client/jmap/contact/organization_unit.dart';
 import 'package:jmap_dart_client/jmap/contact/organization_values.dart';
+import 'package:jmap_dart_client/jmap/contact/partial_date.dart';
 import 'package:jmap_dart_client/jmap/contact/phone_features_identifier.dart';
 import 'package:jmap_dart_client/jmap/contact/phone_values.dart';
 import 'package:jmap_dart_client/jmap/contact/related_to_relation.dart';
@@ -84,7 +85,7 @@ void main() {
         },
         phones: {
           PhoneId('tel0'): PhoneValue(
-            type: 'home',
+            type: 'Phone',
             number: 'tel:+1-555-555-5555;ext=5555',
              features: {
               PhoneFeature.voice: true,
@@ -93,14 +94,14 @@ void main() {
             pref: 1,
           ),
           PhoneId('tel3'): PhoneValue(
-            type: 'work',
+            type: 'Phone',
             number: 'tel:+1-201-555-0123',
             contexts: {Context('work'): true},
           ),
         },
         addresses: {
           AddressId('k23'): AddressValue(
-            type: 'home',
+            type: 'Address',
             contexts: {Context('work'): true},
             components: [
               {'kind': 'number', 'value': '54321'},
@@ -298,9 +299,14 @@ void main() {
           ),
         },
         anniversaries: {
-          AnniversaryId('a1'): AnniversaryValue(
-            type: 'PartialDate',
+          AnniversaryId('a1'): const AnniversaryValue(
+            type: 'Anniversary',
             kind: 'birth',
+            date: PartialDate(
+              year: 1953,
+              month: 4,
+              day: 15,
+            ),
           ),
         },
         created: '2025-11-04T10:00:00Z',
@@ -327,6 +333,7 @@ void main() {
         id: createdId,
         apiVersion: ContactApiVersion.ietf,
       );
+      print(fetched);
       expect(fetched, isNotNull);
       final roundtripped = fetched as ContactCard;
 
@@ -350,9 +357,7 @@ void main() {
       expect(roundtripped.cryptoKeys, equals(contact.cryptoKeys));
       expect(roundtripped.localizations!['jp']!.keys,
       containsAll(['addresses/k23/full', 'addresses/k23/components']));
-      expect(roundtripped.anniversaries, equals(null));
-      // Server currently does not set/return `anniversaries` on ContactCard,
-      // so we assert that it stays null on roundtrip
+      expect(roundtripped.anniversaries, equals(contact.anniversaries));
       final patch = PatchObject({
         'name/components/2/value': 'Pig-Updated',
       });

@@ -8,7 +8,7 @@ class OrganizationValue with EquatableMixin {
   final String? sortAs;
   final List<OrganizationUnit>? units;
 
-  OrganizationValue({this.type, this.name, this.units, this.sortAs});
+  OrganizationValue({this.type = 'OrgUnit', this.name, this.units, this.sortAs});
 
   factory OrganizationValue.fromJson(Map<String, dynamic> json) {
     final rawUnits = json['units'];

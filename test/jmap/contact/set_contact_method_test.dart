@@ -59,7 +59,7 @@ void main() {
           )
         },
         anniversaries: {
-          AnniversaryId('123'): AnniversaryValue(
+          AnniversaryId('123'): const AnniversaryValue(
             type: 'organize',
             anniversaryType: 'test',
             date: '12-04-2023',

@@ -15,7 +15,7 @@ class PhoneValue with EquatableMixin {
   final String? label;
 
   PhoneValue({
-    this.type,
+    this.type = 'Phone',
     this.phone,
     this.features,
     this.contexts,
