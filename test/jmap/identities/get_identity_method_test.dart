@@ -1,9 +1,14 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:jmap_dart_client/http/http_client.dart';
 import 'package:jmap_dart_client/jmap/account_id.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
+import 'package:jmap_dart_client/jmap/core/session/get_session.dart';
+import 'package:jmap_dart_client/jmap/core/session/session.dart';
 import 'package:jmap_dart_client/jmap/identities/get/get_identity_method.dart';
 import 'package:jmap_dart_client/jmap/identities/get/get_identity_response.dart';
 import 'package:jmap_dart_client/jmap/identities/identity.dart';
@@ -111,6 +116,49 @@ void main() {
 
       expect(resultList?.list.length, equals(2));
       expect(resultList?.list, containsAll({expectIdentity1, expectIdentity2}));
+    });
+  });
+
+   group('Identity using Credentials', () {
+    test('test to getIdentity data', () async {
+      var authFile = File('test/jmap/credentials/auth_ietf.json');
+
+      var authContent = await authFile.readAsString();
+      var credentials = jsonDecode(authContent);
+
+      String password = '${credentials['username']}:${credentials['password']}';
+      String url = credentials['url'];
+
+      var auth = 'Basic ${base64Encode(utf8.encode(password))}';
+      var baseOption = BaseOptions(method: 'GET');
+      baseOption.headers = {
+        'authorization': auth,
+        'content-type': 'application/json; charset=utf-8',
+        'accept': 'application/json;jmapVersion=rfc-8621',
+      };
+      baseOption.baseUrl = url;
+      var dio = Dio(baseOption);
+      var httpClient = HttpClient(dio);
+      Session session = await GetSessionBuilder(httpClient, useWellKnown: false).build().execute();
+      var apiUrl = session.apiUrl.toString();
+      var accountId = session.accounts.keys.elementAt(0).id.value.toString();
+
+      baseOption.baseUrl = apiUrl;
+
+      dio = Dio(baseOption);
+
+      httpClient = HttpClient(dio);
+      final processingInvocation = ProcessingInvocation();
+      final requestBuilder = JmapRequestBuilder(httpClient, processingInvocation);
+      final accountIds = AccountId(Id(accountId));
+
+      final getIdentityMethod = GetIdentityMethod(accountIds);
+      final getIdentityInvocation = requestBuilder.invocation(getIdentityMethod);
+      final response = await (requestBuilder..usings(getIdentityMethod.requiredCapabilities)).build().execute();
+
+      final resultList = response.parse<GetIdentityResponse>(getIdentityInvocation.methodCallId, GetIdentityResponse.deserialize);
+
+      expect(resultList?.list.length, equals(0));
     });
   });
 }

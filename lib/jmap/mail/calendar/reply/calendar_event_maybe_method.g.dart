@@ -19,6 +19,7 @@ Map<String, dynamic> _$CalendarEventMaybeMethodToJson(
     CalendarEventMaybeMethod instance) {
   final val = <String, dynamic>{
     'accountId': const AccountIdConverter().toJson(instance.accountId),
+    'blobIds': instance.blobIds.map(const IdConverter().toJson).toList(),
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -28,6 +29,5 @@ Map<String, dynamic> _$CalendarEventMaybeMethodToJson(
   }
 
   writeNotNull('language', instance.language);
-  val['blobIds'] = instance.blobIds.map(const IdConverter().toJson).toList();
   return val;
 }
