@@ -122,21 +122,14 @@ void main() {
         },
         localizations: {
           'jp': {
-            'addresses/k26': LocalizedAddress(
-              components: [
-                {'kind': 'region', 'value': 'teito'},
-                {'kind': 'separator', 'value': ''},
-                {'kind': 'locality', 'value': 'chiyoda-ku'},
-                {'kind': 'separator', 'value': ''},
-                {'kind': 'street', 'value': '1-1-1 Chiyoda'},
-                {'kind': 'separator', 'value': ''},
-                {'kind': 'postcode', 'value': '100-0001'},
-                {'kind': 'separator', 'value': ''},
-                {'kind': 'country', 'value': 'Japan'},],
-              defaultSeparator: '',
-              full: 'Test full address',
-              isOrdered: true,
-            ),
+            'name': {
+              'components': [
+                {'kind': 'title',   'value': 'г-н'},
+                {'kind': 'given',   'value': 'Иван'},
+                {'kind': 'given2',  'value': 'Петрович'},
+                {'kind': 'surname', 'value': 'Васильев'},
+              ],
+            },
           },
         },
         organizations: {
@@ -355,8 +348,19 @@ void main() {
       expect(roundtripped.directories, equals(contact.directories));
       expect(roundtripped.media, equals(contact.media));
       expect(roundtripped.cryptoKeys, equals(contact.cryptoKeys));
-      expect(roundtripped.localizations!['jp']!.keys,
-      containsAll(['addresses/k23/full', 'addresses/k23/components']));
+      final jpLoc = roundtripped.localizations!['jp']!;
+      expect(jpLoc.keys, contains('name/components'));
+
+      final components = jpLoc['name/components'];
+      expect(
+        components,
+        equals([
+          {'kind': 'title',   'value': 'г-н'},
+          {'kind': 'given',   'value': 'Иван'},
+          {'kind': 'given2',  'value': 'Петрович'},
+          {'kind': 'surname', 'value': 'Васильев'},
+        ]),
+      );
       expect(roundtripped.anniversaries, equals(contact.anniversaries));
       final patch = PatchObject({
         'name/components/2/value': 'Pig-Updated',

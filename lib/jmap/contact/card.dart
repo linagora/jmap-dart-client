@@ -1,4 +1,4 @@
-import 'package:jmap_dart_client/jmap/contact/speaak_to_as.dart';
+import 'package:jmap_dart_client/jmap/contact/speak_to_as.dart';
 import 'package:jmap_dart_client/jmap/contact/street.dart';
 import 'contact.dart';
 import 'contact_api_version.dart';

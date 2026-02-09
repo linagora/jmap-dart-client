@@ -1,4 +1,3 @@
-import 'package:jmap_dart_client/jmap/contact/contact_api_version.dart';
 import 'package:jmap_dart_client/jmap/contact/note.dart';
 
 class NoteValueConverter {
@@ -12,10 +11,8 @@ class NoteValueConverter {
 
   MapEntry<String, dynamic> toJson(
     String id,
-    Note value, {
-    ContactApiVersion apiVersion = ContactApiVersion.ietf,
-  }) {
-    final json = value.toVersionedJson(apiVersion);
+    Note value) {
+    final json = value.toJson();
     return MapEntry(id, json);
   }
 }

@@ -1,22 +1,19 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'name_sort_as.g.dart';
+
+@JsonSerializable()
 class NameSortAs with EquatableMixin {
   final String? surname;
   final String? given;
 
   NameSortAs({this.surname, this.given});
 
-  factory NameSortAs.fromJson(Map<String, dynamic> json) => NameSortAs(
-        surname: json['surname'] as String?,
-        given: json['given'] as String?,
-      );
+  factory NameSortAs.fromJson(Map<String, dynamic> json) =>
+      _$NameSortAsFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (surname != null) map['surname'] = surname;
-    if (given != null) map['given'] = given;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$NameSortAsToJson(this);
 
   @override
   List<Object?> get props => [surname, given];

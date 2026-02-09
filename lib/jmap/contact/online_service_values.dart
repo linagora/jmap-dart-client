@@ -1,9 +1,15 @@
 import 'package:equatable/equatable.dart';
-import 'package:jmap_dart_client/http/converter/contact/context_value_converter.dart';
-import 'package:jmap_dart_client/jmap/contact/contact_api_version.dart';
+import 'package:jmap_dart_client/http/converter/contact/context_map_converter.dart';
 import 'package:jmap_dart_client/jmap/contact/context.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'online_service_values.g.dart';
+
+@ContextsMapConverter()
+@JsonSerializable()
 class OnlineServiceValue with EquatableMixin {
+  @JsonKey(includeIfNull: false, name: '@type')
+  final String? type;
   final String? service;
   final String? uri;
   final String? user;
@@ -11,6 +17,7 @@ class OnlineServiceValue with EquatableMixin {
   final Map<Context, bool>? contexts;
 
   OnlineServiceValue({
+    this.type,
     this.service,
     this.uri,
     this.user,
@@ -18,44 +25,34 @@ class OnlineServiceValue with EquatableMixin {
     this.contexts,
   });
 
-  factory OnlineServiceValue.fromJson(Map<String, dynamic> json) {
-    return OnlineServiceValue(
-      service: json['service'] as String?,
-      uri: json['uri'] as String?,
-      user: json['user'] as String?,
-      label: json['label'] as String?,
-      contexts: (json['contexts'] as Map<String, dynamic>?)?.map(
-        (key, value) => ContextConverter().parseEntry(key, value),
-      ),
-    );
-  }
-
-  Map<String, dynamic> toVersionedJson(ContactApiVersion apiVersion) {
-    final map = <String, dynamic>{};
-
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) map[key] = value;
-    }
-
-    writeNotNull('service', service);
-    writeNotNull('uri', uri);
-    writeNotNull('user', user);
-    writeNotNull('label', label);
-    if (contexts != null) {
-      writeNotNull(
-        'contexts',
-        contexts!.map((k, v) => ContextConverter().toJson(k, v)),
+  factory OnlineServiceValue.onlineService({
+    String? service,
+    String? uri,
+    String? user,
+    String? label,
+    Map<Context, bool>? contexts,
+  }) =>
+      OnlineServiceValue(
+        type: 'OnlineService',
+        service: service,
+        uri: uri,
+        user: user,
+        label: label,
+        contexts: contexts,
       );
-    }
-    return map;
-  }
+
+  factory OnlineServiceValue.fromJson(Map<String, dynamic> json) =>
+      _$OnlineServiceValueFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OnlineServiceValueToJson(this);
 
   @override
-  List<Object?> get props => [service, uri, user, label, contexts];
+  List<Object?> get props => [type, service, uri, user, label, contexts];
 
   @override
   String toString() {
     return 'OnlineServiceValue('
+        'type: $type, '
         'service: $service, '
         'uri: $uri, '
         'user: $user, '

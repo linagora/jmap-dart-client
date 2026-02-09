@@ -1,12 +1,16 @@
 import 'package:equatable/equatable.dart';
+import 'package:jmap_dart_client/http/converter/contact/context_map_converter.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'context.dart';
-import 'package:jmap_dart_client/http/converter/contact/context_value_converter.dart';
 
+part 'personal_info.g.dart';
+
+@JsonSerializable()
 class PersonalInfo with EquatableMixin {
   final String kind;
-
   final int? level;
 
+  @ContextsMapConverter()
   final Map<Context, bool>? contexts;
 
   final String? label;
@@ -18,34 +22,10 @@ class PersonalInfo with EquatableMixin {
     this.label,
   });
 
-  factory PersonalInfo.fromJson(Map<String, dynamic> json) {
-    return PersonalInfo(
-      kind: json['kind'] as String,
-      level: json['level'] as int?,
-      contexts: (json['contexts'] as Map<String, dynamic>?)?.map(
-        (k, v) => ContextConverter().parseEntry(k, v),
-      ),
-      label: json['label'] as String?,
-    );
-  }
+  factory PersonalInfo.fromJson(Map<String, dynamic> json) =>
+      _$PersonalInfoFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) map[key] = value;
-    }
-
-    writeNotNull('kind', kind);
-    writeNotNull('level', level);
-    if (contexts != null) {
-      writeNotNull(
-        'contexts',
-        contexts!.map((k, v) => ContextConverter().toJson(k, v)),
-      );
-    }
-    writeNotNull('label', label);
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$PersonalInfoToJson(this);
 
   @override
   List<Object?> get props => [kind, level, contexts, label];

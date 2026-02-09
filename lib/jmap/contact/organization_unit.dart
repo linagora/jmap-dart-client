@@ -1,29 +1,31 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'organization_unit.g.dart';
+
+@JsonSerializable()
 class OrganizationUnit with EquatableMixin {
+  @JsonKey(includeIfNull: false, name: '@type')
+  final String? type;
+
   final String? name;
 
-  OrganizationUnit({this.name});
+  OrganizationUnit({
+    this.type,
+    this.name,
+  });
 
-  factory OrganizationUnit.fromJson(Map<String, dynamic> json) {
-    return OrganizationUnit(
-      name: json['name'] as String?,
-    );
-  }
+  factory OrganizationUnit.orgUnit({String? name}) =>
+      OrganizationUnit(type: 'OrgUnit', name: name);
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (name != null) {
-      map['name'] = name;
-    }
-    return map;
-  }
+  factory OrganizationUnit.fromJson(Map<String, dynamic> json) =>
+      _$OrganizationUnitFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OrganizationUnitToJson(this);
 
   @override
-  List<Object?> get props => [name];
+  List<Object?> get props => [type, name];
 
   @override
-  String toString() {
-    return 'OrganizationUnit(name: $name)';
-  }
+  String toString() => 'OrganizationUnit(type: $type, name: $name)';
 }

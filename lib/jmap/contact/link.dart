@@ -1,71 +1,77 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'context.dart';
+import 'package:jmap_dart_client/jmap/contact/context.dart';
 import 'package:jmap_dart_client/http/converter/contact/context_map_converter.dart';
 
-part 'directory.g.dart';
+part 'link.g.dart';
 
 @JsonSerializable()
-class Directory with EquatableMixin {
+class Link with EquatableMixin {
   @JsonKey(includeIfNull: false, name: '@type')
-  final String? type; 
-  final String kind; // "directory" or "entry"
+  final String? type;
+
+  @JsonKey(includeIfNull: false)
+  final String? kind;
+
   final String uri;
 
+  @JsonKey(includeIfNull: false)
+  final String? mediaType;
+
   @ContextsMapConverter()
+  @JsonKey(includeIfNull: false)
   final Map<Context, bool>? contexts;
 
+  @JsonKey(includeIfNull: false)
   final int? pref;
-  final String? label;
-  final int? listAs;
 
-  Directory({
+  @JsonKey(includeIfNull: false)
+  final String? label;
+
+  Link({
     this.type,
-    required this.kind,
+    this.kind,
     required this.uri,
+    this.mediaType,
     this.contexts,
     this.pref,
     this.label,
-    this.listAs,
   });
 
-  factory Directory.directory({
-    required String kind,
+  factory Link.contact({
     required String uri,
+    String? mediaType,
     Map<Context, bool>? contexts,
     int? pref,
     String? label,
-    int? listAs,
   }) =>
-      Directory(
-        type: 'Directory',
-        kind: kind,
+      Link(
+        type: 'Link',
         uri: uri,
+        mediaType: mediaType,
         contexts: contexts,
         pref: pref,
         label: label,
-        listAs: listAs,
       );
 
-  factory Directory.fromJson(Map<String, dynamic> json) =>
-      _$DirectoryFromJson(json);
+  factory Link.fromJson(Map<String, dynamic> json) => _$LinkFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DirectoryToJson(this);
+  Map<String, dynamic> toJson() => _$LinkToJson(this);
 
   @override
-  List<Object?> get props => [type, kind, uri, contexts, pref, label, listAs];
+  List<Object?> get props =>
+      [type, kind, uri, mediaType, contexts, pref, label];
 
   @override
   String toString() {
-    return 'Directory('
+    return 'Link('
         'type: $type, '
         'kind: $kind, '
         'uri: $uri, '
+        'mediaType: $mediaType, '
         'contexts: $contexts, '
         'pref: $pref, '
-        'label: $label, '
-        'listAs: $listAs'
+        'label: $label'
         ')';
   }
 }

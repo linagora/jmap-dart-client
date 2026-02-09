@@ -1,4 +1,3 @@
-import 'package:jmap_dart_client/jmap/contact/contact_api_version.dart';
 import 'package:jmap_dart_client/jmap/contact/language_preference.dart';
 
 class LanguagePrefConverter {
@@ -12,10 +11,8 @@ class LanguagePrefConverter {
 
   MapEntry<String, dynamic> toJson(
     String id,
-    LanguagePref value, {
-    ContactApiVersion apiVersion = ContactApiVersion.ietf,
-  }) {
-    final json = value.toVersionedJson(apiVersion);
+    LanguagePref value) {
+    final json = value.toJson();
     return MapEntry(id, json);
   }
 }

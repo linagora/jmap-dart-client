@@ -1,10 +1,13 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:jmap_dart_client/jmap/contact/author.dart';
-import 'package:jmap_dart_client/jmap/contact/contact_api_version.dart';
 
+part 'note.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class Note with EquatableMixin {
   final String note;
-  final String? created; 
+  final String? created;
   final Author? author;
 
   Note({
@@ -13,29 +16,9 @@ class Note with EquatableMixin {
     this.author,
   });
 
-  factory Note.fromJson(Map<String, dynamic> json) {
-    return Note(
-      note: json['note'] as String,
-      created: json['created'] as String?,
-      author: json['author'] != null
-          ? Author.fromJson(json['author'] as Map<String, dynamic>)
-          : null,
-    );
-  }
+  factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
 
-  Map<String, dynamic> toVersionedJson(ContactApiVersion apiVersion) {
-    final map = <String, dynamic>{};
-
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) map[key] = value;
-    }
-    writeNotNull('note', note);
-    writeNotNull('created', created);
-    if (author != null) {
-      writeNotNull('author', author!.toVersionedJson(apiVersion));
-    }
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$NoteToJson(this);
 
   @override
   List<Object?> get props => [note, created, author];

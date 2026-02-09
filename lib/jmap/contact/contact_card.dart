@@ -243,16 +243,14 @@ class ContactCard extends Contact {
     map['onlineServices'] = onlineServices?.map(
       (k, v) => OnlineServiceValueConverter().toJson(
         k,
-        v,
-        apiVersion: ContactApiVersion.ietf,
+        v
       ),
     );
 
     map['preferredLanguages'] = preferredLanguages?.map(
       (k, v) => LanguagePrefConverter().toJson(
         k,
-        v,
-        apiVersion: ContactApiVersion.ietf,
+        v
       ),
     );
     map['keywords'] = keywords;
@@ -260,8 +258,7 @@ class ContactCard extends Contact {
     map['notes'] = notes?.map(
       (k, v) => NoteValueConverter().toJson(
         k,
-        v,
-        apiVersion: ContactApiVersion.ietf,
+        v
       ),
     );
     map['schedulingAddresses'] = schedulingAddresses?.map(
@@ -277,10 +274,7 @@ class ContactCard extends Contact {
       (k, v) => MapEntry(k, v.toJson()),
     );
     map['localizations'] = localizations?.map(
-      (lang, inner) => MapEntry(
-        lang,
-        inner.map((ptr, v) => MapEntry(ptr, v.toJson())),
-      ),
+      (lang, inner) => MapEntry(lang, Map<String, dynamic>.from(inner)),
     );
     map['personalInfo'] = personalInfo?.map(
       (k, v) => MapEntry(

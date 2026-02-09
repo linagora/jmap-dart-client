@@ -19,9 +19,10 @@ import 'package:jmap_dart_client/jmap/contact/online_service_values.dart';
 import 'package:jmap_dart_client/jmap/contact/organization_unit.dart';
 import 'package:jmap_dart_client/jmap/contact/organization_values.dart';
 import 'package:jmap_dart_client/jmap/contact/phone_values.dart';
+import 'package:jmap_dart_client/jmap/contact/pronouns.dart';
 import 'package:jmap_dart_client/jmap/contact/related_to_relation.dart';
 import 'package:jmap_dart_client/jmap/contact/related_to_values.dart';
-import 'package:jmap_dart_client/jmap/contact/speaak_to_as.dart';
+import 'package:jmap_dart_client/jmap/contact/speak_to_as.dart';
 import 'package:jmap_dart_client/jmap/contact/street.dart';
 import 'package:jmap_dart_client/jmap/contact/title_values.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
@@ -71,11 +72,15 @@ void main() {
             relation: {Relation('spouse'): true},
           )
         },
-        speakToAs: SpeakToAs(
-          type: 'SpeakToAs',
-          grammaticalGender: 'male',
-          pronouns: 'he/him',
-        ),
+        speakToAs: SpeakToAs.speakToAs(
+        grammaticalGender: 'male',
+        pronouns: {
+          'k1': Pronouns.pronouns(
+            pronouns: 'he/him',
+            pref: 1,
+          ),
+        },
+      ),
         emails: {
           EmailId('123'): EmailValue(
             type: 'organize',

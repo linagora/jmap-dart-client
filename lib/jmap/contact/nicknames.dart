@@ -1,16 +1,18 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'nicknames.g.dart';
+
+@JsonSerializable()
 class Nickname with EquatableMixin {
   final String? name;
 
   Nickname({this.name});
 
   factory Nickname.fromJson(Map<String, dynamic> json) =>
-      Nickname(name: json['name'] as String?);
+      _$NicknameFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        if (name != null) 'name': name,
-      };
+  Map<String, dynamic> toJson() => _$NicknameToJson(this);
 
   @override
   List<Object?> get props => [name];

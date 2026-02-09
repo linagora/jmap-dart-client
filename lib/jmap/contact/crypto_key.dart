@@ -1,46 +1,49 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'crypto_key.g.dart';
+
+@JsonSerializable()
 class CryptoKey with EquatableMixin {
+  @JsonKey(includeIfNull: false, name: '@type')
+  final String? type;
   final String uri;
   final String? mediaType;
   final int? pref;
   final String? label;
 
   CryptoKey({
+    this.type,
     required this.uri,
     this.mediaType,
     this.pref,
     this.label,
   });
 
-  factory CryptoKey.fromJson(Map<String, dynamic> json) {
-    return CryptoKey(
-      uri: json['uri'] as String,
-      mediaType: json['mediaType'] as String?,
-      pref: json['pref'] as int?,
-      label: json['label'] as String?,
-    );
-  }
+  factory CryptoKey.cryptoKey({
+    required String uri,
+    String? mediaType,
+    int? pref,
+    String? label,
+  }) =>
+      CryptoKey(
+        type: 'CryptoKey',
+        uri: uri,
+        mediaType: mediaType,
+        pref: pref,
+        label: label,
+      );
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+  factory CryptoKey.fromJson(Map<String, dynamic> json) =>
+      _$CryptoKeyFromJson(json);
 
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) map[key] = value;
-    }
-
-    writeNotNull('uri', uri);
-    writeNotNull('mediaType', mediaType);
-    writeNotNull('pref', pref);
-    writeNotNull('label', label);
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$CryptoKeyToJson(this);
 
   @override
-  List<Object?> get props => [uri, mediaType, pref, label];
+  List<Object?> get props => [type, uri, mediaType, pref, label];
 
   @override
   String toString() {
-    return 'CryptoKey(uri: $uri, mediaType: $mediaType, pref: $pref, label: $label)';
+    return 'CryptoKey(type: $type, uri: $uri, mediaType: $mediaType, pref: $pref, label: $label)';
   }
 }
