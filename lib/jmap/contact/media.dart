@@ -9,6 +9,7 @@ class Media with EquatableMixin {
   final Map<Context, bool>? contexts;
   final int? pref;
   final String? label;
+  final String? blobId;
 
   Media({
     required this.kind,
@@ -17,6 +18,7 @@ class Media with EquatableMixin {
     this.contexts,
     this.pref,
     this.label,
+    this.blobId,
   });
 
   factory Media.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,7 @@ class Media with EquatableMixin {
       ),
       pref: json['pref'] as int?,
       label: json['label'] as String?,
+      blobId: json['blobId'] as String?,
     );
   }
 
@@ -50,11 +53,12 @@ class Media with EquatableMixin {
     }
     writeNotNull('pref', pref);
     writeNotNull('label', label);
+    writeNotNull('blobId', blobId);
     return map;
   }
 
   @override
-  List<Object?> get props => [kind, uri, mediaType, contexts, pref, label];
+  List<Object?> get props => [kind, uri, mediaType, contexts, pref, label, blobId];
 
   @override
   String toString() {
@@ -65,6 +69,7 @@ class Media with EquatableMixin {
         'contexts: $contexts, '
         'pref: $pref, '
         'label: $label, '
+        'blobId: $blobId'
         ')';
   }
 }
