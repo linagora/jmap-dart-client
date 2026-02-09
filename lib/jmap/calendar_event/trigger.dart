@@ -12,7 +12,7 @@ class Trigger with EquatableMixin {
   @JsonKey(includeIfNull: false)
   final String? offset;
 
-  Trigger({this.type, this.relativeTo, this.offset});
+  Trigger({this.type = 'OffsetTrigger', this.relativeTo, this.offset});
 
   factory Trigger.fromJson(Map<String, dynamic> json) => _$TriggerFromJson(json);
 

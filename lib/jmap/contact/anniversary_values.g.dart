@@ -8,14 +8,13 @@ part of 'anniversary_values.dart';
 
 AnniversaryValue _$AnniversaryValueFromJson(Map<String, dynamic> json) =>
     AnniversaryValue(
-      anniversaryType: json['anniversaryType'] as String?,
-      type: json['type'] as String?,
+      type: json['type'] as String? ?? 'Anniversary',
       kind: json['kind'] as String?,
+      date: json['date'],
+      anniversaryType: json['anniversaryType'] as String?,
       place: json['place'] == null
           ? null
           : AnniversaryPlace.fromJson(json['place'] as Map<String, dynamic>),
-      date: json['date'] as String?,
-      label: json['label'] as String?,
     );
 
 Map<String, dynamic> _$AnniversaryValueToJson(AnniversaryValue instance) {
@@ -27,11 +26,10 @@ Map<String, dynamic> _$AnniversaryValueToJson(AnniversaryValue instance) {
     }
   }
 
-  writeNotNull('anniversaryType', instance.anniversaryType);
-  writeNotNull('kind', instance.kind);
   writeNotNull('type', instance.type);
+  writeNotNull('kind', instance.kind);
   writeNotNull('date', instance.date);
-  val['place'] = instance.place;
-  writeNotNull('label', instance.label);
+  writeNotNull('anniversaryType', instance.anniversaryType);
+  writeNotNull('place', instance.place);
   return val;
 }

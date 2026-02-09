@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:equatable/equatable.dart';
 import 'contact_api_version.dart';
 import 'context.dart';
@@ -13,7 +11,7 @@ class EmailValue with EquatableMixin {
   final Map<Context, bool>? contexts;
 
   EmailValue({
-    this.type,
+    this.type = 'EmailAddress',
     this.email,
     this.pref,
     this.contexts,
@@ -22,7 +20,6 @@ class EmailValue with EquatableMixin {
 
   factory EmailValue.fromJson(Map<String, dynamic> json) {
     final address = json['email'] as String? ?? json['address'] as String?;
-
     return EmailValue(
       type: json['@type'] as String? ?? json['type'] as String?,
       email: address,
@@ -63,7 +60,7 @@ class EmailValue with EquatableMixin {
     void writeNotNull(String key, dynamic value) {
       if (value != null) map[key] = value;
     }
-
+    writeNotNull('@type', type);
     writeNotNull('address', email);
     if (contexts != null) {
       writeNotNull(

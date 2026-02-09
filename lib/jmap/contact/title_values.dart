@@ -11,7 +11,7 @@ class TitleValue with EquatableMixin {
   final String? organizationId; // e.g. "o2"
 
   TitleValue({
-    this.type,
+    this.type = 'Title',
     this.title,
     this.organization,
     this.kind,
@@ -53,7 +53,7 @@ class TitleValue with EquatableMixin {
     void writeNotNull(String key, dynamic value) {
       if (value != null) val[key] = value;
     }
-
+    writeNotNull('@type', type);
     writeNotNull('kind', kind ?? (type?.toLowerCase()));
     writeNotNull('name', name ?? title);
     writeNotNull('organizationId', organizationId);
@@ -66,13 +66,15 @@ class TitleValue with EquatableMixin {
 
   @override
   String toString() {
-    return 'TitleValue('
-        'type: $type, '
-        'title: $title, '
-        'organization: $organization, '
-        'kind: $kind, '
-        'name: $name, '
-        'organizationId: $organizationId'
-        ')';
+    final parts = <String>[];
+
+    if (type != null) parts.add('type: $type');
+    if (title != null) parts.add('title: $title');
+    if (organization != null) parts.add('organization: $organization');
+    if (kind != null) parts.add('kind: $kind');
+    if (name != null) parts.add('name: $name');
+    if (organizationId != null) parts.add('organizationId: $organizationId');
+
+    return 'TitleValue(${parts.join(', ')})';
   }
 }

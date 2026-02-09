@@ -9,7 +9,7 @@ class Media with EquatableMixin {
   final Map<Context, bool>? contexts;
   final int? pref;
   final String? label;
-  final String? blobId;  
+  final String? blobId;
 
   Media({
     required this.kind,

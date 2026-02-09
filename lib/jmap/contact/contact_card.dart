@@ -2,7 +2,6 @@ import 'package:jmap_dart_client/http/converter/contact/anniversary_value_conver
 import 'package:jmap_dart_client/http/converter/contact/language_preference_converter.dart';
 import 'package:jmap_dart_client/http/converter/contact/note_converter.dart';
 import 'package:jmap_dart_client/http/converter/contact/online_service_converter.dart';
-import 'package:jmap_dart_client/jmap/contact/anniversary_values.dart';
 import 'package:jmap_dart_client/jmap/contact/contact.dart';
 import 'package:jmap_dart_client/jmap/contact/contact_api_version.dart';
 import 'package:jmap_dart_client/jmap/contact/crypto_key.dart';
@@ -79,8 +78,9 @@ class ContactCard extends Contact {
           ?.map((k, v) => MapEntry(k.toString(), v == true)),
       emails: (json['emails'] as Map<String, dynamic>?)
           ?.map((k, v) => EmailValueConverter().parseEntry(k, v)),
-      phones: (json['phones'] as Map<String, dynamic>?)
-          ?.map((k, v) => PhoneValueConverter().parseEntry(k, v)),
+      phones: (json['phones'] as Map?)
+          ?.map((k, v) =>
+              PhoneValueConverter().parseEntry(k.toString(), v)),
       addresses: (json['addresses'] as Map<String, dynamic>?)
           ?.map((k, v) => AddressValueConverter().parseEntry(k, v)),
       organizations: (json['organizations'] as Map<String, dynamic>?)
@@ -213,18 +213,19 @@ class ContactCard extends Contact {
     );
 
     map['phones'] = phones?.map(
-      (k, v) => PhoneValueConverter().toJson(k, v),
+      (k, v) => PhoneValueConverter().toJson(k, v, apiVersion: ContactApiVersion.ietf),
     );
 
+
     map['addresses'] = addresses?.map(
-      (k, v) => AddressValueConverter().toJson(k, v),
+      (k, v) => AddressValueConverter().toJson(k, v, apiVersion: ContactApiVersion.ietf),
     );
 
     map['organizations'] = organizations?.map(
       (k, v) => OrganizationValueConverter().toJson(
         k,
         v,
-        apiVersion: ContactApiVersion.ietf,),
+        apiVersion: ContactApiVersion.ietf),
     );
 
     map['relatedTo'] = relatedTo?.map(

@@ -114,7 +114,7 @@ class ContactUtil {
     final resp = await (builder..usings(method.requiredCapabilities))
         .build()
         .execute();
-
+        
     final parsed = resp.parse<GetContactResponse>(
       inv.methodCallId,
       (json) => GetContactResponse.deserialize(json, apiVersion: apiVersion),
@@ -193,7 +193,6 @@ class ContactUtil {
 
     final resp =
         await (builder..usings(method.requiredCapabilities)).build().execute();
-
     final parsed = resp.parse<ChangesContactResponse>(
       inv.methodCallId,
       (json) => ChangesContactResponse.deserialize(

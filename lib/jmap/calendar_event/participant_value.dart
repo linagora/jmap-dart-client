@@ -18,7 +18,7 @@ class ParticipantValue with EquatableMixin {
   final String? email;
 
   ParticipantValue({
-    this.type,
+    this.type = 'Participant',
     this.name,
     this.scheduleId,
     this.sendTo,

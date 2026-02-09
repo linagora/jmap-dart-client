@@ -53,5 +53,13 @@ class Components with EquatableMixin {
   List<Object?> get props => [kind, value, jsType];
 
   @override
-  String toString() => 'Components(kind: $kind, value: $value, jsType: $jsType)';
+  String toString() {
+    final parts = <String>[];
+
+    if (kind != null) parts.add('kind: $kind');
+    if (value != null) parts.add('value: $value');
+    if (jsType != null) parts.add('jsType: $jsType');
+
+    return 'Components(${parts.join(', ')})';
+  }
 }

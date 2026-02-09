@@ -9,7 +9,7 @@ class LocationValue with EquatableMixin {
   @JsonKey(includeIfNull: false)
   final String? name;
 
-  LocationValue({this.type, this.name});
+  LocationValue({this.type = 'Location', this.name});
 
   factory LocationValue.fromJson(Map<String, dynamic> json) => _$ParticipantValueFromJson(json);
 
