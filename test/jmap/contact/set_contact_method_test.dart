@@ -382,13 +382,13 @@ void main() {
           },
           phones: {
             PhoneId('1'): PhoneValue(
-              type: 'work',
+              type: 'mobile',
               phone: '+4912345678',
             ),
           },
           addresses: {
             AddressId('a1'): AddressValue(
-              type: 'work',
+              type: 'home',
               street: {Street(value: 'Main Street 5')},
               locality: 'Karlsruhe',
               region: 'BW',
@@ -441,7 +441,7 @@ void main() {
             {'type': 'work', 'value': 'updated@example.org'}
           ],
           'phones': [
-            {'type': 'home', 'value': '+4922222222'}
+            {'type': 'mobile', 'value': '+4922222222'}
           ],
         }),
         apiVersion: ContactApiVersion.cyrus,
