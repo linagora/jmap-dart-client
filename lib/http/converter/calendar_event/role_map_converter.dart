@@ -10,7 +10,7 @@ class RoleMapConverter
     if (json == null) return null;
 
     return json.map<Role, bool>((key, value) {
-      return MapEntry(Role(key as String), value as bool);
+      return MapEntry(Role(key), value as bool);
     });
   }
 

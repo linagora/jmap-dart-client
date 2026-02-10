@@ -28,6 +28,7 @@ import 'package:jmap_dart_client/jmap/contact/phone_values.dart';
 import 'package:jmap_dart_client/jmap/contact/related_to_relation.dart';
 import 'package:jmap_dart_client/jmap/contact/related_to_values.dart';
 import 'package:jmap_dart_client/jmap/contact/scheduling_address.dart';
+import 'package:jmap_dart_client/jmap/contact/time_stamp_date.dart';
 import 'package:jmap_dart_client/jmap/contact/title_values.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
 import 'package:jmap_dart_client/jmap/core/patch_object.dart';
@@ -55,10 +56,10 @@ void main() {
         },
         name: Name(
           components: {
-            Components(kind: 'given', value: 'Pepa'),
-            Components(kind: 'given2', value: 'Jane'),
-            Components(kind: 'surname', value: 'Pig'),
-            Components(kind: 'surname2', value: 'Heavens'),
+            Components(type:'NameComponent', kind: 'given', value: 'Pepa'),
+            Components(type:'NameComponent', kind: 'given2', value: 'Jane'),
+            Components(type:'NameComponent', kind: 'surname', value: 'Pig'),
+            Components(type:'NameComponent', kind: 'surname2', value: 'Heavens'),
           },
           isOrdered: true,
           full: 'Ms. Pepa Jane Pig Heavens',
@@ -299,6 +300,13 @@ void main() {
               year: 1953,
               month: 4,
               day: 15,
+            ),
+          ),
+          AnniversaryId('k9'): const AnniversaryValue(
+            type: 'Anniversary',
+            kind: 'death',
+            date: TimestampDate(
+              utc: '2019-10-15T23:10:00Z',
             ),
           ),
         },

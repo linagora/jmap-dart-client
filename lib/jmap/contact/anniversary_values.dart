@@ -1,28 +1,23 @@
 import 'package:equatable/equatable.dart';
 import 'package:jmap_dart_client/jmap/contact/time_stamp_date.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'anniversary_place.dart';
 import 'partial_date.dart';
 
-part 'anniversary_values.g.dart';
-
-@JsonSerializable()
+/// Anniversary value supporting JSContact/IETF and Cyrus formats.
+///
+/// - JSContact/IETF: `date` is a `PartialDate` or `TimestampDate` object
+/// - Cyrus: `date` is a plain `String` (e.g. "2023-05-10")
 class AnniversaryValue with EquatableMixin {
-  @JsonKey(includeIfNull: false)
-  final String? type; 
+  final String? type;
 
-  @JsonKey(includeIfNull: false)
   final String? kind;
 
   /// JSContact/IETF: PartialDate or TimestampDate
   /// Cyrus: plain String like "12-04-2023"
-  @JsonKey(includeIfNull: false)
   final Object? date;
 
-  @JsonKey(includeIfNull: false)
-  final String? anniversaryType; 
+  final String? anniversaryType;
 
-  @JsonKey(includeIfNull: false)
   final AnniversaryPlace? place;
 
   const AnniversaryValue({
@@ -33,6 +28,9 @@ class AnniversaryValue with EquatableMixin {
     this.place,
   });
 
+  /// - If it's a map and `@type == "Timestamp"` or has `utc`, use TimestampDate.
+  /// - If it's a map otherwise, use PartialDate.
+  /// - Else, keep the raw value (e.g. Cyrus string).
   factory AnniversaryValue.fromJson(Map<String, dynamic> json) {
     final rawDate = json['date'];
     Object? parsedDate;
@@ -97,4 +95,3 @@ class AnniversaryValue with EquatableMixin {
     return 'AnniversaryValue(${parts.join(', ')})';
   }
 }
-

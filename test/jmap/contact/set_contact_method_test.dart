@@ -24,6 +24,7 @@ import 'package:jmap_dart_client/jmap/contact/related_to_relation.dart';
 import 'package:jmap_dart_client/jmap/contact/related_to_values.dart';
 import 'package:jmap_dart_client/jmap/contact/speak_to_as.dart';
 import 'package:jmap_dart_client/jmap/contact/street.dart';
+import 'package:jmap_dart_client/jmap/contact/time_stamp_date.dart';
 import 'package:jmap_dart_client/jmap/contact/title_values.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
 import 'package:jmap_dart_client/jmap/core/patch_object.dart';
@@ -51,7 +52,7 @@ void main() {
         ),
         organizations: {
           OrganizationName('a49d'):
-              OrganizationValue(type: 'organize', name: 'test',  units: [OrganizationUnit(name: '123')],)
+              OrganizationValue(type: 'OrgUnit', name: 'test',  units: [OrganizationUnit(name: '123')],)
         },
         phones: {
           PhoneId('a49d'): PhoneValue(
@@ -61,10 +62,12 @@ void main() {
         },
         anniversaries: {
           AnniversaryId('123'): const AnniversaryValue(
-            type: 'organize',
-            anniversaryType: 'test',
-            date: '12-04-2023',
-          )
+            type: 'Anniversary',
+            kind: 'death',
+            date: TimestampDate(
+              utc: '2019-10-15T23:10:00Z',
+            ),
+          ),
         },
         relatedTo: {
           RelatedToName('Frankie'): RelatedToValue(
@@ -83,7 +86,7 @@ void main() {
       ),
         emails: {
           EmailId('123'): EmailValue(
-            type: 'organize',
+            type: 'EmailAddress',
             email: 'test@gmail.com',
             label: '12-04-2023',
             pref: 1,
@@ -186,13 +189,13 @@ void main() {
           },
           phones: {
             PhoneId('1'): PhoneValue(
-              type: 'mobile',
+              type: 'Phone',
               phone: '+4912345678',
               number: '1111',
               contexts: {Context('private'): true},
             ),
             PhoneId('2'): PhoneValue(
-              type: 'home',
+              type: 'Phone',
               phone: '+4968123456',
               number: '1111',
               contexts: {Context('work'): true},
@@ -200,7 +203,7 @@ void main() {
           },
           addresses: {
             AddressId('1'): AddressValue(
-              type: 'home',
+              type: 'Address',
               street: {Street(value: 'Main Street 2')},
               locality: 'home',
               region: 'SL',
@@ -209,7 +212,7 @@ void main() {
               coordinates: '5.12,9.121',
             ),
             AddressId('2'): AddressValue(
-              type: 'work',
+              type: 'Address',
               street: {Street(value: 'Office Park 10')},
               locality: 'work',
               postcode: '10117',
@@ -379,13 +382,13 @@ void main() {
           },
           phones: {
             PhoneId('1'): PhoneValue(
-              type: 'mobile',
+              type: 'work',
               phone: '+4912345678',
             ),
           },
           addresses: {
             AddressId('a1'): AddressValue(
-              type: 'home',
+              type: 'work',
               street: {Street(value: 'Main Street 5')},
               locality: 'Karlsruhe',
               region: 'BW',
@@ -396,7 +399,6 @@ void main() {
         ),
         apiVersion: ContactApiVersion.cyrus,
       );
-
       expect(created.created, isNotNull);
 
       final id = created.created!.values.first.id!;
@@ -439,7 +441,7 @@ void main() {
             {'type': 'work', 'value': 'updated@example.org'}
           ],
           'phones': [
-            {'type': 'mobile', 'value': '+4922222222'}
+            {'type': 'home', 'value': '+4922222222'}
           ],
         }),
         apiVersion: ContactApiVersion.cyrus,

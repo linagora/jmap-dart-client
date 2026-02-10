@@ -5,10 +5,10 @@ part 'time_stamp_date.g.dart';
 
 @JsonSerializable()
 class TimestampDate with EquatableMixin {
-  @JsonKey(includeIfNull: false)
-  final String? type; // "Timestamp"
+  @JsonKey(name: '@type', includeIfNull: false)
+  final String? type;
 
-  final String utc; // e.g. "2019-10-15T23:10:00Z"
+  final String utc;
 
   const TimestampDate({
     this.type = 'Timestamp',
@@ -22,4 +22,7 @@ class TimestampDate with EquatableMixin {
 
   @override
   List<Object?> get props => [type, utc];
+
+  @override
+  String toString() => 'TimestampDate(type: $type, utc: $utc)';
 }

@@ -7,12 +7,12 @@ class Components with EquatableMixin {
   final String? value;
 
   @JsonKey(name: '@type')
-  final String? jsType;
+  final String? type;
 
   Components({
     this.kind,
     this.value,
-    this.jsType,
+    this.type,
   });
 
   /// json_serializable, handles both formats:
@@ -22,21 +22,21 @@ class Components with EquatableMixin {
     return Components(
       kind: json['kind'] as String? ?? json['type'] as String?,
       value: json['value'] as String?,
-      jsType: json['@type'] as String?,
+      type: json['@type'] as String?,
     );
   }
 
   /// IETF serialization (ContactCard).
   Map<String, dynamic> toIetfJson() => <String, dynamic>{
         // IETF NameComponent uses 'kind'
-        '@type': jsType ?? 'NameComponent',
+        '@type': type ?? 'NameComponent',
         'kind': kind,
         'value': value,
       };
 
   /// JSContact serialization (Card).
   Map<String, dynamic> toJsContactJson() => <String, dynamic>{
-        '@type': jsType ?? 'NameComponent',
+        '@type': type ?? 'NameComponent',
         'type': kind,
         'value': value,
       };
@@ -51,7 +51,7 @@ class Components with EquatableMixin {
   }
 
   @override
-  List<Object?> get props => [kind, value, jsType];
+  List<Object?> get props => [kind, value, type];
 
   @override
   String toString() {
@@ -59,7 +59,7 @@ class Components with EquatableMixin {
 
     if (kind != null) parts.add('kind: $kind');
     if (value != null) parts.add('value: $value');
-    if (jsType != null) parts.add('jsType: $jsType');
+    if (type != null) parts.add('@type: $type');
 
     return 'Components(${parts.join(', ')})';
   }
