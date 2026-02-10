@@ -8,7 +8,7 @@ part of 'time_stamp_date.dart';
 
 TimestampDate _$TimestampDateFromJson(Map<String, dynamic> json) =>
     TimestampDate(
-      type: json['type'] as String? ?? 'Timestamp',
+      type: json['@type'] as String? ?? 'Timestamp',
       utc: json['utc'] as String,
     );
 
@@ -21,7 +21,7 @@ Map<String, dynamic> _$TimestampDateToJson(TimestampDate instance) {
     }
   }
 
-  writeNotNull('type', instance.type);
+  writeNotNull('@type', instance.type);
   val['utc'] = instance.utc;
   return val;
 }

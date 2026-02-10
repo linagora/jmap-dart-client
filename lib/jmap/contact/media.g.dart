@@ -7,20 +7,34 @@ part of 'media.dart';
 // **************************************************************************
 
 Media _$MediaFromJson(Map<String, dynamic> json) => Media(
+      type: json['@type'] as String? ?? 'Media',
       kind: json['kind'] as String,
-      uri: json['uri'] as String,
+      uri: json['uri'] as String?,
       mediaType: json['mediaType'] as String?,
       contexts: const ContextsMapConverter()
           .fromJson(json['contexts'] as Map<String, dynamic>?),
       pref: json['pref'] as int?,
       label: json['label'] as String?,
+      blobId: json['blobId'] as String?,
     );
 
-Map<String, dynamic> _$MediaToJson(Media instance) => <String, dynamic>{
-      'kind': instance.kind,
-      'uri': instance.uri,
-      'mediaType': instance.mediaType,
-      'contexts': const ContextsMapConverter().toJson(instance.contexts),
-      'pref': instance.pref,
-      'label': instance.label,
-    };
+Map<String, dynamic> _$MediaToJson(Media instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('@type', instance.type);
+  val['kind'] = instance.kind;
+  writeNotNull('uri', instance.uri);
+  writeNotNull('mediaType', instance.mediaType);
+  writeNotNull(
+      'contexts', const ContextsMapConverter().toJson(instance.contexts));
+  writeNotNull('pref', instance.pref);
+  writeNotNull('label', instance.label);
+  writeNotNull('blobId', instance.blobId);
+  return val;
+}

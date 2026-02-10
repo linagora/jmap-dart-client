@@ -8,7 +8,6 @@ part 'note.g.dart';
 class Note with EquatableMixin {
   @JsonKey(includeIfNull: false, name: '@type')
   final String? type;
-
   final String note;
   final String? created;
   final Author? author;

@@ -331,6 +331,7 @@ void main() {
         contact: contact,
         apiVersion: ContactApiVersion.ietf,
       );
+      print(created);
       expect(created.created, isNotNull);
       final createdId = created.created!.values.first.id!.value;
       expect(createdId, isNotEmpty);
