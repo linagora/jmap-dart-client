@@ -29,6 +29,7 @@ class Components with EquatableMixin {
   /// IETF serialization (ContactCard).
   Map<String, dynamic> toIetfJson() => <String, dynamic>{
         // IETF NameComponent uses 'kind'
+        '@type': jsType ?? 'NameComponent',
         'kind': kind,
         'value': value,
       };

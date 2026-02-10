@@ -8,8 +8,9 @@ part of 'get_file_node_response.dart';
 
 GetFileNodeResponse _$GetFileNodeResponseFromJson(Map<String, dynamic> json) =>
     GetFileNodeResponse(
-      const AccountIdConverter().fromJson(json['accountId'].toString()),
-      const StateConverter().fromJson(json['state'].toString()),
+      const AccountIdConverter().fromJson(json['accountId'] as String),
+      _$JsonConverterFromJson<String, State>(
+          json['state'], const StateConverter().fromJson),
       (json['list'] as List<dynamic>?)
           ?.map((e) => FileNode.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -23,7 +24,12 @@ Map<String, dynamic> _$GetFileNodeResponseToJson(
     <String, dynamic>{
       'accountId': const AccountIdConverter().toJson(instance.accountId),
       'state': const StateConverter().toJson(instance.state),
-      'list': instance.list.map((e) => e.toJson()).toList(),
-      'notFound':
-          instance.notFound?.map(const IdConverter().toJson).toList(),
+      'list': instance.list,
+      'notFound': instance.notFound?.map(const IdConverter().toJson).toList(),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);

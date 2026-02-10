@@ -1,89 +1,69 @@
 import 'package:equatable/equatable.dart';
+import 'package:jmap_dart_client/http/converter/calendar_event/role_map_converter.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:jmap_dart_client/jmap/calendar_event/send_to.dart';
 import 'package:jmap_dart_client/jmap/calendar_event/role.dart';
-import 'package:jmap_dart_client/http/converter/calendar_event/role_value_converter.dart';
 
+part 'participant_value.g.dart';
+
+@JsonSerializable()
 class ParticipantValue with EquatableMixin {
+  @JsonKey(includeIfNull: false, name: '@type')
   final String? type;
+
+  @JsonKey(includeIfNull: false)
   final String? name;
+
+  @JsonKey(includeIfNull: false)
   final String? scheduleId;
+
+  @JsonKey(includeIfNull: false)
   final String? kind;
+
+  @JsonKey(includeIfNull: false)
   final String? participationStatus;
+
+  @JsonKey(includeIfNull: false)
   final String? calendarAddress;
+
+  @JsonKey(includeIfNull: false)
   final SendTo? sendTo;
+
+  @RoleMapConverter()
+  @JsonKey(includeIfNull: false)
   final Map<Role, bool>? roles;
+
+  @JsonKey(includeIfNull: false)
   final bool? expectReply;
+
+  @JsonKey(includeIfNull: false)
   final List<String>? scheduleStatus;
+
+  @JsonKey(includeIfNull: false)
   final String? language;
+
+  @JsonKey(includeIfNull: false)
   final String? email;
 
   ParticipantValue({
     this.type = 'Participant',
     this.name,
     this.scheduleId,
-    this.sendTo,
-    this.expectReply,
-    this.participationStatus,
     this.kind,
+    this.participationStatus,
+    this.calendarAddress,
+    this.sendTo,
     this.roles,
+    this.expectReply,
     this.scheduleStatus,
     this.language,
-    this.calendarAddress,
     this.email,
   });
 
-  factory ParticipantValue.fromJson(Map<String, dynamic> json) {
-    return ParticipantValue(
-      type: json['@type'] as String?,
-      name: json['name'] as String?,
-      scheduleId: json['scheduleId'] as String?,
-      sendTo: json['sendTo'] == null
-          ? null
-          : SendTo.fromJson(json['sendTo'] as Map<String, dynamic>),
-      expectReply: json['expectReply'] as bool?,
-      participationStatus: json['participationStatus'] as String?,
-      kind: json['kind'] as String?,
-      roles: (json['roles'] as Map<String, dynamic>?)?.map(
-        (key, value) => RoleConverter().parseEntry(key, value),
-      ),
-      scheduleStatus: (json['scheduleStatus'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-      language: json['language'] as String?,
-      calendarAddress: json['calendarAddress'] as String?,
-      email: json['email'] as String?,
-    );
-  }
+  factory ParticipantValue.fromJson(Map<String, dynamic> json) =>
+      _$ParticipantValueFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final val = <String, dynamic>{};
-
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) {
-        val[key] = value;
-      }
-    }
-
-    writeNotNull('@type', type);
-    writeNotNull('name', name);
-    writeNotNull('scheduleId', scheduleId);
-    writeNotNull('sendTo', sendTo?.toJson());
-    writeNotNull('expectReply', expectReply);
-    writeNotNull('participationStatus', participationStatus);
-    writeNotNull('kind', kind);
-    writeNotNull(
-      'roles',
-      roles?.map(
-        (key, value) => RoleConverter().toJson(key, value),
-      ),
-    );
-    writeNotNull('scheduleStatus', scheduleStatus);
-    writeNotNull('language', language);
-    writeNotNull('calendarAddress', calendarAddress);
-    writeNotNull('email', email);
-
-    return val;
-  }
+  Map<String, dynamic> toJson() => _$ParticipantValueToJson(this);
 
   @override
   List<Object?> get props => [
@@ -98,6 +78,7 @@ class ParticipantValue with EquatableMixin {
         language,
         calendarAddress,
         email,
+        // roles intentionally NOT included, to match the manual version
       ];
 
   @override

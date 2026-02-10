@@ -126,7 +126,6 @@ void main() {
       );
 
       final fetched1 = getResp1!;
-     
       expect(fetched1.title, equals(calendar.title));
       expect(fetched1.description, equals(calendar.description));
       expect(fetched1.calendarIds, equals(calendar.calendarIds));

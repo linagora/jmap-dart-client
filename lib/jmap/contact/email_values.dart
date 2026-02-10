@@ -39,7 +39,7 @@ class EmailValue with EquatableMixin {
       if (value != null) map[key] = value;
     }
 
-    writeNotNull('@type', type);      // e.g. "EmailAddress"
+    writeNotNull('@type', type);     
     writeNotNull('email', email);
     writeNotNull('pref', pref);
     writeNotNull('label', label);

@@ -7,6 +7,7 @@ import 'package:jmap_dart_client/jmap/contact/contact_api_version.dart';
 import 'package:jmap_dart_client/jmap/contact/crypto_key.dart';
 import 'package:jmap_dart_client/jmap/contact/directory.dart';
 import 'package:jmap_dart_client/jmap/contact/language_preference.dart';
+import 'package:jmap_dart_client/jmap/contact/link.dart';
 import 'package:jmap_dart_client/jmap/contact/media.dart';
 import 'package:jmap_dart_client/jmap/contact/name.dart';
 import 'package:jmap_dart_client/http/converter/contact/email_value_converter.dart';
@@ -38,6 +39,9 @@ class ContactCard extends Contact {
   final Map<String, CryptoKey>? cryptoKeys;
   final Map<String, Map<String, dynamic>>? localizations;
   final Map<String, PersonalInfo>? personalInfo;
+  final Map<String, Link>? links; 
+
+  
 
   ContactCard({
     super.id,
@@ -64,6 +68,7 @@ class ContactCard extends Contact {
     this.cryptoKeys,
     this.localizations,
     this.personalInfo,
+    this.links,
   });
 
   /// Creates a ContactCard from a IETF formatted JSON map.
@@ -133,6 +138,12 @@ class ContactCard extends Contact {
         (k, v) => MapEntry(
           k,
           PersonalInfo.fromJson(v as Map<String, dynamic>),
+        ),
+      ),
+      links: (json['links'] as Map<String, dynamic>?)?.map(
+        (k, v) => MapEntry(
+          k,
+          Link.fromJson(v as Map<String, dynamic>),
         ),
       ),
     );
@@ -285,6 +296,9 @@ class ContactCard extends Contact {
     map['anniversaries'] = anniversaries?.map(
       (k, v) => AnniversaryValueConverter().toJson(k, v),
     );
+    map['links'] = links?.map(
+      (k, v) => MapEntry(k, v.toJson()),
+    );
     validateAndRemoveIetfFields(map);
     return map;
   }
@@ -315,7 +329,8 @@ class ContactCard extends Contact {
         cryptoKeys,
         localizations,
         personalInfo,
-        anniversaries
+        anniversaries,
+        links,
       ];
 
   @override
@@ -344,6 +359,7 @@ class ContactCard extends Contact {
         'localizations: $localizations'
         'personalInfo: $personalInfo'
         'anniversaries: $anniversaries'
+        'links: $links'
         ')';
   }
 }

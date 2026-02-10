@@ -7,7 +7,7 @@ part 'nicknames.g.dart';
 class Nickname with EquatableMixin {
   final String? name;
 
-  Nickname({this.name});
+  Nickname({this.name = 'Nickname'});
 
   factory Nickname.fromJson(Map<String, dynamic> json) =>
       _$NicknameFromJson(json);

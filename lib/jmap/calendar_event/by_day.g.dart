@@ -1,21 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'note.dart';
+part of 'by_day.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Note _$NoteFromJson(Map<String, dynamic> json) => Note(
+ByDay _$ByDayFromJson(Map<String, dynamic> json) => ByDay(
       type: json['@type'] as String?,
-      note: json['note'] as String,
-      created: json['created'] as String?,
-      author: json['author'] == null
-          ? null
-          : Author.fromJson(json['author'] as Map<String, dynamic>),
+      day: json['day'] as String?,
     );
 
-Map<String, dynamic> _$NoteToJson(Note instance) {
+Map<String, dynamic> _$ByDayToJson(ByDay instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -25,8 +21,6 @@ Map<String, dynamic> _$NoteToJson(Note instance) {
   }
 
   writeNotNull('@type', instance.type);
-  val['note'] = instance.note;
-  val['created'] = instance.created;
-  val['author'] = instance.author?.toJson();
+  writeNotNull('day', instance.day);
   return val;
 }

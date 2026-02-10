@@ -17,7 +17,7 @@ class RelatedToValue with EquatableMixin {
   final Map<Relation, bool>? relation;
 
   RelatedToValue({
-    this.type,
+    this.type = 'Relation',
     this.relation,
   });
 

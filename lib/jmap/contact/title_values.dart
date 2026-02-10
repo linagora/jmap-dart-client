@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 class TitleValue with EquatableMixin {
-  final String? type;          // from "@type"
-  final String? title;         // from "title"
-  final String? organization;  // from "organization"
+  final String? type;          
+  final String? title;        
+  final String? organization;  
 
   // IETF fields
-  final String? kind;          // "title" | "role"
-  final String? name;          // e.g. "Research Scientist"
-  final String? organizationId; // e.g. "o2"
+  final String? kind;       
+  final String? name;         
+  final String? organizationId; 
 
   TitleValue({
     this.type = 'Title',

@@ -1,27 +1,24 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'files_rights.g.dart';
+
+@JsonSerializable()
 class FilesRights with EquatableMixin {
   final bool mayRead;
   final bool mayWrite;
   final bool mayShare;
 
-  FilesRights({
+  const FilesRights({
     required this.mayRead,
     required this.mayWrite,
     required this.mayShare,
   });
 
-  factory FilesRights.fromJson(Map<String, dynamic> json) => FilesRights(
-        mayRead: json['mayRead'] as bool? ?? false,
-        mayWrite: json['mayWrite'] as bool? ?? false,
-        mayShare: json['mayShare'] as bool? ?? false,
-      );
+  factory FilesRights.fromJson(Map<String, dynamic> json) =>
+      _$FilesRightsFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        'mayRead': mayRead,
-        'mayWrite': mayWrite,
-        'mayShare': mayShare,
-      };
+  Map<String, dynamic> toJson() => _$FilesRightsToJson(this);
 
   @override
   List<Object?> get props => [

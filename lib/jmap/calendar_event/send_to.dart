@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-class SendTo with EquatableMixin {
+part 'send_to.g.dart';
 
+@JsonSerializable()
+class SendTo with EquatableMixin {
   @JsonKey(includeIfNull: false)
   final String? imip;
 
@@ -11,9 +13,10 @@ class SendTo with EquatableMixin {
 
   SendTo({this.imip, this.other});
 
-  factory SendTo.fromJson(Map<String, dynamic> json) => _$SendToFromJson(json);
+  factory SendTo.fromJson(Map<String, dynamic> json) =>
+      _$SendToFromJson(json);
 
-  Map<String, dynamic> toJson() => _$SendToJson(this);
+  Map<String, dynamic> toJson() => _$SendToToJson(this);
 
   @override
   List<Object?> get props => [imip, other];
@@ -25,23 +28,4 @@ class SendTo with EquatableMixin {
         'other: $other'
         ')';
   }
-}
-
-SendTo _$SendToFromJson(Map<String, dynamic> json) => SendTo(
-  imip: json['imip'] as String?,
-  other: json['other'] as String?,
-);
-
-Map<String, dynamic> _$SendToJson(SendTo instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('imip', instance.imip);
-  writeNotNull('other', instance.other);
-  return val;
 }

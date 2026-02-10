@@ -12,7 +12,7 @@ import 'package:jmap_dart_client/jmap/contact/crypto_key.dart';
 import 'package:jmap_dart_client/jmap/contact/directory.dart';
 import 'package:jmap_dart_client/jmap/contact/email_values.dart';
 import 'package:jmap_dart_client/jmap/contact/language_preference.dart';
-import 'package:jmap_dart_client/jmap/contact/localizations.dart';
+import 'package:jmap_dart_client/jmap/contact/link.dart';
 import 'package:jmap_dart_client/jmap/contact/media.dart';
 import 'package:jmap_dart_client/jmap/contact/name.dart';
 import 'package:jmap_dart_client/jmap/contact/name_sort_as.dart';
@@ -302,6 +302,14 @@ void main() {
             ),
           ),
         },
+        links: {
+          'link3': Link(
+            type: 'Link',
+            kind: 'contact',
+            uri: 'mailto:contact@example.com',
+            pref: 1,
+          ),
+        },
         created: '2025-11-04T10:00:00Z',
         updated: '2025-11-04T12:00:00Z',
         blobId:
@@ -326,7 +334,6 @@ void main() {
         id: createdId,
         apiVersion: ContactApiVersion.ietf,
       );
-      print(fetched);
       expect(fetched, isNotNull);
       final roundtripped = fetched as ContactCard;
 
@@ -348,6 +355,7 @@ void main() {
       expect(roundtripped.directories, equals(contact.directories));
       expect(roundtripped.media, equals(contact.media));
       expect(roundtripped.cryptoKeys, equals(contact.cryptoKeys));
+      expect(roundtripped.links, equals(contact.links));
       final jpLoc = roundtripped.localizations!['jp']!;
       expect(jpLoc.keys, contains('name/components'));
 

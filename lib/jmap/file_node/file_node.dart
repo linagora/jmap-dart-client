@@ -1,30 +1,56 @@
 import 'package:equatable/equatable.dart';
+import 'package:jmap_dart_client/http/converter/file_node/files_rights_converter.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';
 import 'package:jmap_dart_client/jmap/file_node/files_rights.dart';
+import 'package:jmap_dart_client/http/converter/id_converter.dart';
 
+part 'file_node.g.dart';
+
+@JsonSerializable()
 class FileNode with EquatableMixin {
+  @IdConverter()
+  @JsonKey(includeIfNull: false)
   final Id? id;
+
+  @JsonKey(includeIfNull: false)
   final String? name;
+
+  @JsonKey(includeIfNull: false)
   final int? size;
+
+  @IdConverter()
+  @JsonKey(includeIfNull: false)
   final Id? parentId;
+
+  @JsonKey(includeIfNull: false)
   final String? blobId;
+
+  @JsonKey(includeIfNull: false)
   final String? created;
+
+  @JsonKey(includeIfNull: false)
   final String? modified;
 
   /// When the node was last accessed 
+  @JsonKey(includeIfNull: false)
   final String? accessed;
 
   /// UNIX-style exec flag
+  @JsonKey(includeIfNull: false)
   final bool? executable;
 
   /// Server-set ACLs
+  @JsonKey(includeIfNull: false)
   final FilesRights? myRights;
 
   /// Optional sharing map
+  @FilesRightsMapConverter()
+  @JsonKey(includeIfNull: false)
   final Map<String, FilesRights>? shareWith;
 
+  @JsonKey(includeIfNull: false)
   final String? type;
-
 
   FileNode({
     this.id,
@@ -37,56 +63,14 @@ class FileNode with EquatableMixin {
     this.accessed,
     this.executable,
     this.myRights,
-    this.shareWith, 
+    this.shareWith,
     this.type,
   });
 
+  factory FileNode.fromJson(Map<String, dynamic> json) =>
+      _$FileNodeFromJson(json);
 
-  factory FileNode.fromJson(Map<String, dynamic> json) {
-    return FileNode(
-      id: json['id'] != null ? Id(json['id'].toString()) : null,
-      name: json['name'] as String?,
-      size: json['size'] is int ? json['size'] : (json['size'] as num?)?.toInt(),
-      parentId: json['parentId'] != null ? Id(json['parentId'].toString()) : null,
-      blobId: json['blobId'] != null ?(json['blobId'].toString()) : null,
-      created: json['created'] as String?,
-      modified: json['modified'] as String?,
-      accessed: json['accessed'] as String?,
-      executable: json['executable'] as bool?, 
-      myRights: json['myRights'] != null
-          ? FilesRights.fromJson(json['myRights'])
-          : null,
-      shareWith: json['shareWith'] != null
-          ? (json['shareWith'] as Map<String, dynamic>).map(
-              (key, value) => MapEntry(key, FilesRights.fromJson(value)))
-          : null,
-      type: json['type'] as String?
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    final val = <String, dynamic>{};
-
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) val[key] = value;
-    }
-
-    writeNotNull('id', id?.value);
-    writeNotNull('name', name);
-    writeNotNull('size', size);
-    writeNotNull('parentId', parentId?.value);
-    writeNotNull('blobId', blobId);
-    writeNotNull('created', created);
-    writeNotNull('modified', modified);
-    writeNotNull('accessed', accessed);
-    writeNotNull('executable', executable);
-    writeNotNull('myRights', myRights?.toJson());
-    writeNotNull('shareWith',
-        shareWith?.map((key, value) => MapEntry(key, value.toJson())));
-    writeNotNull('type', type);
-
-    return val;
-  }
+  Map<String, dynamic> toJson() => _$FileNodeToJson(this);
 
   @override
   List<Object?> get props => [
@@ -101,8 +85,6 @@ class FileNode with EquatableMixin {
         executable,
         myRights,
         shareWith,
-        type
+        type,
       ];
 }
-
-
