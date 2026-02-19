@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:jmap_dart_client/http/converter/calendar_event/path_object_converter.dart';
+import 'package:jmap_dart_client/http/converter/calendar_event/patch_object_map_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:jmap_dart_client/jmap/core/patch_object.dart';
 
