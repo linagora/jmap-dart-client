@@ -1,11 +1,10 @@
 name: jmap_dart_client
 description: A JMAP client library to make JMAP method calls and process the responses.
-version: 0.3.6
+version: 0.3.7
 homepage: https://github.com/linagora/jmap-dart-client.git
 
 environment:
-  sdk: ">=2.19.2 <3.0.0"
-  flutter: ">=3.0.0"
+  sdk: ">=3.10.8 <4.0.0"
 
 dependencies:
   flutter:
@@ -19,11 +18,7 @@ dependencies:
 
   dio: 5.2.0
 
-  json_annotation: 4.8.0
-
-  build_runner: 2.4.10
-
-  json_serializable: 6.6.1
+  json_annotation: 4.9.0
 
   built_collection: 5.1.1
 
@@ -41,6 +36,10 @@ dev_dependencies:
   flutter_lints: 2.0.1
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+  build_runner: 2.4.10
+
+  json_serializable: 6.8.0
 
 # The following section is specific to Flutter.
 flutter:
