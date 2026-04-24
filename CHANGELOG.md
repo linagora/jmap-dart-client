@@ -1,3 +1,6 @@
+## [0.3.7] - 2026-04-24
+- Support Flutter 3.38.9
+
 ## [0.3.6] - 2025-05-07
 - Fix incompatible `build_runner_core` with `logging 1.3.0` – missing `onLevelChanged`
 - Support `Mailbox/clear` method JMAP extension

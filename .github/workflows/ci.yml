@@ -3,7 +3,7 @@
 name: CI
 
 env:
-  FLUTTER_VERSION: 3.32.8
+  FLUTTER_VERSION: 3.38.9
 
 # Controls when the workflow will run
 on: [push, pull_request, workflow_dispatch]
@@ -30,6 +30,6 @@ jobs:
       # Install dependencies
       - name: Install dependencies
         run: flutter pub get
-        
+
       - name: Unit-tests
         run: flutter test
