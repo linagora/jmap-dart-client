@@ -5,6 +5,7 @@ import 'package:jmap_dart_client/http/converter/email/email_mailbox_ids_converte
 import 'package:jmap_dart_client/http/converter/email_id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/individual_header_identifier_converter.dart';
+import 'package:jmap_dart_client/http/converter/individual_header_identifier_list_converter.dart';
 import 'package:jmap_dart_client/http/converter/message_ids_header_value_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/thread_id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/unsigned_int_nullable_converter.dart';
@@ -59,6 +60,7 @@ class Email with EquatableMixin {
   final Map<IndividualHeaderIdentifier, String?>? priorityHeader;
   final Map<IndividualHeaderIdentifier, String?>? listPostHeader;
   final Map<IndividualHeaderIdentifier, String?>? listUnsubscribeHeader;
+  final Map<IndividualHeaderIdentifier, List<String>>? xLinkedFileHeader;
 
   Email({
     this.id,
@@ -98,6 +100,7 @@ class Email with EquatableMixin {
     this.priorityHeader,
     this.listPostHeader,
     this.listUnsubscribeHeader,
+    this.xLinkedFileHeader,
   });
 
   factory Email.fromJson(Map<String, dynamic> json) {
@@ -160,6 +163,11 @@ class Email with EquatableMixin {
         .parseEntry(
           IndividualHeaderIdentifier.listUnsubscribeHeader.value,
           json[IndividualHeaderIdentifier.listUnsubscribeHeader.value] as String?,
+        ),
+      xLinkedFileHeader: IndividualHeaderIdentifierListConverter()
+        .parseEntry(
+          IndividualHeaderIdentifier.xLinkedFileHeader.value,
+          json[IndividualHeaderIdentifier.xLinkedFileHeader.value],
         ),
     );
   }
@@ -240,6 +248,13 @@ class Email with EquatableMixin {
         IndividualHeaderIdentifier.listUnsubscribeHeader,
       ),
     );
+    writeNotNull(
+      IndividualHeaderIdentifier.xLinkedFileHeader.value,
+      IndividualHeaderIdentifierListConverter().toJson(
+        xLinkedFileHeader,
+        IndividualHeaderIdentifier.xLinkedFileHeader,
+      ),
+    );
     return val;
   }
 
@@ -282,6 +297,7 @@ class Email with EquatableMixin {
     priorityHeader,
     listPostHeader,
     listUnsubscribeHeader,
+    xLinkedFileHeader,
   ];
 }
 
