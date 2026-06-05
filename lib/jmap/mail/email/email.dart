@@ -5,7 +5,6 @@ import 'package:jmap_dart_client/http/converter/email/email_mailbox_ids_converte
 import 'package:jmap_dart_client/http/converter/email_id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/individual_header_identifier_converter.dart';
-import 'package:jmap_dart_client/http/converter/individual_header_identifier_list_converter.dart';
 import 'package:jmap_dart_client/http/converter/message_ids_header_value_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/thread_id_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/unsigned_int_nullable_converter.dart';
@@ -21,6 +20,22 @@ import 'package:jmap_dart_client/jmap/mail/email/email_header.dart';
 import 'package:jmap_dart_client/jmap/mail/email/individual_header_identifier.dart';
 import 'package:jmap_dart_client/jmap/mail/email/keyword_identifier.dart';
 import 'package:jmap_dart_client/jmap/mail/mailbox/mailbox.dart';
+
+const _knownHeaderKeys = {
+  'header:User-Agent:asText',
+  'header:Disposition-Notification-To:asText',
+  'header:Return-Path:asText',
+  'header:X-MEETING-UID:asText',
+  'header:Accept-Language:asText',
+  'header:Content-Language:asText',
+  'header:X-SMIME-Status:asText',
+  'header:X-JMAP-Identity:asText',
+  'header:X-Priority:asText',
+  'header:Priority:asText',
+  'header:Importance:asText',
+  'header:List-Post:asText',
+  'header:List-Unsubscribe:asText',
+};
 
 class Email with EquatableMixin {
   final EmailId? id;
@@ -60,7 +75,7 @@ class Email with EquatableMixin {
   final Map<IndividualHeaderIdentifier, String?>? priorityHeader;
   final Map<IndividualHeaderIdentifier, String?>? listPostHeader;
   final Map<IndividualHeaderIdentifier, String?>? listUnsubscribeHeader;
-  final Map<IndividualHeaderIdentifier, Object>? additionalHeaders;
+  final Map<IndividualHeaderIdentifier, Object?>? additionalHeaders;
 
   Email({
     this.id,
@@ -164,6 +179,17 @@ class Email with EquatableMixin {
           IndividualHeaderIdentifier.listUnsubscribeHeader.value,
           json[IndividualHeaderIdentifier.listUnsubscribeHeader.value] as String?,
         ),
+      additionalHeaders: () {
+        final entries = json.entries
+          .where((e) => e.key.startsWith('header:') && !_knownHeaderKeys.contains(e.key))
+          .map((e) {
+            final v = e.value;
+            final parsed = v is List ? List<String>.from(v) : v as String?;
+            return MapEntry(IndividualHeaderIdentifier(e.key), parsed);
+          });
+        final m = Map.fromEntries(entries);
+        return m.isEmpty ? null : m;
+      }(),
     );
   }
 
@@ -243,25 +269,7 @@ class Email with EquatableMixin {
         IndividualHeaderIdentifier.listUnsubscribeHeader,
       ),
     );
-    additionalHeaders?.forEach((identifier, value) {
-      if (value is List<String>) {
-        writeNotNull(
-          identifier.value,
-          IndividualHeaderIdentifierListConverter().toJson(
-            {identifier: value},
-            identifier,
-          ),
-        );
-      } else if (value is String) {
-        writeNotNull(
-          identifier.value,
-          IndividualHeaderIdentifierNullableConverter().toJson(
-            {identifier: value},
-            identifier,
-          ),
-        );
-      }
-    });
+    additionalHeaders?.forEach((id, v) => writeNotNull(id.value, v));
     return val;
   }
 
