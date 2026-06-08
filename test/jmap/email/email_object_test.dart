@@ -366,66 +366,6 @@ void main() {
       expect(parsedEmail.id, equals(expectedEmail.id));
     });
 
-    test('Email.fromJson() should parse additionalHeaders with String value', () {
-      const json = '''{
-        "id": "abc123",
-        "header:X-Custom-Header:asText": "custom-value"
-      }''';
-
-      final email = Email.fromJson(jsonDecode(json));
-      final key = IndividualHeaderIdentifier('header:X-Custom-Header:asText');
-
-      expect(email.additionalHeaders, isNotNull);
-      expect(email.additionalHeaders![key], equals('custom-value'));
-    });
-
-    test('Email.fromJson() should parse additionalHeaders with List<String> value', () {
-      const json = '''{
-        "id": "abc123",
-        "header:X-LinkedFile:all:asText": ["file1.pdf", "file2.pdf"]
-      }''';
-
-      final email = Email.fromJson(jsonDecode(json));
-      final key = IndividualHeaderIdentifier('header:X-LinkedFile:all:asText');
-
-      expect(email.additionalHeaders, isNotNull);
-      expect(email.additionalHeaders![key], equals(['file1.pdf', 'file2.pdf']));
-    });
-
-    test('Email.fromJson() should not include known headers in additionalHeaders', () {
-      const json = '''{
-        "id": "abc123",
-        "header:User-Agent:asText": "SomeClient/1.0",
-        "header:X-Custom-Header:asText": "custom-value"
-      }''';
-
-      final email = Email.fromJson(jsonDecode(json));
-
-      expect(email.headerUserAgent, isNotNull);
-      expect(email.additionalHeaders?.containsKey(IndividualHeaderIdentifier.headerUserAgent), isNot(true));
-      expect(email.additionalHeaders?[IndividualHeaderIdentifier('header:X-Custom-Header:asText')], equals('custom-value'));
-    });
-
-    test('Email.toJson() should serialize additionalHeaders with String value', () {
-      final key = IndividualHeaderIdentifier('header:X-Custom-Header:asText');
-      final email = Email(
-        additionalHeaders: {key: 'custom-value'},
-      );
-
-      final result = email.toJson();
-      expect(result['header:X-Custom-Header:asText'], equals('custom-value'));
-    });
-
-    test('Email.toJson() should serialize additionalHeaders with List<String> value', () {
-      final key = IndividualHeaderIdentifier('header:X-LinkedFile:all:asText');
-      final email = Email(
-        additionalHeaders: {key: ['file1.pdf', 'file2.pdf']},
-      );
-
-      final result = email.toJson();
-      expect(result['header:X-LinkedFile:all:asText'], equals(['file1.pdf', 'file2.pdf']));
-    });
-
     test('Email.toJson() should convert to json correctly', () {
       const keywordSeen = '\$seen';
       const expectedEmailAsJson = '''{

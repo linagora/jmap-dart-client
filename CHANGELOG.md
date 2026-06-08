@@ -1,5 +1,5 @@
 ## [0.3.7] - 2026-06-03
-- Support dynamic additionalHeaders
+- Support header:X-LinkedFile:all:asText
 
 ## [0.3.6] - 2025-05-07
 - Fix incompatible `build_runner_core` with `logging 1.3.0` – missing `onLevelChanged`
