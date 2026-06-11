@@ -11,12 +11,9 @@ class OrganizationUnit with EquatableMixin {
   final String? name;
 
   OrganizationUnit({
-    this.type,
+    this.type = 'OrgUnit',
     this.name,
   });
-
-  factory OrganizationUnit.orgUnit({String? name}) =>
-      OrganizationUnit(type: 'OrgUnit', name: name);
 
   factory OrganizationUnit.fromJson(Map<String, dynamic> json) =>
       _$OrganizationUnitFromJson(json);

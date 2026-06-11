@@ -6,13 +6,13 @@ part 'anniversary_place.g.dart';
 @JsonSerializable()
 class AnniversaryPlace with EquatableMixin {
 
-  @JsonKey(includeIfNull: false)
+  @JsonKey(includeIfNull: false, name: '@type')
   final String? type;
 
   @JsonKey(includeIfNull: false)
   final String? fullAddress;
 
-  AnniversaryPlace({this.type, this.fullAddress});
+  AnniversaryPlace({this.type = 'Address', this.fullAddress});
 
   factory AnniversaryPlace.fromJson(Map<String, dynamic> json) => _$AnniversaryPlaceFromJson(json);
 

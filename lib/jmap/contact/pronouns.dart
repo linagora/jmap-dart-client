@@ -14,20 +14,10 @@ class Pronouns with EquatableMixin {
   final int? pref;
 
   Pronouns({
-    this.type,
+    this.type = 'Pronouns',
     required this.pronouns,
     this.pref,
   });
-
-  factory Pronouns.pronouns({
-    required String pronouns,
-    int? pref,
-  }) =>
-      Pronouns(
-        type: 'Pronouns',
-        pronouns: pronouns,
-        pref: pref,
-      );
 
   factory Pronouns.fromJson(Map<String, dynamic> json) =>
       _$PronounsFromJson(json);

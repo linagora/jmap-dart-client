@@ -21,7 +21,7 @@ class Directory with EquatableMixin {
   final int? listAs;
 
   Directory({
-    this.type,
+    this.type = 'Directory',
     required this.kind,
     required this.uri,
     this.contexts,
@@ -29,24 +29,6 @@ class Directory with EquatableMixin {
     this.label,
     this.listAs,
   });
-
-  factory Directory.directory({
-    required String kind,
-    required String uri,
-    Map<Context, bool>? contexts,
-    int? pref,
-    String? label,
-    int? listAs,
-  }) =>
-      Directory(
-        type: 'Directory',
-        kind: kind,
-        uri: uri,
-        contexts: contexts,
-        pref: pref,
-        label: label,
-        listAs: listAs,
-      );
 
   factory Directory.fromJson(Map<String, dynamic> json) =>
       _$DirectoryFromJson(json);

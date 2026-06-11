@@ -6,12 +6,16 @@ part 'alert_value.g.dart';
 
 @JsonSerializable()
 class AlertValue with EquatableMixin {
+  @JsonKey(includeIfNull: false, name: '@type')
+  final String? type;
+
   @JsonKey(includeIfNull: false)
   final String? action;
 
   final Trigger? trigger;
 
   AlertValue({
+    this.type = 'Alert',
     this.action = 'Alert',
     this.trigger,
   });
@@ -25,5 +29,5 @@ class AlertValue with EquatableMixin {
   Map<String, dynamic> toJson() => _$AlertValueToJson(this);
 
   @override
-  List<Object?> get props => [action, trigger];
+  List<Object?> get props => [type, action, trigger];
 }

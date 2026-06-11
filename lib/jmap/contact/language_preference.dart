@@ -7,6 +7,7 @@ part 'language_preference.g.dart';
 
 @JsonSerializable()
 class LanguagePref with EquatableMixin {
+  @JsonKey(includeIfNull: false, name: '@type')
   final String? type;
   final String language;
   @ContextsMapConverter()
@@ -14,8 +15,8 @@ class LanguagePref with EquatableMixin {
   final int? pref;
 
   LanguagePref({
+    this.type = 'LanguagePref',
     required this.language,
-    this.type,
     this.contexts,
     this.pref,
   });
@@ -23,19 +24,15 @@ class LanguagePref with EquatableMixin {
   factory LanguagePref.fromJson(Map<String, dynamic> json) =>
       _$LanguagePrefFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final map = _$LanguagePrefToJson(this);
-    map['@type'] = 'LanguagePref';
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$LanguagePrefToJson(this);
 
   @override
-  List<Object?> get props => [language, contexts, pref];
+  List<Object?> get props => [type, language, contexts, pref];
 
   @override
   String toString() {
     return 'LanguagePref('
-        '@type: LanguagePref, '
+        'type: $type, '
         'language: $language, '
         'contexts: $contexts, '
         'pref: $pref'

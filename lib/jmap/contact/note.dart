@@ -13,23 +13,11 @@ class Note with EquatableMixin {
   final Author? author;
 
   Note({
-    this.type,
+    this.type = 'Note',
     required this.note,
     this.created,
     this.author,
   });
-
-  factory Note.note({
-    required String note,
-    String? created,
-    Author? author,
-  }) =>
-      Note(
-        type: 'Note',
-        note: note,
-        created: created,
-        author: author,
-      );
 
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
 

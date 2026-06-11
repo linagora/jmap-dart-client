@@ -5,9 +5,12 @@ part 'nicknames.g.dart';
 
 @JsonSerializable()
 class Nickname with EquatableMixin {
+  @JsonKey(includeIfNull: false, name: '@type')
+  final String? type;
+
   final String? name;
 
-  Nickname({this.name});
+  Nickname({this.type = 'NickName', this.name});
 
   factory Nickname.fromJson(Map<String, dynamic> json) =>
       _$NicknameFromJson(json);
@@ -15,8 +18,8 @@ class Nickname with EquatableMixin {
   Map<String, dynamic> toJson() => _$NicknameToJson(this);
 
   @override
-  List<Object?> get props => [name];
+  List<Object?> get props => [type, name];
 
   @override
-  String toString() => 'Nickname(name: $name)';
+  String toString() => 'Nickname(type: $type, name: $name)';
 }

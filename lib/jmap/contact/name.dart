@@ -4,12 +4,14 @@ import 'package:jmap_dart_client/jmap/contact/name_sort_as.dart';
 import 'components.dart';
 
 class Name with EquatableMixin {
+  final String? type;
   final Set<Components>? components;
   final bool isOrdered;
   final String? full;
-  final NameSortAs? sortAs; 
+  final NameSortAs? sortAs;
 
   Name({
+    this.type = 'Name',
     this.components,
     this.isOrdered = true,
     this.full,
@@ -17,6 +19,7 @@ class Name with EquatableMixin {
   });
 
   factory Name.fromJson(Map<String, dynamic> json) => Name(
+        type: json['@type'] as String?,
         components: (json['components'] as List<dynamic>?)
             ?.map((e) => Components.fromJson(e as Map<String, dynamic>))
             .toSet(),
@@ -28,7 +31,7 @@ class Name with EquatableMixin {
       );
 
   Map<String, dynamic> toJson(ContactApiVersion apiVersion) => {
-        if (apiVersion != ContactApiVersion.ietf) '@type': 'Name',
+        if (apiVersion != ContactApiVersion.ietf) '@type': type ?? 'Name',
         if (components != null)
           'components':
               components!.map((c) => c.toVersionedJson(apiVersion)).toList(),
@@ -38,7 +41,7 @@ class Name with EquatableMixin {
       };
 
   @override
-  List<Object?> get props => [components, isOrdered, full, sortAs];
+  List<Object?> get props => [type, components, isOrdered, full, sortAs];
 
   @override
   String toString() {

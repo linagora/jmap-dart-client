@@ -29,7 +29,7 @@ class Link with EquatableMixin {
   final String? label;
 
   Link({
-    this.type,
+    this.type = 'Link',
     this.kind,
     required this.uri,
     this.mediaType,
@@ -37,22 +37,6 @@ class Link with EquatableMixin {
     this.pref,
     this.label,
   });
-
-  factory Link.contact({
-    required String uri,
-    String? mediaType,
-    Map<Context, bool>? contexts,
-    int? pref,
-    String? label,
-  }) =>
-      Link(
-        type: 'Link',
-        uri: uri,
-        mediaType: mediaType,
-        contexts: contexts,
-        pref: pref,
-        label: label,
-      );
 
   factory Link.fromJson(Map<String, dynamic> json) => _$LinkFromJson(json);
 

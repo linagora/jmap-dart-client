@@ -29,7 +29,7 @@ class PersonalInfo with EquatableMixin {
   final String? label;
 
   PersonalInfo({
-    this.type,
+    this.type = 'PersonalInfo',
     required this.kind,
     required this.value,
     this.level,
@@ -37,24 +37,6 @@ class PersonalInfo with EquatableMixin {
     this.listAs,
     this.label,
   });
-
-  factory PersonalInfo.personalInfo({
-    required String kind,
-    required String value,
-    String? level,
-    Map<Context, bool>? contexts,
-    int? listAs,
-    String? label,
-  }) =>
-      PersonalInfo(
-        type: 'PersonalInfo',
-        kind: kind,
-        value: value,
-        level: level,
-        contexts: contexts,
-        listAs: listAs,
-        label: label,
-      );
 
   factory PersonalInfo.fromJson(Map<String, dynamic> json) =>
       _$PersonalInfoFromJson(json);

@@ -17,29 +17,13 @@ class OnlineServiceValue with EquatableMixin {
   final Map<Context, bool>? contexts;
 
   OnlineServiceValue({
-    this.type,
+    this.type = 'OnlineService',
     this.service,
     this.uri,
     this.user,
     this.label,
     this.contexts,
   });
-
-  factory OnlineServiceValue.onlineService({
-    String? service,
-    String? uri,
-    String? user,
-    String? label,
-    Map<Context, bool>? contexts,
-  }) =>
-      OnlineServiceValue(
-        type: 'OnlineService',
-        service: service,
-        uri: uri,
-        user: user,
-        label: label,
-        contexts: contexts,
-      );
 
   factory OnlineServiceValue.fromJson(Map<String, dynamic> json) =>
       _$OnlineServiceValueFromJson(json);

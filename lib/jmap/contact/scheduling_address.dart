@@ -16,26 +16,12 @@ class SchedulingAddress with EquatableMixin {
   final String? label;
 
   SchedulingAddress({
-    this.type,
+    this.type = 'SchedulingAddress',
     this.uri,
     this.contexts,
     this.pref,
     this.label,
   });
-
-  factory SchedulingAddress.schedulingAddress({
-    String? uri,
-    Map<Context, bool>? contexts,
-    int? pref,
-    String? label,
-  }) =>
-      SchedulingAddress(
-        type: 'SchedulingAddress',
-        uri: uri,
-        contexts: contexts,
-        pref: pref,
-        label: label,
-      );
 
   factory SchedulingAddress.fromJson(Map<String, dynamic> json) =>
       _$SchedulingAddressFromJson(json);

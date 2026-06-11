@@ -39,13 +39,11 @@ class SetFileNodeMethod extends SetMethod<FileNode> {
           .fromMapIdToJson(id, patch.toJson());
     }));
 
-    // REQUIRED FOR DELETING
     writeNotNull(
       'destroy',
       destroy?.map((id) => id.value).toList(),
     );
 
-    // NEW — REQUIRED BY SOME SERVERS WHEN DESTROYING
     writeNotNull('onDestroyRemoveChildren', onDestroyRemoveChildren);
 
     return val;

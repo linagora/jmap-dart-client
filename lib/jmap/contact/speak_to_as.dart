@@ -14,20 +14,10 @@ class SpeakToAs with EquatableMixin {
   final Map<String, Pronouns>? pronouns;
 
   SpeakToAs({
-    this.type,
+    this.type = 'SpeakToAs',
     this.grammaticalGender,
     this.pronouns,
   });
-
-  factory SpeakToAs.speakToAs({
-    String? grammaticalGender,
-    Map<String, Pronouns>? pronouns,
-  }) =>
-      SpeakToAs(
-        type: 'SpeakToAs',
-        grammaticalGender: grammaticalGender,
-        pronouns: pronouns,
-      );
 
   factory SpeakToAs.fromJson(Map<String, dynamic> json) =>
       _$SpeakToAsFromJson(json);

@@ -13,26 +13,12 @@ class CryptoKey with EquatableMixin {
   final String? label;
 
   CryptoKey({
-    this.type,
+    this.type = 'CryptoKey',
     required this.uri,
     this.mediaType,
     this.pref,
     this.label,
   });
-
-  factory CryptoKey.cryptoKey({
-    required String uri,
-    String? mediaType,
-    int? pref,
-    String? label,
-  }) =>
-      CryptoKey(
-        type: 'CryptoKey',
-        uri: uri,
-        mediaType: mediaType,
-        pref: pref,
-        label: label,
-      );
 
   factory CryptoKey.fromJson(Map<String, dynamic> json) =>
       _$CryptoKeyFromJson(json);

@@ -75,10 +75,10 @@ void main() {
             relation: {Relation('spouse'): true},
           )
         },
-        speakToAs: SpeakToAs.speakToAs(
+        speakToAs: SpeakToAs(
         grammaticalGender: 'male',
         pronouns: {
-          'k1': Pronouns.pronouns(
+          'k1': Pronouns(
             pronouns: 'he/him',
             pref: 1,
           ),

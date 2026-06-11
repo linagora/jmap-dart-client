@@ -11,7 +11,7 @@ class ByDay with EquatableMixin {
   @JsonKey(includeIfNull: false)
   final String? day;
 
-  ByDay({this.type, this.day});
+  ByDay({this.type = 'NDay', this.day});
 
   factory ByDay.fromJson(Map<String, dynamic> json) =>
       _$ByDayFromJson(json);

@@ -5,8 +5,8 @@ part 'partial_date.g.dart';
 
 @JsonSerializable()
 class PartialDate with EquatableMixin {
-  @JsonKey(includeIfNull: false)
-  final String? type; // always "PartialDate" when present
+  @JsonKey(includeIfNull: false, name: '@type')
+  final String? type;
 
   @JsonKey(includeIfNull: false)
   final int? year;

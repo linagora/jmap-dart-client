@@ -120,7 +120,7 @@ class CalendarEvent with EquatableMixin {
   CalendarEvent({
     this.id,
     this.baseEventId,
-    this.type,
+    this.type = 'Event',
     this.isDraft,
     this.isOrigin,  // isOrigin is server-set
     this.start,
