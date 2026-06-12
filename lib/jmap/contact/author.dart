@@ -7,7 +7,9 @@ part 'author.g.dart';
 class Author with EquatableMixin {
   @JsonKey(includeIfNull: false, name: '@type')
   final String? type;
+  @JsonKey(includeIfNull: false)
   final String? name;
+  @JsonKey(includeIfNull: false)
   final String? uri;
 
   Author({this.type = 'Author', this.name, this.uri});

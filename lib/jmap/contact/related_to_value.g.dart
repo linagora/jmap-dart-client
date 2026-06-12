@@ -9,8 +9,10 @@ part of 'related_to_value.dart';
 RelatedToValue _$RelatedToValueFromJson(Map<String, dynamic> json) =>
     RelatedToValue(
       type: json['@type'] as String?,
-      relation: (json['relation'] as Map<String, dynamic>?)
-          ?.map((key, value) => RelationConverter().parseEntry(key, value)),
+      relation: json['relation'] is Map<String, dynamic>
+          ? (json['relation'] as Map<String, dynamic>)
+              .map((key, value) => RelationConverter().parseEntry(key, value))
+          : null,
     );
 
 Map<String, dynamic> _$RelatedToValueToJson(RelatedToValue instance) {

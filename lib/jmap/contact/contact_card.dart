@@ -211,94 +211,95 @@ class ContactCard extends Contact {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
 
-    if (id != null) map['id'] = id!.value;
-    map['created'] = created;
-    map['updated'] = updated;
-    map['name'] = name?.toJson(ContactApiVersion.ietf);
-    map['addressBookIds'] = addressBookIds;
-    map['blobId'] = blobId;
+    void writeNotNull(String key, dynamic value) {
+      if (value != null) map[key] = value;
+    }
 
-    map['emails'] = emails?.map(
+    if (id != null) map['id'] = id!.value;
+    writeNotNull('created', created);
+    writeNotNull('updated', updated);
+    writeNotNull('name', name?.toJson(ContactApiVersion.ietf));
+    writeNotNull('addressBookIds', addressBookIds);
+    writeNotNull('blobId', blobId);
+
+    writeNotNull('emails', emails?.map(
       (k, v) =>
           EmailValueConverter().toJson(k, v, apiVersion: ContactApiVersion.ietf),
-    );
+    ));
 
-    map['phones'] = phones?.map(
+    writeNotNull('phones', phones?.map(
       (k, v) => PhoneValueConverter().toJson(k, v, apiVersion: ContactApiVersion.ietf),
-    );
+    ));
 
-
-    map['addresses'] = addresses?.map(
+    writeNotNull('addresses', addresses?.map(
       (k, v) => AddressValueConverter().toJson(k, v, apiVersion: ContactApiVersion.ietf),
-    );
+    ));
 
-    map['organizations'] = organizations?.map(
+    writeNotNull('organizations', organizations?.map(
       (k, v) => OrganizationValueConverter().toJson(
         k,
         v,
         apiVersion: ContactApiVersion.ietf),
-    );
+    ));
 
-    map['relatedTo'] = relatedTo?.map(
+    writeNotNull('relatedTo', relatedTo?.map(
       (k, v) => RelatedToValueConverter().toJson(k, v),
-    );
+    ));
 
-    map['titles'] = titles?.map(
+    writeNotNull('titles', titles?.map(
       (k, v) => TitleValueConverter().toJson(k, v),
-    );
+    ));
 
-    map['nicknames'] = nicknames?.map(
+    writeNotNull('nicknames', nicknames?.map(
       (k, v) => MapEntry(k, v.toJson()),
-    );
+    ));
 
-    map['onlineServices'] = onlineServices?.map(
-      (k, v) => OnlineServiceValueConverter().toJson(
-        k,
-        v
-      ),
-    );
+    writeNotNull('onlineServices', onlineServices?.map(
+      (k, v) => OnlineServiceValueConverter().toJson(k, v),
+    ));
 
-    map['preferredLanguages'] = preferredLanguages?.map(
-      (k, v) => LanguagePrefConverter().toJson(
-        k,
-        v
-      ),
-    );
-    map['keywords'] = keywords;
+    writeNotNull('preferredLanguages', preferredLanguages?.map(
+      (k, v) => LanguagePrefConverter().toJson(k, v),
+    ));
 
-    map['notes'] = notes?.map(
-      (k, v) => NoteValueConverter().toJson(
-        k,
-        v
-      ),
-    );
-    map['schedulingAddresses'] = schedulingAddresses?.map(
+    writeNotNull('keywords', keywords);
+
+    writeNotNull('notes', notes?.map(
+      (k, v) => NoteValueConverter().toJson(k, v),
+    ));
+
+    writeNotNull('schedulingAddresses', schedulingAddresses?.map(
       (k, v) => MapEntry(k, v.toJson()),
-    );
-    map['directories'] = directories?.map(
+    ));
+
+    writeNotNull('directories', directories?.map(
       (k, v) => MapEntry(k, v.toJson()),
-    );
-    map['media'] = media?.map(
+    ));
+
+    writeNotNull('media', media?.map(
       (k, v) => MapEntry(k, v.toJson()),
-    );
-    map['cryptoKeys'] = cryptoKeys?.map(
+    ));
+
+    writeNotNull('cryptoKeys', cryptoKeys?.map(
       (k, v) => MapEntry(k, v.toJson()),
-    );
-    map['localizations'] = localizations?.map(
+    ));
+
+    writeNotNull('localizations', localizations?.map(
       (lang, inner) => MapEntry(lang, Map<String, dynamic>.from(inner)),
-    );
-    map['personalInfo'] = personalInfo?.map(
-      (k, v) => MapEntry(
-        k,
-        v.toJson(),
-      ),
-    );
-    map['anniversaries'] = anniversaries?.map(
-      (k, v) => AnniversaryValueConverter().toJson(k, v),
-    );
-    map['links'] = links?.map(
+    ));
+
+    writeNotNull('personalInfo', personalInfo?.map(
       (k, v) => MapEntry(k, v.toJson()),
-    );
+    ));
+
+    writeNotNull('anniversaries', anniversaries?.map(
+      (k, v) => AnniversaryValueConverter().toJson(k, v),
+    ));
+
+    writeNotNull('links', links?.map(
+      (k, v) => MapEntry(k, v.toJson()),
+    ));
+
     validateAndRemoveIetfFields(map);
     return map;
   }

@@ -79,7 +79,6 @@ class ContactUtil {
         accountId: accountId,
         apiVersion: apiVersion,
       );
-
       final match = all.list.where((c) => c.id?.value == id);
       return match.isEmpty ? null : match.first;
     }
@@ -93,7 +92,7 @@ class ContactUtil {
       method: method,
       apiVersion: apiVersion,
     );
-
+print(resp);
     if (resp.list.isEmpty) {
       return null;
     }

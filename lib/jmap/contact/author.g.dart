@@ -22,7 +22,7 @@ Map<String, dynamic> _$AuthorToJson(Author instance) {
   }
 
   writeNotNull('@type', instance.type);
-  val['name'] = instance.name;
-  val['uri'] = instance.uri;
+  writeNotNull('name', instance.name);
+  writeNotNull('uri', instance.uri);
   return val;
 }
