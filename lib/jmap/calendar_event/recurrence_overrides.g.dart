@@ -8,12 +8,13 @@ part of 'recurrence_overrides.dart';
 
 RecurrenceOverrides _$RecurrenceOverridesFromJson(Map<String, dynamic> json) =>
     RecurrenceOverrides(
-      const PatchObjectMapConverter()
-          .fromJson(json['overrides'] as Map<String, dynamic>),
+      (json['overrides'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, PatchObject.fromJson(e as Map<String, dynamic>)),
+      ),
     );
 
 Map<String, dynamic> _$RecurrenceOverridesToJson(
         RecurrenceOverrides instance) =>
     <String, dynamic>{
-      'overrides': const PatchObjectMapConverter().toJson(instance.overrides),
+      'overrides': instance.overrides,
     };

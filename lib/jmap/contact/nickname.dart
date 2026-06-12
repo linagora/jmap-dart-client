@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'nicknames.g.dart';
+part 'nickname.g.dart';
 
 @JsonSerializable()
 class Nickname with EquatableMixin {

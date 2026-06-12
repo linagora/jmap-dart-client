@@ -8,7 +8,7 @@ part of 'anniversary_place.dart';
 
 AnniversaryPlace _$AnniversaryPlaceFromJson(Map<String, dynamic> json) =>
     AnniversaryPlace(
-      type: json['type'] as String?,
+      type: json['@type'] as String? ?? 'Address',
       fullAddress: json['fullAddress'] as String?,
     );
 
@@ -21,7 +21,7 @@ Map<String, dynamic> _$AnniversaryPlaceToJson(AnniversaryPlace instance) {
     }
   }
 
-  writeNotNull('type', instance.type);
+  writeNotNull('@type', instance.type);
   writeNotNull('fullAddress', instance.fullAddress);
   return val;
 }

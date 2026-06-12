@@ -6,7 +6,7 @@ import 'package:jmap_dart_client/jmap/contact/related_to_relation.dart';
 import 'package:jmap_dart_client/http/converter/contact/related_to_relation_nullable_converter.dart';
 import 'package:jmap_dart_client/http/converter/contact/related_to_relation_type_converter.dart';
 
-part 'related_to_values.g.dart';
+part 'related_to_value.g.dart';
 
 @RelationValueNullableConverter()
 @RelationValueConverter()

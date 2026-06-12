@@ -10,14 +10,14 @@ import 'package:jmap_dart_client/http/converter/contact/email_value_converter.da
 import 'package:jmap_dart_client/http/converter/contact/title_value_converter.dart';
 import 'package:jmap_dart_client/http/converter/contact/related_to_value_converter.dart';
 import 'package:jmap_dart_client/http/converter/contact/anniversary_value_converter.dart';
-import 'package:jmap_dart_client/jmap/contact/contact_ids.dart';
-import 'package:jmap_dart_client/jmap/contact/address_values.dart';
-import 'package:jmap_dart_client/jmap/contact/organization_values.dart';
-import 'package:jmap_dart_client/jmap/contact/phone_values.dart';
-import 'package:jmap_dart_client/jmap/contact/email_values.dart';
-import 'package:jmap_dart_client/jmap/contact/title_values.dart';
-import 'package:jmap_dart_client/jmap/contact/related_to_values.dart';
-import 'package:jmap_dart_client/jmap/contact/anniversary_values.dart';
+import 'package:jmap_dart_client/jmap/contact/contact_id.dart';
+import 'package:jmap_dart_client/jmap/contact/address_value.dart';
+import 'package:jmap_dart_client/jmap/contact/organization_value.dart';
+import 'package:jmap_dart_client/jmap/contact/phone_value.dart';
+import 'package:jmap_dart_client/jmap/contact/email_value.dart';
+import 'package:jmap_dart_client/jmap/contact/title_value.dart';
+import 'package:jmap_dart_client/jmap/contact/related_to_value.dart';
+import 'package:jmap_dart_client/jmap/contact/anniversary_value.dart';
 import 'package:jmap_dart_client/jmap/contact/name.dart';
 
 // Represent the JSContact/Cyrus

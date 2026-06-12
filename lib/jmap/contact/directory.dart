@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:jmap_dart_client/util/util.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'context.dart';
@@ -16,8 +17,10 @@ class Directory with EquatableMixin {
   @ContextsMapConverter()
   final Map<Context, bool>? contexts;
 
+  @JsonKey(fromJson: parseIntNullable)
   final int? pref;
   final String? label;
+  @JsonKey(fromJson: parseIntNullable)
   final int? listAs;
 
   Directory({

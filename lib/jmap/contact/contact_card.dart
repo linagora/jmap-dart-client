@@ -16,9 +16,9 @@ import 'package:jmap_dart_client/http/converter/contact/address_value_converter.
 import 'package:jmap_dart_client/http/converter/contact/organization_value_converter.dart';
 import 'package:jmap_dart_client/http/converter/contact/related_to_value_converter.dart';
 import 'package:jmap_dart_client/http/converter/contact/title_value_converter.dart';
-import 'package:jmap_dart_client/jmap/contact/nicknames.dart';
+import 'package:jmap_dart_client/jmap/contact/nickname.dart';
 import 'package:jmap_dart_client/jmap/contact/note.dart';
-import 'package:jmap_dart_client/jmap/contact/online_service_values.dart';
+import 'package:jmap_dart_client/jmap/contact/online_service_value.dart';
 import 'package:jmap_dart_client/jmap/contact/personal_info.dart';
 import 'package:jmap_dart_client/jmap/contact/scheduling_address.dart';
 import 'package:jmap_dart_client/jmap/core/id.dart';

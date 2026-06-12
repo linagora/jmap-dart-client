@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:jmap_dart_client/jmap/contact/contact_ids.dart';
+import 'package:jmap_dart_client/jmap/contact/contact_id.dart';
 
 class EmailIdConverter implements JsonConverter<EmailId, String> {
   const EmailIdConverter();

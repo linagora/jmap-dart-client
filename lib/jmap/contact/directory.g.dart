@@ -7,14 +7,14 @@ part of 'directory.dart';
 // **************************************************************************
 
 Directory _$DirectoryFromJson(Map<String, dynamic> json) => Directory(
-      type: json['@type'] as String?,
+      type: json['@type'] as String? ?? 'Directory',
       kind: json['kind'] as String,
       uri: json['uri'] as String,
       contexts: const ContextsMapConverter()
           .fromJson(json['contexts'] as Map<String, dynamic>?),
-      pref: json['pref'] as int?,
+      pref: parseIntNullable(json['pref']),
       label: json['label'] as String?,
-      listAs: json['listAs'] as int?,
+      listAs: parseIntNullable(json['listAs']),
     );
 
 Map<String, dynamic> _$DirectoryToJson(Directory instance) {

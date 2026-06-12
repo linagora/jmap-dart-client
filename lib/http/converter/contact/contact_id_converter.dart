@@ -1,5 +1,5 @@
 import 'package:jmap_dart_client/jmap/core/id.dart';
-import 'package:jmap_dart_client/jmap/contact/contact_ids.dart';
+import 'package:jmap_dart_client/jmap/contact/contact_id.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class ContactIdConverter implements JsonConverter<ContactId, String> {

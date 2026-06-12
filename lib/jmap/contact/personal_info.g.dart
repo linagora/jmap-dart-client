@@ -7,13 +7,13 @@ part of 'personal_info.dart';
 // **************************************************************************
 
 PersonalInfo _$PersonalInfoFromJson(Map<String, dynamic> json) => PersonalInfo(
-      type: json['@type'] as String?,
+      type: json['@type'] as String? ?? 'PersonalInfo',
       kind: json['kind'] as String,
       value: json['value'] as String,
       level: json['level'] as String?,
       contexts: const ContextsMapConverter()
           .fromJson(json['contexts'] as Map<String, dynamic>?),
-      listAs: json['listAs'] as int?,
+      listAs: parseIntNullable(json['listAs']),
       label: json['label'] as String?,
     );
 

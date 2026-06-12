@@ -8,9 +8,11 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:jmap_dart_client/jmap/calendar_event/alert_value.dart';
 import 'package:jmap_dart_client/http/converter/calendar_event/alert_value_converter.dart';
 import 'package:jmap_dart_client/http/converter/calendar_event/participant_value_converter.dart';
-import 'package:jmap_dart_client/jmap/calendar_event/keywords.dart';
+import 'package:jmap_dart_client/jmap/calendar_event/keyword.dart';
 import 'package:jmap_dart_client/http/converter/calendar_event/location_value_converter.dart';
 import 'package:jmap_dart_client/jmap/calendar_event/location_value.dart';
+import 'package:jmap_dart_client/jmap/calendar_event/recurrence_overrides.dart';
+import 'package:jmap_dart_client/util/util.dart';
 
 @UnsignedIntNullableConverter()
 @CalendarEventIdNullableConverter()
@@ -99,7 +101,7 @@ class CalendarEvent with EquatableMixin {
   final Map<String, bool>? calendarIds;
 
   @JsonKey(includeIfNull: false)
-  final Map<String, Map<String, dynamic>>? recurrenceOverrides;
+  final RecurrenceOverrides? recurrenceOverrides;
 
   @JsonKey(includeIfNull: false)
   final String? organizerCalendarAddress;
@@ -236,8 +238,8 @@ CalendarEvent _$CalendarEventFromJson(Map<String, dynamic> json) =>
           .fromJson(json['id'] as String?),
       baseEventId: const CalendarEventIdNullableConverter()
           .fromJson(json['baseEventId'] as String?),
-      isDraft: json['isDraft'] as bool?,
-      isOrigin: json['isOrigin'] as bool?,
+      isDraft: parseBoolNullable(json['isDraft']),
+      isOrigin: parseBoolNullable(json['isOrigin']),
       type: json['@type'] as String?,
       start: json['start'] as String?,
       utcStart: json['utcStart'] as String?,
@@ -247,7 +249,7 @@ CalendarEvent _$CalendarEventFromJson(Map<String, dynamic> json) =>
       created: json['created'] as String?,
       updated: json['updated'] as String?,
       duration: json['duration'] as String?,
-      showWithoutTime: json['showWithoutTime'] as bool?,
+      showWithoutTime: parseBoolNullable(json['showWithoutTime']),
       alerts: (json['alerts'] as Map<String, dynamic>?)?.map(
         (key, value) => AlertValueConverter().parseEntry(key, value),
       ),
@@ -257,7 +259,7 @@ CalendarEvent _$CalendarEventFromJson(Map<String, dynamic> json) =>
       timeZone: json['timeZone'] as String?,
       status: json['status'] as String?,
       prodId: json['prodId'] as String?,
-      sequence: json['sequence'] as int?,
+      sequence: parseIntNullable(json['sequence']),
       description: json['description'] as String?,
       privacy: json['privacy'] as String?,
       keywords: json['keywords'] == null
@@ -283,18 +285,18 @@ CalendarEvent _$CalendarEventFromJson(Map<String, dynamic> json) =>
       freeBusyStatus: json['freeBusyStatus'] as String?,
       calendarIds:
           (json['calendarIds'] as Map<String, dynamic>?)?.map((key, value) {
-        return MapEntry(key, value as bool);
+        return MapEntry(key, parseBoolNullable(value) ?? false);
       }),
-      recurrenceOverrides:
-          (json['recurrenceOverrides'] as Map<String, dynamic>?)?.map(
-        (key, value) => MapEntry(key, value as Map<String, dynamic>),
-      ),
+      recurrenceOverrides: json['recurrenceOverrides'] != null
+          ? RecurrenceOverrides.fromJson(
+              json['recurrenceOverrides'] as Map<String, dynamic>)
+          : null,
       organizerCalendarAddress:
           json['organizerCalendarAddress'] as String?,
-      useDefaultAlerts: json['useDefaultAlerts'] as bool?,
-      mayInviteSelf: json['mayInviteSelf'] as bool?,
-      mayInviteOthers: json['mayInviteOthers'] as bool?,
-      hideAttendees: json['hideAttendees'] as bool?,
+      useDefaultAlerts: parseBoolNullable(json['useDefaultAlerts']),
+      mayInviteSelf: parseBoolNullable(json['mayInviteSelf']),
+      mayInviteOthers: parseBoolNullable(json['mayInviteOthers']),
+      hideAttendees: parseBoolNullable(json['hideAttendees']),
     );
 
 Map<String, dynamic> _$CalendarEventToJson(CalendarEvent instance) {
@@ -360,7 +362,7 @@ Map<String, dynamic> _$CalendarEventToJson(CalendarEvent instance) {
   );
   writeNotNull('freeBusyStatus', instance.freeBusyStatus);
   writeNotNull('calendarIds', instance.calendarIds);
-  writeNotNull('recurrenceOverrides', instance.recurrenceOverrides);
+  writeNotNull('recurrenceOverrides', instance.recurrenceOverrides?.toJson());
   writeNotNull('organizerCalendarAddress', instance.organizerCalendarAddress);
   writeNotNull('useDefaultAlerts', instance.useDefaultAlerts);
   writeNotNull('mayInviteSelf', instance.mayInviteSelf);

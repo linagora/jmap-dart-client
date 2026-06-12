@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:jmap_dart_client/jmap/contact/related_to_values.dart';
+import 'package:jmap_dart_client/jmap/contact/related_to_value.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'trigger.g.dart';

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:jmap_dart_client/util/util.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'pronouns.g.dart';
@@ -10,7 +11,7 @@ class Pronouns with EquatableMixin {
 
   final String pronouns;
 
-  @JsonKey(includeIfNull: false)
+  @JsonKey(includeIfNull: false, fromJson: parseIntNullable)
   final int? pref;
 
   Pronouns({

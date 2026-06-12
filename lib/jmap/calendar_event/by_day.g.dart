@@ -7,7 +7,7 @@ part of 'by_day.dart';
 // **************************************************************************
 
 ByDay _$ByDayFromJson(Map<String, dynamic> json) => ByDay(
-      type: json['@type'] as String?,
+      type: json['@type'] as String? ?? 'NDay',
       day: json['day'] as String?,
     );
 

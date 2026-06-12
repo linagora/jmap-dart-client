@@ -1,4 +1,4 @@
-import 'package:jmap_dart_client/jmap/contact/online_service_values.dart';
+import 'package:jmap_dart_client/jmap/contact/online_service_value.dart';
 
 class OnlineServiceValueConverter {
   MapEntry<String, OnlineServiceValue> parseEntry(String key, dynamic value) {

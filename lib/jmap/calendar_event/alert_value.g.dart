@@ -7,6 +7,7 @@ part of 'alert_value.dart';
 // **************************************************************************
 
 AlertValue _$AlertValueFromJson(Map<String, dynamic> json) => AlertValue(
+      type: json['@type'] as String? ?? 'Alert',
       action: json['action'] as String? ?? 'Alert',
       trigger: json['trigger'] == null
           ? null
@@ -22,6 +23,7 @@ Map<String, dynamic> _$AlertValueToJson(AlertValue instance) {
     }
   }
 
+  writeNotNull('@type', instance.type);
   writeNotNull('action', instance.action);
   val['trigger'] = instance.trigger;
   return val;

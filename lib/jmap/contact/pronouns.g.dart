@@ -7,9 +7,9 @@ part of 'pronouns.dart';
 // **************************************************************************
 
 Pronouns _$PronounsFromJson(Map<String, dynamic> json) => Pronouns(
-      type: json['@type'] as String?,
+      type: json['@type'] as String? ?? 'Pronouns',
       pronouns: json['pronouns'] as String,
-      pref: json['pref'] as int?,
+      pref: parseIntNullable(json['pref']),
     );
 
 Map<String, dynamic> _$PronounsToJson(Pronouns instance) {

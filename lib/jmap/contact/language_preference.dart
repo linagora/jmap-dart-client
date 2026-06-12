@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:jmap_dart_client/http/converter/contact/context_map_converter.dart';
+import 'package:jmap_dart_client/util/util.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'context.dart';
 
@@ -12,6 +13,7 @@ class LanguagePref with EquatableMixin {
   final String language;
   @ContextsMapConverter()
   final Map<Context, bool>? contexts;
+  @JsonKey(includeIfNull: false, fromJson: parseIntNullable)
   final int? pref;
 
   LanguagePref({

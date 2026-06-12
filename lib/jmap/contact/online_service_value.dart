@@ -3,7 +3,7 @@ import 'package:jmap_dart_client/http/converter/contact/context_map_converter.da
 import 'package:jmap_dart_client/jmap/contact/context.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'online_service_values.g.dart';
+part 'online_service_value.g.dart';
 
 @ContextsMapConverter()
 @JsonSerializable()

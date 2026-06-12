@@ -13,7 +13,7 @@ Media _$MediaFromJson(Map<String, dynamic> json) => Media(
       mediaType: json['mediaType'] as String?,
       contexts: const ContextsMapConverter()
           .fromJson(json['contexts'] as Map<String, dynamic>?),
-      pref: json['pref'] as int?,
+      pref: parseIntNullable(json['pref']),
       label: json['label'] as String?,
       blobId: json['blobId'] as String?,
     );

@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:jmap_dart_client/jmap/calendar_event/by_day.dart';
+import 'package:jmap_dart_client/util/util.dart';
 
 part 'recurrence_rules.g.dart';
 
@@ -12,19 +13,19 @@ class RecurrenceRules extends Equatable {
   @JsonKey(includeIfNull: false, name: '@type')
   final String? type;
 
-  @JsonKey(includeIfNull: false)
+  @JsonKey(includeIfNull: false, fromJson: parseIntNullable)
   final int? interval;
 
-  @JsonKey(includeIfNull: false)
+  @JsonKey(includeIfNull: false, fromJson: parseIntNullable)
   final int? count;
 
   @JsonKey(includeIfNull: false)
   final Set<ByDay>? byDay;
 
-  @JsonKey(includeIfNull: false)
+  @JsonKey(includeIfNull: false, fromJson: parseIntListNullable)
   final List<int>? byMonth;
 
-  @JsonKey(includeIfNull: false)
+  @JsonKey(includeIfNull: false, fromJson: parseIntListNullable)
   final List<int>? bySetPosition;
 
   @JsonKey(includeIfNull: false)

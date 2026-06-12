@@ -4,6 +4,7 @@ import 'package:jmap_dart_client/http/converter/contact/phone_features_type_conv
 import 'package:jmap_dart_client/jmap/contact/contact_api_version.dart';
 import 'package:jmap_dart_client/jmap/contact/context.dart';
 import 'package:jmap_dart_client/jmap/contact/phone_features_identifier.dart';
+import 'package:jmap_dart_client/util/util.dart';
 
 class PhoneValue with EquatableMixin {
   final String? type;     
@@ -33,7 +34,7 @@ class PhoneValue with EquatableMixin {
       contexts: (json['contexts'] as Map<String, dynamic>?)
           ?.map((k, v) => ContextConverter().parseEntry(k, v)),
       number: json['number'] as String?,
-      pref: json['pref'] as int?,
+      pref: parseIntNullable(json['pref']),
       label: json['label'] as String?,
     );
   }

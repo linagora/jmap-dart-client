@@ -7,10 +7,10 @@ part of 'crypto_key.dart';
 // **************************************************************************
 
 CryptoKey _$CryptoKeyFromJson(Map<String, dynamic> json) => CryptoKey(
-      type: json['@type'] as String?,
+      type: json['@type'] as String? ?? 'CryptoKey',
       uri: json['uri'] as String,
       mediaType: json['mediaType'] as String?,
-      pref: json['pref'] as int?,
+      pref: parseIntNullable(json['pref']),
       label: json['label'] as String?,
     );
 
@@ -26,7 +26,7 @@ Map<String, dynamic> _$CryptoKeyToJson(CryptoKey instance) {
   writeNotNull('@type', instance.type);
   val['uri'] = instance.uri;
   val['mediaType'] = instance.mediaType;
-  val['pref'] = instance.pref;
+  writeNotNull('pref', instance.pref);
   val['label'] = instance.label;
   return val;
 }

@@ -1,6 +1,6 @@
 import 'package:jmap_dart_client/http/converter/contact/title_id_converter.dart';
-import 'package:jmap_dart_client/jmap/contact/contact_ids.dart';
-import 'package:jmap_dart_client/jmap/contact/title_values.dart';
+import 'package:jmap_dart_client/jmap/contact/contact_id.dart';
+import 'package:jmap_dart_client/jmap/contact/title_value.dart';
 import 'package:jmap_dart_client/jmap/contact/contact_api_version.dart';
 
 class TitleValueConverter {

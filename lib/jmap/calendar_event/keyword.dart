@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'keywords.g.dart';
+part 'keyword.g.dart';
 
 @JsonSerializable()
 class Keyword with EquatableMixin {

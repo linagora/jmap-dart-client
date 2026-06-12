@@ -1,5 +1,5 @@
-import 'package:jmap_dart_client/jmap/contact/contact_ids.dart';
-import 'package:jmap_dart_client/jmap/contact/anniversary_values.dart';
+import 'package:jmap_dart_client/jmap/contact/contact_id.dart';
+import 'package:jmap_dart_client/jmap/contact/anniversary_value.dart';
 import 'anniversary_id_converter.dart';
 
 class AnniversaryValueConverter {

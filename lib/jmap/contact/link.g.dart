@@ -7,13 +7,13 @@ part of 'link.dart';
 // **************************************************************************
 
 Link _$LinkFromJson(Map<String, dynamic> json) => Link(
-      type: json['@type'] as String?,
+      type: json['@type'] as String? ?? 'Link',
       kind: json['kind'] as String?,
       uri: json['uri'] as String,
       mediaType: json['mediaType'] as String?,
       contexts: const ContextsMapConverter()
           .fromJson(json['contexts'] as Map<String, dynamic>?),
-      pref: json['pref'] as int?,
+      pref: parseIntNullable(json['pref']),
       label: json['label'] as String?,
     );
 

@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:jmap_dart_client/http/converter/contact/context_map_converter.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:jmap_dart_client/jmap/contact/context.dart';
+import 'package:jmap_dart_client/util/util.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'scheduling_address.g.dart';
 
@@ -12,6 +13,7 @@ class SchedulingAddress with EquatableMixin {
   final String? uri;
   @ContextsMapConverter()
   final Map<Context, bool>? contexts;
+  @JsonKey(includeIfNull: false, fromJson: parseIntNullable)
   final int? pref;
   final String? label;
 

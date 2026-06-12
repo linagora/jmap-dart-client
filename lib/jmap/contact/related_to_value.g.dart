@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'related_to_values.dart';
+part of 'related_to_value.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

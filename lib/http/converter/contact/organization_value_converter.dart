@@ -1,6 +1,6 @@
 import 'package:jmap_dart_client/jmap/contact/contact_api_version.dart';
-import 'package:jmap_dart_client/jmap/contact/contact_ids.dart';
-import 'package:jmap_dart_client/jmap/contact/organization_values.dart';
+import 'package:jmap_dart_client/jmap/contact/contact_id.dart';
+import 'package:jmap_dart_client/jmap/contact/organization_value.dart';
 
 class OrganizationValueConverter {
   MapEntry<String, dynamic> toJson(

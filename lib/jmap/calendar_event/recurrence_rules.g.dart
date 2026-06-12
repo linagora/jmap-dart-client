@@ -10,16 +10,13 @@ RecurrenceRules _$RecurrenceRulesFromJson(Map<String, dynamic> json) =>
     RecurrenceRules(
       frequency: json['frequency'] as String?,
       type: json['@type'] as String? ?? 'RecurrenceRule',
-      interval: json['interval'] as int?,
-      count: json['count'] as int?,
+      interval: parseIntNullable(json['interval']),
+      count: parseIntNullable(json['count']),
       byDay: (json['byDay'] as List<dynamic>?)
           ?.map((e) => ByDay.fromJson(e as Map<String, dynamic>))
           .toSet(),
-      byMonth:
-          (json['byMonth'] as List<dynamic>?)?.map((e) => e as int).toList(),
-      bySetPosition: (json['bySetPosition'] as List<dynamic>?)
-          ?.map((e) => e as int)
-          .toList(),
+      byMonth: parseIntListNullable(json['byMonth']),
+      bySetPosition: parseIntListNullable(json['bySetPosition']),
       until: json['until'] as String?,
     );
 

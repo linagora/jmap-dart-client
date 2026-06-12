@@ -1,6 +1,6 @@
 import 'package:jmap_dart_client/http/converter/contact/related_to_name_converter.dart';
-import 'package:jmap_dart_client/jmap/contact/contact_ids.dart';
-import 'package:jmap_dart_client/jmap/contact/related_to_values.dart';
+import 'package:jmap_dart_client/jmap/contact/contact_id.dart';
+import 'package:jmap_dart_client/jmap/contact/related_to_value.dart';
 
 
 class RelatedToValueConverter {

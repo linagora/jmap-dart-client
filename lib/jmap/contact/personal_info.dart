@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:jmap_dart_client/http/converter/contact/context_map_converter.dart';
+import 'package:jmap_dart_client/util/util.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'context.dart';
@@ -22,7 +23,7 @@ class PersonalInfo with EquatableMixin {
   @JsonKey(includeIfNull: false)
   final Map<Context, bool>? contexts;
 
-  @JsonKey(includeIfNull: false)
+  @JsonKey(includeIfNull: false, fromJson: parseIntNullable)
   final int? listAs;
 
   @JsonKey(includeIfNull: false)

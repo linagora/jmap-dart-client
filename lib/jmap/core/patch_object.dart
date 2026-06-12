@@ -8,6 +8,8 @@ class PatchObject with EquatableMixin {
 
   PatchObject(this.patches);
 
+  factory PatchObject.fromJson(Map<String, dynamic> json) => PatchObject(json);
+
   final Map<String, dynamic> patches;
 
   Map<String, dynamic> toJson() => patches;

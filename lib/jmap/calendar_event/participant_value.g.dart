@@ -19,7 +19,7 @@ ParticipantValue _$ParticipantValueFromJson(Map<String, dynamic> json) =>
           : SendTo.fromJson(json['sendTo'] as Map<String, dynamic>),
       roles: const RoleMapConverter()
           .fromJson(json['roles'] as Map<String, dynamic>?),
-      expectReply: json['expectReply'] as bool?,
+      expectReply: parseBoolNullable(json['expectReply']),
       scheduleStatus: (json['scheduleStatus'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),

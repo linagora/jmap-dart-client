@@ -7,7 +7,7 @@ part of 'speak_to_as.dart';
 // **************************************************************************
 
 SpeakToAs _$SpeakToAsFromJson(Map<String, dynamic> json) => SpeakToAs(
-      type: json['@type'] as String?,
+      type: json['@type'] as String? ?? 'SpeakToAs',
       grammaticalGender: json['grammaticalGender'] as String?,
       pronouns: (json['pronouns'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, Pronouns.fromJson(e as Map<String, dynamic>)),

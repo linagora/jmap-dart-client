@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:jmap_dart_client/util/util.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'crypto_key.g.dart';
@@ -9,6 +10,7 @@ class CryptoKey with EquatableMixin {
   final String? type;
   final String uri;
   final String? mediaType;
+  @JsonKey(includeIfNull: false, fromJson: parseIntNullable)
   final int? pref;
   final String? label;
 

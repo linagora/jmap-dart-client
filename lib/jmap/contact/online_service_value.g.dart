@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'online_service_values.dart';
+part of 'online_service_value.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -8,7 +8,7 @@ part of 'online_service_values.dart';
 
 OnlineServiceValue _$OnlineServiceValueFromJson(Map<String, dynamic> json) =>
     OnlineServiceValue(
-      type: json['@type'] as String?,
+      type: json['@type'] as String? ?? 'OnlineService',
       service: json['service'] as String?,
       uri: json['uri'] as String?,
       user: json['user'] as String?,

@@ -8,7 +8,7 @@ part of 'organization_unit.dart';
 
 OrganizationUnit _$OrganizationUnitFromJson(Map<String, dynamic> json) =>
     OrganizationUnit(
-      type: json['@type'] as String?,
+      type: json['@type'] as String? ?? 'OrgUnit',
       name: json['name'] as String?,
     );
 

@@ -8,11 +8,11 @@ part of 'scheduling_address.dart';
 
 SchedulingAddress _$SchedulingAddressFromJson(Map<String, dynamic> json) =>
     SchedulingAddress(
-      type: json['@type'] as String?,
+      type: json['@type'] as String? ?? 'SchedulingAddress',
       uri: json['uri'] as String?,
       contexts: const ContextsMapConverter()
           .fromJson(json['contexts'] as Map<String, dynamic>?),
-      pref: json['pref'] as int?,
+      pref: parseIntNullable(json['pref']),
       label: json['label'] as String?,
     );
 
@@ -28,7 +28,7 @@ Map<String, dynamic> _$SchedulingAddressToJson(SchedulingAddress instance) {
   writeNotNull('@type', instance.type);
   val['uri'] = instance.uri;
   val['contexts'] = const ContextsMapConverter().toJson(instance.contexts);
-  val['pref'] = instance.pref;
+  writeNotNull('pref', instance.pref);
   val['label'] = instance.label;
   return val;
 }

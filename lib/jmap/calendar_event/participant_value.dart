@@ -3,6 +3,7 @@ import 'package:jmap_dart_client/http/converter/calendar_event/role_map_converte
 import 'package:json_annotation/json_annotation.dart';
 import 'package:jmap_dart_client/jmap/calendar_event/send_to.dart';
 import 'package:jmap_dart_client/jmap/calendar_event/role.dart';
+import 'package:jmap_dart_client/util/util.dart';
 
 part 'participant_value.g.dart';
 
@@ -33,7 +34,7 @@ class ParticipantValue with EquatableMixin {
   @JsonKey(includeIfNull: false)
   final Map<Role, bool>? roles;
 
-  @JsonKey(includeIfNull: false)
+  @JsonKey(includeIfNull: false, fromJson: parseBoolNullable)
   final bool? expectReply;
 
   @JsonKey(includeIfNull: false)
