@@ -92,7 +92,6 @@ class ContactUtil {
       method: method,
       apiVersion: apiVersion,
     );
-print(resp);
     if (resp.list.isEmpty) {
       return null;
     }

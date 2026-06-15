@@ -37,7 +37,7 @@ class Card extends Contact {
   Card({
     ContactId? id,
     this.uid,
-    this.type,
+    this.type = 'Card',
     this.fullName,
     String? created,
     String? updated,
@@ -204,8 +204,6 @@ class Card extends Contact {
           street: list[i]['street'] != null
               ? {
                   Street(
-                    typeName: null,
-                    type: null,
                     value: list[i]['street'].toString(),
                   )
                 }

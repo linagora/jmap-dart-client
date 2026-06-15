@@ -5,21 +5,17 @@ part 'street.g.dart';
 
 @JsonSerializable()
 class Street with EquatableMixin {
-  final String? typeName;
-  final String? type;
   final String? value;
 
-  Street({this.typeName, this.type, this.value});
+  Street({this.value});
 
   factory Street.fromJson(Map<String, dynamic> json) => _$StreetFromJson(json);
 
   Map<String, dynamic> toJson() => _$StreetToJson(this);
 
   @override
-  List<Object?> get props => [typeName, type, value];
+  List<Object?> get props => [value];
 
   @override
-  String toString() {
-    return 'Street(typeName: $typeName, type: $type, value: $value)';
-  }
+  String toString() => 'Street(value: $value)';
 }

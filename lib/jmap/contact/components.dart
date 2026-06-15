@@ -12,7 +12,7 @@ class Components with EquatableMixin {
   Components({
     this.kind,
     this.value,
-    this.type,
+    this.type = 'NameComponent',
   });
 
   /// json_serializable, handles both formats:
