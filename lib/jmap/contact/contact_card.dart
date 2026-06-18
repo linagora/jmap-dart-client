@@ -324,13 +324,12 @@ class ContactCard extends Contact {
         anniversaries,
         keywords,
         notes,
-        schedulingAddresses, 
+        schedulingAddresses,
         directories,
         media,
         cryptoKeys,
         localizations,
         personalInfo,
-        anniversaries,
         links,
       ];
 
@@ -352,14 +351,14 @@ class ContactCard extends Contact {
         'preferredLanguages: $preferredLanguages, '
         'keywords: $keywords, '
         'notes: $notes, '
-        'blobId: $blobId'
-        'schedulingAddresses: $schedulingAddresses'
-        'directories: $directories'
-        'media: $media'
-        'cryptoKeys: $cryptoKeys'
-        'localizations: $localizations'
-        'personalInfo: $personalInfo'
-        'anniversaries: $anniversaries'
+        'blobId: $blobId, '
+        'schedulingAddresses: $schedulingAddresses, '
+        'directories: $directories, '
+        'media: $media, '
+        'cryptoKeys: $cryptoKeys, '
+        'localizations: $localizations, '
+        'personalInfo: $personalInfo, '
+        'anniversaries: $anniversaries, '
         'links: $links'
         ')';
   }
