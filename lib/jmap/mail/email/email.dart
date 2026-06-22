@@ -48,7 +48,7 @@ class Email with EquatableMixin {
   final Set<EmailBodyPart>? attachments;
   final EmailBodyPart? bodyStructure;
   final Map<PartId, EmailBodyValue>? bodyValues;
-  final Map<IndividualHeaderIdentifier, EmailHeaderValue?>? individualHeaders;
+  final Map<IndividualHeaderIdentifier, EmailHeaderValue> individualHeaders;
 
   Email({
     this.id,
@@ -77,64 +77,64 @@ class Email with EquatableMixin {
     this.attachments,
     this.bodyStructure,
     this.bodyValues,
-    this.individualHeaders,
+    this.individualHeaders = const {},
   });
 
   // Backward-compat getters for pre-existing individual headers
   TextHeaderValue? get headerUserAgent {
-    final value = individualHeaders?[IndividualHeaderIdentifier.headerUserAgent];
+    final value = individualHeaders[IndividualHeaderIdentifier.headerUserAgent];
     return value is TextHeaderValue ? value : null;
   }
 
   TextHeaderValue? get headerMdn {
-    final value = individualHeaders?[IndividualHeaderIdentifier.headerMdn];
+    final value = individualHeaders[IndividualHeaderIdentifier.headerMdn];
     return value is TextHeaderValue ? value : null;
   }
 
   TextHeaderValue? get headerReturnPath {
-    final value = individualHeaders?[IndividualHeaderIdentifier.headerReturnPath];
+    final value = individualHeaders[IndividualHeaderIdentifier.headerReturnPath];
     return value is TextHeaderValue ? value : null;
   }
 
   TextHeaderValue? get headerCalendarEvent {
     final value =
-        individualHeaders?[IndividualHeaderIdentifier.headerCalendarEvent];
+        individualHeaders[IndividualHeaderIdentifier.headerCalendarEvent];
     return value is TextHeaderValue ? value : null;
   }
 
   TextHeaderValue? get sMimeStatusHeader {
-    final value = individualHeaders?[IndividualHeaderIdentifier.sMimeStatusHeader];
+    final value = individualHeaders[IndividualHeaderIdentifier.sMimeStatusHeader];
     return value is TextHeaderValue ? value : null;
   }
 
   TextHeaderValue? get identityHeader {
-    final value = individualHeaders?[IndividualHeaderIdentifier.identityHeader];
+    final value = individualHeaders[IndividualHeaderIdentifier.identityHeader];
     return value is TextHeaderValue ? value : null;
   }
 
   TextHeaderValue? get xPriorityHeader {
-    final value = individualHeaders?[IndividualHeaderIdentifier.xPriorityHeader];
+    final value = individualHeaders[IndividualHeaderIdentifier.xPriorityHeader];
     return value is TextHeaderValue ? value : null;
   }
 
   TextHeaderValue? get importanceHeader {
-    final value = individualHeaders?[IndividualHeaderIdentifier.importanceHeader];
+    final value = individualHeaders[IndividualHeaderIdentifier.importanceHeader];
     return value is TextHeaderValue ? value : null;
   }
 
   TextHeaderValue? get priorityHeader {
-    final value = individualHeaders?[IndividualHeaderIdentifier.priorityHeader];
+    final value = individualHeaders[IndividualHeaderIdentifier.priorityHeader];
     return value is TextHeaderValue ? value : null;
   }
 
   TextHeaderValue? get listPostHeader {
-    final value = individualHeaders?[IndividualHeaderIdentifier.listPostHeader];
+    final value = individualHeaders[IndividualHeaderIdentifier.listPostHeader];
     return value is TextHeaderValue ? value : null;
   }
 
   TextHeaderValue? get listUnsubscribeHeader {
     final value =
-        individualHeaders?[IndividualHeaderIdentifier.listUnsubscribeHeader];
+        individualHeaders[IndividualHeaderIdentifier.listUnsubscribeHeader];
     return value is TextHeaderValue ? value : null;
   }
 
@@ -170,7 +170,6 @@ class Email with EquatableMixin {
       bodyValues: (json['bodyValues'] as Map<String, dynamic>?)?.map((key, value) => EmailBodyValueConverter().parseEntry(key, value)),
       individualHeaders: () {
         final entries = json.entries.where((e) => e.key.startsWith('header:')).toList();
-        if (entries.isEmpty) return null;
         return Map.fromEntries(entries.map((e) => MapEntry(
           IndividualHeaderIdentifier(e.key),
           EmailHeaderValue.fromJson(e.key, e.value),
@@ -214,8 +213,8 @@ class Email with EquatableMixin {
     writeNotNull('attachments', attachments?.map((attachment) => attachment.toJson()).toList());
     writeNotNull('bodyStructure', bodyStructure?.toJson());
     writeNotNull('bodyValues', bodyValues?.map((key, value) => EmailBodyValueConverter().toJson(key, value)));
-    individualHeaders?.forEach((id, value) {
-      if (value != null) val[id.value] = value.toJson();
+    individualHeaders.forEach((id, value) {
+      val[id.value] = value.toJson();
     });
 
     return val;
@@ -249,7 +248,8 @@ class Email with EquatableMixin {
     attachments,
     bodyStructure,
     bodyValues,
-    individualHeaders,
+    // treat null and empty map as equal — both mean "no individual headers present"
+    individualHeaders.isEmpty == true ? null : individualHeaders,
   ];
 }
 

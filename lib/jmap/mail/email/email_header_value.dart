@@ -6,41 +6,23 @@ import 'package:jmap_dart_client/jmap/mail/email/email_address.dart';
 abstract class EmailHeaderValue with EquatableMixin {
   const EmailHeaderValue();
 
-  static EmailHeaderValue? fromJson(String key, dynamic json) {
+  static EmailHeaderValue fromJson(String key, dynamic json) {
     if (key.endsWith(':all')) {
       final formKey = key.substring(0, key.lastIndexOf(':all'));
       final list = json as List?;
-      return AllHeaderValue(
-          list?.map((e) => _parseSingle(formKey, e)).toList() ?? []);
+      return AllHeaderValue(list
+              ?.map((e) => HeaderType.fromKey(formKey).parseSingle(e))
+              .toList() ??
+          []);
     }
-    return _parseSingle(key, json);
-  }
-
-  static EmailHeaderValue? _parseSingle(String key, dynamic json) {
-    if (key.endsWith(':asText')) return TextHeaderValue(json as String?);
-    if (key.endsWith(':asRaw')) return RawHeaderValue(json as String?);
-    if (key.endsWith(':asDate')) {
-      return DateHeaderValue(
-          const UTCDateNullableConverter().fromJson(json as String?));
-    }
-    if (key.endsWith(':asAddresses')) {
-      return AddressesHeaderValue(
-          (json as List?)?.map((e) => EmailAddress.fromJson(e)).toList() ?? []);
-    }
-    if (key.endsWith(':asMessageIds')) {
-      return MessageIdsEmailHeaderValue((json as List?)?.cast<String>() ?? []);
-    }
-    if (key.endsWith(':asURLs')) {
-      return URLsHeaderValue((json as List?)?.cast<String>() ?? []);
-    }
-    return RawHeaderValue(json?.toString());
+    return HeaderType.fromKey(key).parseSingle(json);
   }
 
   dynamic toJson();
 }
 
 class AllHeaderValue extends EmailHeaderValue {
-  final List<EmailHeaderValue?> values;
+  final List<EmailHeaderValue> values;
   const AllHeaderValue(this.values);
 
   factory AllHeaderValue.fromTexts(List<String?> texts) =>
@@ -62,7 +44,7 @@ class AllHeaderValue extends EmailHeaderValue {
       AllHeaderValue([URLsHeaderValue(urls)]);
 
   @override
-  dynamic toJson() => values.map((v) => v?.toJson()).toList();
+  dynamic toJson() => values.map((v) => v.toJson()).toList();
 
   @override
   List<Object?> get props => [values];
@@ -132,4 +114,68 @@ class URLsHeaderValue extends EmailHeaderValue {
 
   @override
   List<Object?> get props => [urls];
+}
+
+abstract class HeaderType {
+  const HeaderType();
+
+  EmailHeaderValue parseSingle(dynamic json);
+
+  static const _suffixMap = <String, HeaderType>{
+    'asText': TextHeaderType(),
+    'asRaw': RawHeaderType(),
+    'asDate': DateHeaderType(),
+    'asAddresses': AddressesHeaderType(),
+    'asMessageIds': MessageIdsHeaderType(),
+    'asURLs': URLsHeaderType(),
+  };
+
+  // key format: 'header:Name:form' — splits on ':' and reads index 2
+  static HeaderType fromKey(String key) {
+    final parts = key.split(':');
+    return _suffixMap[parts.length >= 3 ? parts[2] : ''] ??
+        const RawHeaderType();
+  }
+}
+
+class TextHeaderType extends HeaderType {
+  const TextHeaderType();
+  @override
+  EmailHeaderValue parseSingle(dynamic json) =>
+      TextHeaderValue(json as String?);
+}
+
+class RawHeaderType extends HeaderType {
+  const RawHeaderType();
+  @override
+  EmailHeaderValue parseSingle(dynamic json) =>
+      RawHeaderValue(json?.toString());
+}
+
+class DateHeaderType extends HeaderType {
+  const DateHeaderType();
+  @override
+  EmailHeaderValue parseSingle(dynamic json) => DateHeaderValue(
+      const UTCDateNullableConverter().fromJson(json as String?));
+}
+
+class AddressesHeaderType extends HeaderType {
+  const AddressesHeaderType();
+  @override
+  EmailHeaderValue parseSingle(dynamic json) => AddressesHeaderValue(
+      (json as List?)?.map((e) => EmailAddress.fromJson(e)).toList() ?? []);
+}
+
+class MessageIdsHeaderType extends HeaderType {
+  const MessageIdsHeaderType();
+  @override
+  EmailHeaderValue parseSingle(dynamic json) =>
+      MessageIdsEmailHeaderValue((json as List?)?.cast<String>() ?? []);
+}
+
+class URLsHeaderType extends HeaderType {
+  const URLsHeaderType();
+  @override
+  EmailHeaderValue parseSingle(dynamic json) =>
+      URLsHeaderValue((json as List?)?.cast<String>() ?? []);
 }
