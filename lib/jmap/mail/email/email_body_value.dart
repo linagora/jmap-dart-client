@@ -6,25 +6,25 @@ class EmailBodyValue with EquatableMixin {
   final String value;
   final bool isEncodingProblem;
   final bool isTruncated;
-  final Map<IndividualHeaderIdentifier, EmailHeaderValue?>? individualHeaders;
+  final Map<IndividualHeaderIdentifier, EmailHeaderValue> individualHeaders;
 
   EmailBodyValue({
     required this.value,
     required this.isEncodingProblem,
     required this.isTruncated,
-    this.individualHeaders,
+    this.individualHeaders = const {},
   });
 
   // Backward-compat getters for pre-existing body part headers
   TextHeaderValue? get acceptLanguageHeader {
     final value =
-        individualHeaders?[IndividualHeaderIdentifier.acceptLanguageHeader];
+        individualHeaders[IndividualHeaderIdentifier.acceptLanguageHeader];
     return value is TextHeaderValue ? value : null;
   }
 
   TextHeaderValue? get contentLanguageHeader {
     final value =
-        individualHeaders?[IndividualHeaderIdentifier.contentLanguageHeader];
+        individualHeaders[IndividualHeaderIdentifier.contentLanguageHeader];
     return value is TextHeaderValue ? value : null;
   }
 
@@ -35,7 +35,6 @@ class EmailBodyValue with EquatableMixin {
       isTruncated: json['isTruncated'] as bool,
       individualHeaders: () {
         final entries = json.entries.where((e) => e.key.startsWith('header:')).toList();
-        if (entries.isEmpty) return null;
         return Map.fromEntries(entries.map((e) => MapEntry(
           IndividualHeaderIdentifier(e.key),
           EmailHeaderValue.fromJson(e.key, e.value),
@@ -56,8 +55,9 @@ class EmailBodyValue with EquatableMixin {
     writeNotNull('value', value);
     writeNotNull('isEncodingProblem', isEncodingProblem);
     writeNotNull('isTruncated', isTruncated);
-    individualHeaders?.forEach((id, value) {
-      if (value != null) val[id.value] = value.toJson();
+    individualHeaders.forEach((id, value) {
+      if (value.toJson() == null) return;
+      val[id.value] = value.toJson();
     });
 
     return val;

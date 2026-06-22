@@ -214,6 +214,7 @@ class Email with EquatableMixin {
     writeNotNull('bodyStructure', bodyStructure?.toJson());
     writeNotNull('bodyValues', bodyValues?.map((key, value) => EmailBodyValueConverter().toJson(key, value)));
     individualHeaders.forEach((id, value) {
+      if (value.toJson() == null) return;
       val[id.value] = value.toJson();
     });
 

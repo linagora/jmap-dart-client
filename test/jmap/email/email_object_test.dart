@@ -367,6 +367,38 @@ void main() {
       expect(parsedEmail.id, equals(expectedEmail.id));
     });
 
+    test('Email.toJson() omits header key when header value toJson() is null', () {
+      final email = Email(
+        individualHeaders: {
+          IndividualHeaderIdentifier.headerUserAgent: const TextHeaderValue(null),
+        },
+      );
+
+      final json = email.toJson();
+
+      expect(json.containsKey('header:User-Agent:asText'), isFalse);
+    });
+
+    test('Email with default individualHeaders equals Email with explicit empty map', () {
+      final emailDefault = Email(subject: 'test');
+      final emailEmpty = Email(subject: 'test', individualHeaders: {});
+
+      expect(emailDefault, equals(emailEmpty));
+    });
+
+    test('null-value getter returns non-null TextHeaderValue with null value when key present', () {
+      final email = Email(
+        individualHeaders: {
+          IndividualHeaderIdentifier.headerUserAgent: const TextHeaderValue(null),
+        },
+      );
+
+      final header = email.headerUserAgent;
+
+      expect(header, isNotNull);
+      expect(header!.value, isNull);
+    });
+
     test('Email.toJson() should convert to json correctly', () {
       const keywordSeen = '\$seen';
       const expectedEmailAsJson = '''{
