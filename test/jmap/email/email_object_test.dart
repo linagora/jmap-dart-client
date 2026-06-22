@@ -399,6 +399,187 @@ void main() {
       expect(header!.value, isNull);
     });
 
+    group('multiple IndividualHeaderIdentifier', () {
+      test('fromJson() parses multiple header:* keys into individualHeaders', () {
+        final json = {
+          'id': 'abc123',
+          'header:User-Agent:asText': 'MyClient/1.0',
+          'header:Disposition-Notification-To:asText': 'sender@example.com',
+          'header:X-Priority:asText': '1',
+          'subject': 'Test',
+        };
+
+        final email = Email.fromJson(json);
+
+        expect(email.individualHeaders.length, equals(3));
+        expect(
+          email.individualHeaders[IndividualHeaderIdentifier.headerUserAgent],
+          equals(const TextHeaderValue('MyClient/1.0')),
+        );
+        expect(
+          email.individualHeaders[IndividualHeaderIdentifier.headerMdn],
+          equals(const TextHeaderValue('sender@example.com')),
+        );
+        expect(
+          email.individualHeaders[IndividualHeaderIdentifier.xPriorityHeader],
+          equals(const TextHeaderValue('1')),
+        );
+      });
+
+      test('fromJson() does not include non-header email fields in individualHeaders', () {
+        final json = {
+          'id': 'abc123',
+          'subject': 'Hello',
+          'header:User-Agent:asText': 'MyClient/1.0',
+        };
+
+        final email = Email.fromJson(json);
+
+        expect(email.individualHeaders.length, equals(1));
+        expect(email.individualHeaders.keys.first.value, equals('header:User-Agent:asText'));
+      });
+
+      test('fromJson() parses header:*:asAddresses into AddressesHeaderValue', () {
+        final json = {
+          'header:From:asAddresses': [
+            {'name': 'Alice', 'email': 'alice@example.com'},
+          ],
+        };
+
+        final email = Email.fromJson(json);
+
+        final value = email.individualHeaders[IndividualHeaderIdentifier.asAddresses('From')];
+        expect(value, isA<AddressesHeaderValue>());
+        expect((value as AddressesHeaderValue).addresses.length, equals(1));
+        expect(value.addresses[0], equals(EmailAddress('Alice', 'alice@example.com')));
+      });
+
+      test('fromJson() parses header:*:asMessageIds into MessageIdsEmailHeaderValue', () {
+        final json = {
+          'header:Message-ID:asMessageIds': ['msg1@host.com', 'msg2@host.com'],
+        };
+
+        final email = Email.fromJson(json);
+
+        final value = email.individualHeaders[IndividualHeaderIdentifier.asMessageIds('Message-ID')];
+        expect(value, isA<MessageIdsEmailHeaderValue>());
+        expect((value as MessageIdsEmailHeaderValue).ids, equals(['msg1@host.com', 'msg2@host.com']));
+      });
+
+      test('fromJson() parses header:*:asURLs into URLsHeaderValue', () {
+        final json = {
+          'header:List-Unsubscribe:asURLs': ['https://example.com/unsub'],
+        };
+
+        final email = Email.fromJson(json);
+
+        final value = email.individualHeaders[IndividualHeaderIdentifier.asURLs('List-Unsubscribe')];
+        expect(value, isA<URLsHeaderValue>());
+        expect((value as URLsHeaderValue).urls, equals(['https://example.com/unsub']));
+      });
+
+      test('fromJson() parses header:*:asRaw:all into AllHeaderValue of RawHeaderValues', () {
+        final json = {
+          'header:Received:asRaw:all': [' from a.example.com', ' from b.example.com'],
+        };
+
+        final email = Email.fromJson(json);
+
+        final key = IndividualHeaderIdentifier.asRaw('Received').all();
+        final value = email.individualHeaders[key];
+        expect(value, isA<AllHeaderValue>());
+        final all = (value as AllHeaderValue).values;
+        expect(all.length, equals(2));
+        expect(all[0], isA<RawHeaderValue>());
+        expect((all[0] as RawHeaderValue).value, equals(' from a.example.com'));
+      });
+
+      test('fromJson() parses explicitly null header value to TextHeaderValue(null)', () {
+        final json = {
+          'header:User-Agent:asText': null,
+        };
+
+        final email = Email.fromJson(json);
+
+        final value = email.individualHeaders[IndividualHeaderIdentifier.headerUserAgent];
+        expect(value, isA<TextHeaderValue>());
+        expect((value as TextHeaderValue).value, isNull);
+      });
+
+      test('toJson() serializes multiple individual headers, omits null-value entries', () {
+        final email = Email(
+          subject: 'Test',
+          individualHeaders: {
+            IndividualHeaderIdentifier.headerUserAgent: const TextHeaderValue('MyClient/1.0'),
+            IndividualHeaderIdentifier.xPriorityHeader: const TextHeaderValue('1'),
+            IndividualHeaderIdentifier.headerMdn: const TextHeaderValue(null),
+          },
+        );
+
+        final json = email.toJson();
+
+        expect(json['header:User-Agent:asText'], equals('MyClient/1.0'));
+        expect(json['header:X-Priority:asText'], equals('1'));
+        expect(json.containsKey('header:Disposition-Notification-To:asText'), isFalse);
+      });
+
+      test('backward-compat getter returns null when key absent', () {
+        final email = Email(subject: 'test');
+
+        expect(email.headerUserAgent, isNull);
+        expect(email.headerMdn, isNull);
+        expect(email.xPriorityHeader, isNull);
+        expect(email.importanceHeader, isNull);
+        expect(email.priorityHeader, isNull);
+        expect(email.listPostHeader, isNull);
+        expect(email.listUnsubscribeHeader, isNull);
+      });
+
+      test('backward-compat getter returns null when stored value is not TextHeaderValue', () {
+        final email = Email(
+          individualHeaders: {
+            IndividualHeaderIdentifier.headerUserAgent: const RawHeaderValue('MyClient/1.0'),
+          },
+        );
+
+        expect(email.headerUserAgent, isNull);
+      });
+
+      test('two Emails with same individualHeaders map are equal', () {
+        final email1 = Email(
+          subject: 'Hello',
+          individualHeaders: {
+            IndividualHeaderIdentifier.headerUserAgent: const TextHeaderValue('A'),
+            IndividualHeaderIdentifier.xPriorityHeader: const TextHeaderValue('1'),
+          },
+        );
+        final email2 = Email(
+          subject: 'Hello',
+          individualHeaders: {
+            IndividualHeaderIdentifier.headerUserAgent: const TextHeaderValue('A'),
+            IndividualHeaderIdentifier.xPriorityHeader: const TextHeaderValue('1'),
+          },
+        );
+
+        expect(email1, equals(email2));
+      });
+
+      test('two Emails with different individualHeaders are not equal', () {
+        final email1 = Email(
+          individualHeaders: {
+            IndividualHeaderIdentifier.headerUserAgent: const TextHeaderValue('A'),
+          },
+        );
+        final email2 = Email(
+          individualHeaders: {
+            IndividualHeaderIdentifier.headerUserAgent: const TextHeaderValue('B'),
+          },
+        );
+
+        expect(email1, isNot(equals(email2)));
+      });
+    });
+
     test('Email.toJson() should convert to json correctly', () {
       const keywordSeen = '\$seen';
       const expectedEmailAsJson = '''{
