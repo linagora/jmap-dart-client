@@ -1,37 +1,46 @@
 import 'package:equatable/equatable.dart';
-import 'package:jmap_dart_client/http/converter/individual_header_identifier_converter.dart';
+import 'package:jmap_dart_client/jmap/mail/email/email_header_value.dart';
 import 'package:jmap_dart_client/jmap/mail/email/individual_header_identifier.dart';
 
 class EmailBodyValue with EquatableMixin {
   final String value;
   final bool isEncodingProblem;
   final bool isTruncated;
-  final Map<IndividualHeaderIdentifier, String?>? acceptLanguageHeader;
-  final Map<IndividualHeaderIdentifier, String?>? contentLanguageHeader;
+  final Map<IndividualHeaderIdentifier, EmailHeaderValue?>? individualHeaders;
 
   EmailBodyValue({
     required this.value,
     required this.isEncodingProblem,
     required this.isTruncated,
-    this.acceptLanguageHeader,
-    this.contentLanguageHeader
+    this.individualHeaders,
   });
+
+  // Backward-compat getters for pre-existing body part headers
+  TextHeaderValue? get acceptLanguageHeader {
+    final value =
+        individualHeaders?[IndividualHeaderIdentifier.acceptLanguageHeader];
+    return value is TextHeaderValue ? value : null;
+  }
+
+  TextHeaderValue? get contentLanguageHeader {
+    final value =
+        individualHeaders?[IndividualHeaderIdentifier.contentLanguageHeader];
+    return value is TextHeaderValue ? value : null;
+  }
 
   factory EmailBodyValue.fromJson(Map<String, dynamic> json) {
     return EmailBodyValue(
       value: json['value'] as String,
       isEncodingProblem: json['isEncodingProblem'] as bool,
       isTruncated: json['isTruncated'] as bool,
-      acceptLanguageHeader: IndividualHeaderIdentifierNullableConverter()
-        .parseEntry(
-          IndividualHeaderIdentifier.acceptLanguageHeader.value,
-          json[IndividualHeaderIdentifier.acceptLanguageHeader.value] as String?
-        ),
-      contentLanguageHeader: IndividualHeaderIdentifierNullableConverter()
-        .parseEntry(
-          IndividualHeaderIdentifier.contentLanguageHeader.value,
-          json[IndividualHeaderIdentifier.contentLanguageHeader.value] as String?
-        ),
+      individualHeaders: () {
+        final entries = json.entries.where((e) => e.key.startsWith('header:')).toList();
+        if (entries.isEmpty) return null;
+        return Map.fromEntries(entries.map((e) => MapEntry(
+          IndividualHeaderIdentifier(e.key),
+          EmailHeaderValue.fromJson(e.key, e.value),
+        )));
+      }(),
     );
   }
 
@@ -47,20 +56,10 @@ class EmailBodyValue with EquatableMixin {
     writeNotNull('value', value);
     writeNotNull('isEncodingProblem', isEncodingProblem);
     writeNotNull('isTruncated', isTruncated);
-    writeNotNull(
-      IndividualHeaderIdentifier.acceptLanguageHeader.value,
-      IndividualHeaderIdentifierNullableConverter().toJson(
-        acceptLanguageHeader,
-        IndividualHeaderIdentifier.acceptLanguageHeader
-      )
-    );
-    writeNotNull(
-      IndividualHeaderIdentifier.contentLanguageHeader.value,
-      IndividualHeaderIdentifierNullableConverter().toJson(
-        contentLanguageHeader,
-        IndividualHeaderIdentifier.contentLanguageHeader
-      )
-    );
+    individualHeaders?.forEach((id, value) {
+      if (value != null) val[id.value] = value.toJson();
+    });
+
     return val;
   }
 
@@ -69,7 +68,6 @@ class EmailBodyValue with EquatableMixin {
     value,
     isEncodingProblem,
     isTruncated,
-    acceptLanguageHeader,
-    contentLanguageHeader,
+    individualHeaders,
   ];
 }
