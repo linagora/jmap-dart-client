@@ -34,11 +34,13 @@ class EmailBodyValue with EquatableMixin {
       isEncodingProblem: json['isEncodingProblem'] as bool,
       isTruncated: json['isTruncated'] as bool,
       individualHeaders: () {
-        final entries = json.entries.where((e) => e.key.startsWith('header:')).toList();
-        return Map.fromEntries(entries.map((e) => MapEntry(
-          IndividualHeaderIdentifier(e.key),
-          EmailHeaderValue.fromJson(e.key, e.value),
-        )));
+        final result = <IndividualHeaderIdentifier, EmailHeaderValue>{};
+        for (final e in json.entries.where((e) => e.key.startsWith('header:'))) {
+          try {
+            result[IndividualHeaderIdentifier(e.key)] = EmailHeaderValue.fromJson(e.key, e.value);
+          } catch (_) {}
+        }
+        return result;
       }(),
     );
   }
@@ -56,8 +58,11 @@ class EmailBodyValue with EquatableMixin {
     writeNotNull('isEncodingProblem', isEncodingProblem);
     writeNotNull('isTruncated', isTruncated);
     individualHeaders.forEach((id, value) {
-      if (value.toJson() == null) return;
-      val[id.value] = value.toJson();
+      try {
+        final serialized = value.toJson();
+        if (serialized == null) return;
+        val[id.value] = serialized;
+      } catch (_) {}
     });
 
     return val;

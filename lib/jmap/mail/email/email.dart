@@ -147,7 +147,16 @@ class Email with EquatableMixin {
       keywords: (json['keywords'] as Map<String, dynamic>?)?.map((key, value) => EmailKeywordIdentifierConverter().parseEntry(key, value)),
       size: const UnsignedIntNullableConverter().fromJson(json['size'] as int?),
       receivedAt: const UTCDateNullableConverter().fromJson(json['receivedAt'] as String?),
-      headers: (json['headers'] as List<dynamic>?)?.map((json) => EmailHeader.fromJson(json)).toSet(),
+      headers: (json['headers'] as List<dynamic>?)
+          ?.map((item) {
+            try {
+              return EmailHeader.fromJson(item);
+            } catch (_) {
+              return null;
+            }
+          })
+          .whereType<EmailHeader>()
+          .toSet(),
       messageId: const MessageIdsHeaderValueNullableConverter().fromJson((json['messageId'] as List<dynamic>?)),
       inReplyTo: const MessageIdsHeaderValueNullableConverter().fromJson((json['inReplyTo'] as List<dynamic>?)),
       references: const MessageIdsHeaderValueNullableConverter().fromJson((json['references'] as List<dynamic>?)),
@@ -167,13 +176,26 @@ class Email with EquatableMixin {
       bodyStructure: json['bodyStructure'] == null
         ? null
         : EmailBodyPart.fromJson(json['bodyStructure'] as Map<String, dynamic>),
-      bodyValues: (json['bodyValues'] as Map<String, dynamic>?)?.map((key, value) => EmailBodyValueConverter().parseEntry(key, value)),
+      bodyValues: () {
+        final raw = json['bodyValues'] as Map<String, dynamic>?;
+        if (raw == null) return null;
+        final result = <PartId, EmailBodyValue>{};
+        for (final entry in raw.entries) {
+          try {
+            final parsed = EmailBodyValueConverter().parseEntry(entry.key, entry.value);
+            result[parsed.key] = parsed.value;
+          } catch (_) {}
+        }
+        return result.isEmpty ? null : result;
+      }(),
       individualHeaders: () {
-        final entries = json.entries.where((e) => e.key.startsWith('header:')).toList();
-        return Map.fromEntries(entries.map((e) => MapEntry(
-          IndividualHeaderIdentifier(e.key),
-          EmailHeaderValue.fromJson(e.key, e.value),
-        )));
+        final result = <IndividualHeaderIdentifier, EmailHeaderValue>{};
+        for (final e in json.entries.where((e) => e.key.startsWith('header:'))) {
+          try {
+            result[IndividualHeaderIdentifier(e.key)] = EmailHeaderValue.fromJson(e.key, e.value);
+          } catch (_) {}
+        }
+        return result;
       }(),
     );
   }
@@ -214,8 +236,11 @@ class Email with EquatableMixin {
     writeNotNull('bodyStructure', bodyStructure?.toJson());
     writeNotNull('bodyValues', bodyValues?.map((key, value) => EmailBodyValueConverter().toJson(key, value)));
     individualHeaders.forEach((id, value) {
-      if (value.toJson() == null) return;
-      val[id.value] = value.toJson();
+      try {
+        final serialized = value.toJson();
+        if (serialized == null) return;
+        val[id.value] = serialized;
+      } catch (_) {}
     });
 
     return val;

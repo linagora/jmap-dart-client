@@ -61,4 +61,59 @@ void main() {
       expect(result.contentLanguageHeader, isNull);
     });
   });
+
+  group('EmailBodyValue.fromJson resilience', () {
+    test('malformed individualHeaders entry is skipped, valid entries preserved', () {
+      final json = {
+        'value': 'Hello',
+        'isEncodingProblem': false,
+        'isTruncated': false,
+        'header:Accept-Language:asText': 'en-US',
+        'header:Content-Language:asDate': 99, // int instead of String → throws
+      };
+
+      final result = EmailBodyValue.fromJson(json);
+
+      expect(result.value, equals('Hello'));
+      expect(result.individualHeaders.length, equals(1));
+      expect(result.acceptLanguageHeader?.value, equals('en-US'));
+      expect(result.contentLanguageHeader, isNull);
+    });
+
+    test('all individualHeaders malformed → empty map, core fields still parse', () {
+      final json = {
+        'value': 'Body text',
+        'isEncodingProblem': true,
+        'isTruncated': false,
+        'header:Subject:asText': 42,   // int → throws
+        'header:Date:asDate': true,    // bool → throws
+      };
+
+      final result = EmailBodyValue.fromJson(json);
+
+      expect(result.value, equals('Body text'));
+      expect(result.isEncodingProblem, isTrue);
+      expect(result.individualHeaders, isEmpty);
+    });
+  });
+
+  group('EmailBodyValue.toJson resilience', () {
+    test('toJson round-trip skips null-value headers', () {
+      final obj = EmailBodyValue(
+        value: 'Hi',
+        isEncodingProblem: false,
+        isTruncated: false,
+        individualHeaders: {
+          IndividualHeaderIdentifier.acceptLanguageHeader: const TextHeaderValue('en'),
+          IndividualHeaderIdentifier.contentLanguageHeader: const TextHeaderValue(null),
+        },
+      );
+
+      final result = obj.toJson();
+
+      expect(result['value'], equals('Hi'));
+      expect(result.containsKey('header:Accept-Language:asText'), isTrue);
+      expect(result.containsKey('header:Content-Language:asText'), isFalse);
+    });
+  });
 }
