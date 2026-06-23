@@ -832,32 +832,44 @@ void main() {
   });
 
   group('Email.fromJson individualHeaders resilience', () {
-    test('one bad individualHeaders entry skipped, valid entries preserved', () {
+    test('malformed entry falls back to RawHeaderValue, valid entries preserved', () {
       final json = _minimalEmailJson(extra: {
         'header:Subject:asText': 'My Subject',
-        'header:Date:asDate': 99, // int instead of String → throws
+        'header:Date:asDate': 99, // int instead of String → throws → RawHeaderValue('99')
       });
 
       final email = Email.fromJson(json);
 
-      expect(email.individualHeaders.length, equals(1));
+      expect(email.individualHeaders.length, equals(2));
       expect(
         email.individualHeaders[IndividualHeaderIdentifier.asText('Subject')],
         equals(const TextHeaderValue('My Subject')),
       );
+      expect(
+        email.individualHeaders[IndividualHeaderIdentifier.asDate('Date')],
+        equals(const RawHeaderValue('99')),
+      );
     });
 
-    test('all individualHeaders bad → empty map, rest of Email parses', () {
+    test('all individualHeaders malformed → all become RawHeaderValue, rest of Email parses', () {
       final json = _minimalEmailJson(extra: {
         'subject': 'Test',
-        'header:Subject:asText': 42,  // int → throws
-        'header:Date:asDate': true,   // bool → throws
+        'header:Subject:asText': 42,  // int → RawHeaderValue('42')
+        'header:Date:asDate': true,   // bool → RawHeaderValue('true')
       });
 
       final email = Email.fromJson(json);
 
       expect(email.subject, equals('Test'));
-      expect(email.individualHeaders, isEmpty);
+      expect(email.individualHeaders.length, equals(2));
+      expect(
+        email.individualHeaders[IndividualHeaderIdentifier.asText('Subject')],
+        equals(const RawHeaderValue('42')),
+      );
+      expect(
+        email.individualHeaders[IndividualHeaderIdentifier.asDate('Date')],
+        equals(const RawHeaderValue('true')),
+      );
     });
 
     test('no header: keys → empty individualHeaders', () {

@@ -63,37 +63,48 @@ void main() {
   });
 
   group('EmailBodyValue.fromJson resilience', () {
-    test('malformed individualHeaders entry is skipped, valid entries preserved', () {
+    test('malformed individualHeaders entry falls back to RawHeaderValue, valid entries preserved', () {
       final json = {
         'value': 'Hello',
         'isEncodingProblem': false,
         'isTruncated': false,
         'header:Accept-Language:asText': 'en-US',
-        'header:Content-Language:asDate': 99, // int instead of String → throws
+        'header:Content-Language:asDate': 99, // int instead of String → RawHeaderValue('99')
       };
 
       final result = EmailBodyValue.fromJson(json);
 
       expect(result.value, equals('Hello'));
-      expect(result.individualHeaders.length, equals(1));
+      expect(result.individualHeaders.length, equals(2));
       expect(result.acceptLanguageHeader?.value, equals('en-US'));
-      expect(result.contentLanguageHeader, isNull);
+      expect(
+        result.individualHeaders[IndividualHeaderIdentifier('header:Content-Language:asDate')],
+        equals(const RawHeaderValue('99')),
+      );
     });
 
-    test('all individualHeaders malformed → empty map, core fields still parse', () {
+    test('all individualHeaders malformed → all become RawHeaderValue, core fields still parse', () {
       final json = {
         'value': 'Body text',
         'isEncodingProblem': true,
         'isTruncated': false,
-        'header:Subject:asText': 42,   // int → throws
-        'header:Date:asDate': true,    // bool → throws
+        'header:Subject:asText': 42,   // int → RawHeaderValue('42')
+        'header:Date:asDate': true,    // bool → RawHeaderValue('true')
       };
 
       final result = EmailBodyValue.fromJson(json);
 
       expect(result.value, equals('Body text'));
       expect(result.isEncodingProblem, isTrue);
-      expect(result.individualHeaders, isEmpty);
+      expect(result.individualHeaders.length, equals(2));
+      expect(
+        result.individualHeaders[IndividualHeaderIdentifier('header:Subject:asText')],
+        equals(const RawHeaderValue('42')),
+      );
+      expect(
+        result.individualHeaders[IndividualHeaderIdentifier('header:Date:asDate')],
+        equals(const RawHeaderValue('true')),
+      );
     });
   });
 

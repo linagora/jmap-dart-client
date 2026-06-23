@@ -38,7 +38,9 @@ class EmailBodyValue with EquatableMixin {
         for (final e in json.entries.where((e) => e.key.startsWith('header:'))) {
           try {
             result[IndividualHeaderIdentifier(e.key)] = EmailHeaderValue.fromJson(e.key, e.value);
-          } catch (_) {}
+          } catch (_) {
+            result[IndividualHeaderIdentifier(e.key)] = RawHeaderValue(e.value?.toString());
+          }
         }
         return result;
       }(),
