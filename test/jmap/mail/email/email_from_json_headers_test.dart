@@ -1,7 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:jmap_dart_client/jmap/mail/email/email.dart';
-import 'package:jmap_dart_client/jmap/mail/email/email_header_value.dart';
-import 'package:jmap_dart_client/jmap/mail/email/individual_header_identifier.dart';
+part of '../../email/email_object_test.dart';
 
 Map<String, dynamic> _minimalEmailJson({Map<String, dynamic> extra = const {}}) {
   return {
@@ -9,7 +6,7 @@ Map<String, dynamic> _minimalEmailJson({Map<String, dynamic> extra = const {}}) 
   };
 }
 
-void main() {
+void emailFromJsonHeadersTest() {
   group('Email.fromJson headers resilience', () {
     test('one bad headers entry is skipped, valid entries preserved', () {
       final json = _minimalEmailJson(extra: {

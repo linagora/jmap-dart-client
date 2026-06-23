@@ -17,6 +17,8 @@ import 'package:jmap_dart_client/jmap/mail/email/individual_header_identifier.da
 import 'package:jmap_dart_client/jmap/mail/email/keyword_identifier.dart';
 import 'package:jmap_dart_client/jmap/mail/mailbox/mailbox.dart';
 
+part '../mail/email/email_from_json_headers_test.dart';
+
 void main() {
   group('email object test', () {
     test('Email.fromJson() should parsing to email object correctly when header:User-Agent:asText is null', () {
@@ -752,4 +754,6 @@ void main() {
       expect(emailJson, equals(jsonDecode(expectedEmailAsJson)));
     });
   });
+
+  emailFromJsonHeadersTest();
 }
