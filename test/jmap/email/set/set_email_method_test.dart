@@ -11,6 +11,7 @@ import 'package:jmap_dart_client/jmap/mail/email/email.dart';
 import 'package:jmap_dart_client/jmap/mail/email/email_address.dart';
 import 'package:jmap_dart_client/jmap/mail/email/email_body_part.dart';
 import 'package:jmap_dart_client/jmap/mail/email/email_body_value.dart';
+import 'package:jmap_dart_client/jmap/mail/email/email_header_value.dart';
 import 'package:jmap_dart_client/jmap/mail/email/individual_header_identifier.dart';
 import 'package:jmap_dart_client/jmap/mail/email/keyword_identifier.dart';
 import 'package:jmap_dart_client/jmap/mail/email/set/set_email_method.dart';
@@ -242,7 +243,7 @@ void main() {
               bodyValues: {
                 PartId('a49d'): EmailBodyValue(value: 'test html html', isEncodingProblem: false, isTruncated: false)
               },
-              headerUserAgent: {IndividualHeaderIdentifier.headerUserAgent : 'Android/1.0.0 TeamMail/1.0'}
+              individualHeaders: {IndividualHeaderIdentifier.headerUserAgent: const TextHeaderValue('Android/1.0.0 TeamMail/1.0')}
             )
         );
 
@@ -350,8 +351,10 @@ void main() {
               bodyValues: {
                 PartId('abc123'): EmailBodyValue(value: '[POSTMAN] SEND EMAIL WITH MDN', isEncodingProblem: false, isTruncated: false)
               },
-              headerMdn: {IndividualHeaderIdentifier.headerMdn : "qkdo@linagora.com"},
-              headerReturnPath: {IndividualHeaderIdentifier.headerReturnPath : "qkdo@linagora.com"},
+              individualHeaders: {
+                IndividualHeaderIdentifier.headerMdn: const TextHeaderValue("qkdo@linagora.com"),
+                IndividualHeaderIdentifier.headerReturnPath: const TextHeaderValue("qkdo@linagora.com"),
+              },
             )
         );
 

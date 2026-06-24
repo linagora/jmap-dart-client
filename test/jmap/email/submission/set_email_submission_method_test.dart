@@ -15,6 +15,7 @@ import 'package:jmap_dart_client/jmap/mail/email/email.dart';
 import 'package:jmap_dart_client/jmap/mail/email/email_address.dart';
 import 'package:jmap_dart_client/jmap/mail/email/email_body_part.dart';
 import 'package:jmap_dart_client/jmap/mail/email/email_body_value.dart';
+import 'package:jmap_dart_client/jmap/mail/email/email_header_value.dart';
 import 'package:jmap_dart_client/jmap/mail/email/individual_header_identifier.dart';
 import 'package:jmap_dart_client/jmap/mail/email/set/set_email_method.dart';
 import 'package:jmap_dart_client/jmap/mail/email/set/set_email_response.dart';
@@ -361,7 +362,7 @@ void main() {
                 bodyValues: {
                   PartId('mmm'): EmailBodyValue(value: '<!DOCTYPE html> <html> <body> <p><b>Hello test send 2</b></p><br><br></body> </html>', isEncodingProblem: false, isTruncated: false)
                 },
-                headerUserAgent: {IndividualHeaderIdentifier.headerUserAgent : 'Android/1.0.0 TeamMail/1.0'}
+                individualHeaders: {IndividualHeaderIdentifier.headerUserAgent: const TextHeaderValue('Android/1.0.0 TeamMail/1.0')}
             )
         );
 

@@ -13,6 +13,7 @@ import 'package:jmap_dart_client/jmap/mail/email/email.dart';
 import 'package:jmap_dart_client/jmap/mail/email/email_address.dart';
 import 'package:jmap_dart_client/jmap/mail/email/get/get_email_method.dart';
 import 'package:jmap_dart_client/jmap/mail/email/get/get_email_response.dart';
+import 'package:jmap_dart_client/jmap/mail/email/email_header_value.dart';
 import 'package:jmap_dart_client/jmap/mail/email/individual_header_identifier.dart';
 
 void main() {
@@ -28,8 +29,8 @@ void main() {
       to: {EmailAddress(null, "userb@qa.open-paas.org")},
       sentAt: UTCDate(DateTime.parse("2021-10-05T04:33:01Z")),
       receivedAt: UTCDate(DateTime.parse("2021-10-05T04:33:04Z")),
-      headerCalendarEvent: {
-        IndividualHeaderIdentifier.headerCalendarEvent: "64fa3000-2595-11ec-a759-2fef1ee78d9e"
+      individualHeaders: {
+        IndividualHeaderIdentifier.headerCalendarEvent: const TextHeaderValue("64fa3000-2595-11ec-a759-2fef1ee78d9e")
       }
     );
 
