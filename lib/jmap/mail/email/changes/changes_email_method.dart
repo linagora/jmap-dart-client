@@ -16,7 +16,7 @@ part 'changes_email_method.g.dart';
 @AccountIdConverter()
 @JsonSerializable()
 class ChangesEmailMethod extends ChangesMethod {
-  ChangesEmailMethod(AccountId accountId, State sinceState, {UnsignedInt? maxChanges}) : super(accountId, sinceState);
+  ChangesEmailMethod(AccountId accountId, State sinceState, {UnsignedInt? maxChanges}) : super(accountId, sinceState, maxChanges: maxChanges);
 
   @override
   MethodName get methodName => MethodName('Email/changes');
